@@ -1,0 +1,21 @@
+class LandingController < ApplicationController
+  def index
+    @translations = translations
+  end
+
+  private
+
+  def query
+    @query ||= params.fetch(:query, nil)
+  end
+
+  def translations
+    return [] if query.nil?
+
+    host = "pl.wiktionary.org"
+    path = "api/rest_v1/page/html/#{query}"
+    uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
+    html = Net::HTTP.get(uri)
+    @translations = ParseHtml.new.call(html).translations
+  end
+end
