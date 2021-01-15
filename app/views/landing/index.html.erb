@@ -9,5 +9,14 @@
     <% @translations.each do |translation| %>
       <li><%= translation %></li>
     <% end %>
+  </ul>
+<% end %>
+
+<% if @examples.any? %>
+  Examples:
   <ul>
+    <% @examples.each do |example| %>
+      <li><%= example %></li>
+    <% end %>
+  </ul>
 <% end %>

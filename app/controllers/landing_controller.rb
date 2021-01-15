@@ -1,6 +1,7 @@
 class LandingController < ApplicationController
   def index
     @translations = translations
+    @examples = examples
   end
 
   private
@@ -16,6 +17,16 @@ class LandingController < ApplicationController
     path = "api/rest_v1/page/html/#{query}"
     uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
     html = Net::HTTP.get(uri)
-    @translations = ParseHtml.new.call(html).translations
+    ParseHtml.new.call(html).translations
+  end
+
+  def examples
+    return [] if query.nil?
+
+    host = "pl.wiktionary.org"
+    path = "api/rest_v1/page/html/#{query}"
+    uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
+    html = Net::HTTP.get(uri)
+    ParseHtml.new.call(html).examples
   end
 end
