@@ -3,6 +3,7 @@ class LandingController < ApplicationController
     @translations = translations
     @examples = examples
     @images = images
+    @declination = declination
   end
 
   private
@@ -39,5 +40,15 @@ class LandingController < ApplicationController
     uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
     html = Net::HTTP.get(uri)
     ParseHtml.new.call(html).images
+  end
+
+  def declination
+    return if query.nil?
+
+    host = "pl.wiktionary.org"
+    path = "api/rest_v1/page/html/#{query}"
+    uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
+    html = Net::HTTP.get(uri)
+    ParseHtml.new.call(html).declination
   end
 end

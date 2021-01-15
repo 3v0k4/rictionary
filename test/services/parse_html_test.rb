@@ -49,4 +49,111 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_includes actual.images, '//upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Porop_ruder_100306-0658_la.jpg/220px-Porop_ruder_100306-0658_la.jpg'
     assert_includes actual.images, '//upload.wikimedia.org/wikipedia/commons/thumb/9/93/Tree.example.png/220px-Tree.example.png'
   end
+
+  test 'it parses the declination' do
+    actual = ParseHtml.new.call(<<-HTML)
+<table class="wikitable odmiana">
+  <tbody>
+    <tr>
+      <th class="forma" style="font-weight:normal">
+        <a rel="mw:WikiLink" href="./przypadek#pl" title="przypadek">przypadek</a>
+      </th>
+      <th style="font-weight:normal">
+        <a rel="mw:WikiLink" href="./liczba_pojedyncza#pl" title="liczba pojedyncza">liczba pojedyncza</a>
+      </th>
+      <th style="font-weight:normal">
+        <a rel="mw:WikiLink" href="./liczba_mnoga#pl" title="liczba mnoga">liczba mnoga</a>
+      </th>
+    </tr>
+    <tr class="forma">
+      <td class="forma">
+        <span id="linkLanguage" title="polski"></span>
+        <a rel="mw:WikiLink" href="./mianownik" title="mianownik">mianownik</a>
+        <span id="linkLanguage" title=""></span>
+      </td>
+      <td class="mianownik">liść</td>
+      <td class="mianownik">liście</td>
+    </tr>
+    <tr class="forma">
+      <td class="forma">
+        <span id="linkLanguage" title="polski"></span>
+        <a rel="mw:WikiLink" href="./dopełniacz" title="dopełniacz">dopełniacz</a>
+        <span id="linkLanguage" title=""></span>
+      </td>
+      <td>liścia</td>
+      <td>liści</td>
+    </tr>
+    <tr class="forma">
+      <td class="forma">
+        <span id="linkLanguage" title="polski"></span>
+        <a rel="mw:WikiLink" href="./celownik" title="celownik">celownik</a>
+        <span id="linkLanguage" title=""></span>
+      </td>
+      <td>liściowi</td>
+      <td>liściom</td>
+    </tr>
+    <tr class="forma">
+      <td class="forma">
+        <span id="linkLanguage" title="polski"></span>
+        <a rel="mw:WikiLink" href="./biernik" title="biernik">biernik</a>
+        <span id="linkLanguage" title=""></span>
+      </td>
+      <td>liść</td>
+      <td>liście</td>
+    </tr>
+    <tr class="forma">
+      <td class="forma">
+        <span id="linkLanguage" title="polski"></span>
+        <a rel="mw:WikiLink" href="./narzędnik" title="narzędnik">narzędnik</a>
+        <span id="linkLanguage" title=""></span>
+      </td>
+      <td>liściem</td>
+      <td>liśćmi</td>
+    </tr>
+    <tr class="forma">
+      <td class="forma">
+        <span id="linkLanguage" title="polski"></span>
+        <a rel="mw:WikiLink" href="./miejscownik" title="miejscownik">miejscownik</a>
+        <span id="linkLanguage" title=""></span>
+      </td>
+      <td>liściu</td>
+      <td>liściach</td>
+    </tr>
+    <tr class="forma">
+      <td class="forma">
+        <span id="linkLanguage" title="polski"></span>
+        <a rel="mw:WikiLink" href="./wołacz" title="wołacz">wołacz</a>
+        <span id="linkLanguage" title=""></span>
+      </td>
+      <td>liściu</td>
+      <td>liście</td>
+    </tr>
+  </tbody>
+</table>
+    HTML
+
+    expected = {
+      nominative_singular: 'liść',
+      nominative_plural: 'liście',
+      genitive_singular: 'liścia',
+      genitive_plural: 'liści',
+      dative_singular: 'liściowi',
+      dative_plural: 'liściom',
+      accusative_singular: 'liść',
+      accusative_plural: 'liście',
+      instrumental_singular: 'liściem',
+      instrumental_plural: 'liśćmi',
+      locative_singular: 'liściu',
+      locative_plural: 'liściach',
+      vocative_singular: 'liściu',
+      vocative_plural: 'liście',
+    }
+    assert_equal expected, actual.declination
+  end
+
+  test 'when declination is missing it parses to nil' do
+    actual = ParseHtml.new.call("")
+
+    assert_nil actual.declination
+  end
 end

@@ -1,4 +1,4 @@
-Result = Struct.new(:translations, :examples, :images, keyword_init: true)
+Result = Struct.new(:translations, :examples, :images, :declination, keyword_init: true)
 
 class ParseHtml
   def call(html)
@@ -6,7 +6,8 @@ class ParseHtml
     Result.new(
       translations: translations(doc),
       examples: examples(doc),
-      images: images(doc)
+      images: images(doc),
+      declination: declination(doc)
     )
   end
 
@@ -33,5 +34,26 @@ class ParseHtml
       .xpath('//figure//img/@src')
       .map(&:text)
       .uniq
+  end
+
+  def declination(doc)
+    return nil if doc.xpath('//a[text() = "mianownik"]/../../td[2]').empty?
+
+    {
+      nominative_singular: doc.xpath('//a[text() = "mianownik"]/../../td[2]').text,
+      nominative_plural: doc.xpath('//a[text() = "mianownik"]/../../td[3]').text,
+      genitive_singular: doc.xpath('//a[text() = "dopełniacz"]/../../td[2]').text,
+      genitive_plural: doc.xpath('//a[text() = "dopełniacz"]/../../td[3]').text,
+      dative_singular: doc.xpath('//a[text() = "celownik"]/../../td[2]').text,
+      dative_plural: doc.xpath('//a[text() = "celownik"]/../../td[3]').text,
+      accusative_singular: doc.xpath('//a[text() = "biernik"]/../../td[2]').text,
+      accusative_plural: doc.xpath('//a[text() = "biernik"]/../../td[3]').text,
+      instrumental_singular: doc.xpath('//a[text() = "narzędnik"]/../../td[2]').text,
+      instrumental_plural: doc.xpath('//a[text() = "narzędnik"]/../../td[3]').text,
+      locative_singular: doc.xpath('//a[text() = "miejscownik"]/../../td[2]').text,
+      locative_plural: doc.xpath('//a[text() = "miejscownik"]/../../td[3]').text,
+      vocative_singular: doc.xpath('//a[text() = "wołacz"]/../../td[2]').text,
+      vocative_plural: doc.xpath('//a[text() = "wołacz"]/../../td[3]').text,
+    }
   end
 end

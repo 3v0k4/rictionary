@@ -16,5 +16,20 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "Gdy wyznał jej, że od dłuższego czasu ma kochankę, dała mu z liścia w twarz."
 
     assert_css "img", count: 3
+
+    assert_text "liść"
+    assert_text "liście"
+    assert_text "liścia"
+    assert_text "liści"
+    assert_text "liściowi"
+    assert_text "liściom"
+    assert_text "liść"
+    assert_text "liście"
+    assert_text "liściem"
+    assert_text "liśćmi"
+    assert_text "liściu"
+    assert_text "liściach"
+    assert_text "liściu"
+    assert_text "liście"
   end
 end

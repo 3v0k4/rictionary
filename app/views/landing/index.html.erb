@@ -29,3 +29,50 @@
     <% end %>
   </ul>
 <% end %>
+
+<% if @declination.present? %>
+  Declination:
+  <table>
+    <tr>
+      <th>nominative</td>
+      <td><%= @declination.fetch(:nominative_singular) %></td>
+      <td><%= @declination.fetch(:nominative_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>genitive</td>
+      <td><%= @declination.fetch(:genitive_singular) %></td>
+      <td><%= @declination.fetch(:genitive_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>dative</td>
+      <td><%= @declination.fetch(:dative_singular) %></td>
+      <td><%= @declination.fetch(:dative_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>accusative</td>
+      <td><%= @declination.fetch(:accusative_singular) %></td>
+      <td><%= @declination.fetch(:accusative_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>instrumental</td>
+      <td><%= @declination.fetch(:instrumental_singular) %></td>
+      <td><%= @declination.fetch(:instrumental_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>locative</td>
+      <td><%= @declination.fetch(:locative_singular) %></td>
+      <td><%= @declination.fetch(:locative_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>vocative</td>
+      <td><%= @declination.fetch(:vocative_singular) %></td>
+      <td><%= @declination.fetch(:vocative_plural) %></td>
+    </tr>
+  </table>
+<% end %>
