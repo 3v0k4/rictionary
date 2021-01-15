@@ -20,3 +20,12 @@
     <% end %>
   </ul>
 <% end %>
+
+<% if @images.any? %>
+  Images:
+  <ul>
+    <% @images.each do |image| %>
+      <li><img src="<%= image %>"></img></li>
+    <% end %>
+  </ul>
+<% end %>

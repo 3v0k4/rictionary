@@ -14,5 +14,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "Liście traw dzielą się na pochwy i języczki."
     assert_text "W drzewie katalogów liśćmi są pliki."
     assert_text "Gdy wyznał jej, że od dłuższego czasu ma kochankę, dała mu z liścia w twarz."
+
+    assert_css "img", count: 3
   end
 end

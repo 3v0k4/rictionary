@@ -34,4 +34,19 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_includes actual.examples, 'W drzewie katalogów liśćmi są pliki.'
     assert_includes actual.examples, 'Gdy wyznał jej, że od dłuższego czasu ma kochankę, dała mu z liścia w twarz.'
   end
+
+  test 'it parses images' do
+    actual = ParseHtml.new.call(<<-HTML)
+<section data-mw-section-id="1" id="mwAg">
+  <figure class="mw-default-size" typeof="mw:Image/Thumb" id="mwBA"><a href="./Plik:Focus_on_leaf.jpg" id="mwBQ"><img resource="./Plik:Focus_on_leaf.jpg" src="//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/220px-Focus_on_leaf.jpg" data-file-width="512" data-file-height="384" data-file-type="bitmap" height="165" width="220" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/330px-Focus_on_leaf.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/440px-Focus_on_leaf.jpg 2x" id="mwBg"></a><figcaption id="mwBw">liść (1.1)</figcaption></figure>
+  <figure class="mw-default-size" typeof="mw:Image/Thumb" id="mwCA"><a href="./Plik:Porop_ruder_100306-0658_la.jpg" id="mwCQ"><img resource="./Plik:Porop_ruder_100306-0658_la.jpg" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Porop_ruder_100306-0658_la.jpg/220px-Porop_ruder_100306-0658_la.jpg" data-file-width="1200" data-file-height="904" data-file-type="bitmap" height="166" width="220" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Porop_ruder_100306-0658_la.jpg/330px-Porop_ruder_100306-0658_la.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Porop_ruder_100306-0658_la.jpg/440px-Porop_ruder_100306-0658_la.jpg 2x" id="mwCg"></a><figcaption id="mwCw">liść (1.1)</figcaption></figure>
+  <figure class="mw-default-size" typeof="mw:Image/Thumb" id="mwDA"><a href="./Plik:Tree.example.png" id="mwDQ"><img resource="./Plik:Tree.example.png" src="//upload.wikimedia.org/wikipedia/commons/thumb/9/93/Tree.example.png/220px-Tree.example.png" data-file-width="332" data-file-height="269" data-file-type="bitmap" height="178" width="220" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/93/Tree.example.png/330px-Tree.example.png 1.5x, //upload.wikimedia.org/wikipedia/commons/9/93/Tree.example.png 2x" id="mwDg"></a><figcaption id="mwDw">liście (1.2) <a rel="mw:WikiLink" href="./D" title="D" id="mwEA">D</a>, <a rel="mw:WikiLink" href="./F" title="F" id="mwEQ">F</a>, <a rel="mw:WikiLink" href="./G" title="G" id="mwEg">G</a></figcaption></figure>
+</section>
+    HTML
+
+    assert_equal 3, actual.images.size
+    assert_includes actual.images, '//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/220px-Focus_on_leaf.jpg'
+    assert_includes actual.images, '//upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Porop_ruder_100306-0658_la.jpg/220px-Porop_ruder_100306-0658_la.jpg'
+    assert_includes actual.images, '//upload.wikimedia.org/wikipedia/commons/thumb/9/93/Tree.example.png/220px-Tree.example.png'
+  end
 end
