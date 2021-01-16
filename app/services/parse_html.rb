@@ -1,4 +1,11 @@
-Result = Struct.new(:translations, :examples, :images, :declination, keyword_init: true)
+Result = Struct.new(
+  :translations,
+  :examples,
+  :images,
+  :declination,
+  :conjugation,
+  keyword_init: true
+)
 
 class ParseHtml
   def call(html)
@@ -7,7 +14,8 @@ class ParseHtml
       translations: translations(doc),
       examples: examples(doc),
       images: images(doc),
-      declination: declination(doc)
+      declination: declination(doc),
+      conjugation: conjugation(doc)
     )
   end
 
@@ -54,6 +62,24 @@ class ParseHtml
       locative_plural: doc.xpath('//a[text() = "miejscownik"]/../../td[3]').text,
       vocative_singular: doc.xpath('//a[text() = "wołacz"]/../../td[2]').text,
       vocative_plural: doc.xpath('//a[text() = "wołacz"]/../../td[3]').text,
+    }
+  end
+
+  def conjugation(doc)
+    return nil if doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "bezokolicznik"]/../../td').empty?
+
+    {
+      infinitive: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "bezokolicznik"]/../../td').text.strip,
+      present: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas teraźniejszy"]/../../td').map(&:text),
+      past: {
+        masculine: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../td').map(&:text),
+        feminine: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text),
+        neutral:
+          ['', ''] +
+          doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text) +
+          doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text),
+      },
+      imperative: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "tryb rozkazujący"]/../../td').map(&:text),
     }
   end
 end

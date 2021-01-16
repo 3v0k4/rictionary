@@ -1,7 +1,7 @@
 require "application_system_test_case"
 
 class LandingTest < ApplicationSystemTestCase
-  test "liść" do
+  test "liść then robić" do
     visit root_url
 
     fill_in "query", with: "liść"
@@ -31,5 +31,25 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "liściach"
     assert_text "liściu"
     assert_text "liście"
+
+    fill_in "query", with: "robić"
+    click_button "Search"
+
+    assert_text "make"
+    assert_text "create"
+    assert_text "do"
+
+    assert_text "W tej fabryce robią samochody."
+    assert_text "Moja siostra dziś ma studniówkę i od rana robi makijaż."
+
+    assert_css "img", count: 2
+
+    assert_text 'robić'
+    assert_text 'robię'
+    assert_text 'robisz'
+    assert_text 'robi'
+    assert_text 'robimy'
+    assert_text 'robicie'
+    assert_text 'robią'
   end
 end
