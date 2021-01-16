@@ -15,7 +15,7 @@ class ParseHtml
 
   def translations(doc)
     doc
-      .xpath('//*[contains(text(), "angielski")]')
+      .xpath('//*[contains(text(), "angielski:")]')
       .css("a")
       .map(&:text)
       .uniq
