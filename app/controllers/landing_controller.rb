@@ -13,53 +13,38 @@ class LandingController < ApplicationController
     @query ||= params.fetch(:query, nil)
   end
 
-  def translations
-    return [] if query.nil?
+  def parsed
+    return @parsed if @parsed
 
     host = "pl.wiktionary.org"
     path = "api/rest_v1/page/html/#{query}"
     uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
     html = Net::HTTP.get(uri)
-    ParseHtml.new.call(html).translations
+    @parsed = ParseHtml.new.call(html)
+  end
+
+  def translations
+    return [] if query.nil?
+    parsed.translations
   end
 
   def examples
     return [] if query.nil?
-
-    host = "pl.wiktionary.org"
-    path = "api/rest_v1/page/html/#{query}"
-    uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
-    html = Net::HTTP.get(uri)
-    ParseHtml.new.call(html).examples
+    parsed.examples
   end
 
   def images
     return [] if query.nil?
-
-    host = "pl.wiktionary.org"
-    path = "api/rest_v1/page/html/#{query}"
-    uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
-    html = Net::HTTP.get(uri)
-    ParseHtml.new.call(html).images
+    parsed.images
   end
 
   def declination
     return if query.nil?
-
-    host = "pl.wiktionary.org"
-    path = "api/rest_v1/page/html/#{query}"
-    uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
-    html = Net::HTTP.get(uri)
-    ParseHtml.new.call(html).declination
+    parsed.declination
   end
 
   def conjugation
     return if query.nil?
-
-    host = "pl.wiktionary.org"
-    path = "api/rest_v1/page/html/#{query}"
-    uri = URI(URI::Parser.new.escape("https://#{host}/#{path}"))
-    html = Net::HTTP.get(uri)
-    ParseHtml.new.call(html).conjugation
+    parsed.conjugation
   end
 end
