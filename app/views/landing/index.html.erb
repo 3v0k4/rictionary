@@ -3,81 +3,81 @@
   <%= form.submit "Search" %>
 <% end %>
 
-<% if @translations.any? %>
+<% if @parse_result.translations.any? %>
   Translations:
   <ul>
-    <% @translations.each do |translation| %>
+    <% @parse_result.translations.each do |translation| %>
       <li><%= translation %></li>
     <% end %>
   </ul>
 <% end %>
 
-<% if @examples.any? %>
+<% if @parse_result.examples.any? %>
   Examples:
   <ul>
-    <% @examples.each do |example| %>
+    <% @parse_result.examples.each do |example| %>
       <li><%= example %></li>
     <% end %>
   </ul>
 <% end %>
 
-<% if @images.any? %>
+<% if @parse_result.images.any? %>
   Images:
   <ul>
-    <% @images.each do |image| %>
+    <% @parse_result.images.each do |image| %>
       <li><img src="<%= image %>"></img></li>
     <% end %>
   </ul>
 <% end %>
 
-<% if @declination.present? %>
+<% if @parse_result.declination.present? %>
   Declination:
   <table>
     <tr>
       <th>nominative</th>
-      <td><%= @declination.fetch(:nominative_singular) %></td>
-      <td><%= @declination.fetch(:nominative_plural) %></td>
+      <td><%= @parse_result.declination.fetch(:nominative_singular) %></td>
+      <td><%= @parse_result.declination.fetch(:nominative_plural) %></td>
     </tr>
 
     <tr>
       <th>genitive</th>
-      <td><%= @declination.fetch(:genitive_singular) %></td>
-      <td><%= @declination.fetch(:genitive_plural) %></td>
+      <td><%= @parse_result.declination.fetch(:genitive_singular) %></td>
+      <td><%= @parse_result.declination.fetch(:genitive_plural) %></td>
     </tr>
 
     <tr>
       <th>dative</th>
-      <td><%= @declination.fetch(:dative_singular) %></td>
-      <td><%= @declination.fetch(:dative_plural) %></td>
+      <td><%= @parse_result.declination.fetch(:dative_singular) %></td>
+      <td><%= @parse_result.declination.fetch(:dative_plural) %></td>
     </tr>
 
     <tr>
       <th>accusative</th>
-      <td><%= @declination.fetch(:accusative_singular) %></td>
-      <td><%= @declination.fetch(:accusative_plural) %></td>
+      <td><%= @parse_result.declination.fetch(:accusative_singular) %></td>
+      <td><%= @parse_result.declination.fetch(:accusative_plural) %></td>
     </tr>
 
     <tr>
       <th>instrumental</th>
-      <td><%= @declination.fetch(:instrumental_singular) %></td>
-      <td><%= @declination.fetch(:instrumental_plural) %></td>
+      <td><%= @parse_result.declination.fetch(:instrumental_singular) %></td>
+      <td><%= @parse_result.declination.fetch(:instrumental_plural) %></td>
     </tr>
 
     <tr>
       <th>locative</th>
-      <td><%= @declination.fetch(:locative_singular) %></td>
-      <td><%= @declination.fetch(:locative_plural) %></td>
+      <td><%= @parse_result.declination.fetch(:locative_singular) %></td>
+      <td><%= @parse_result.declination.fetch(:locative_plural) %></td>
     </tr>
 
     <tr>
       <th>vocative</th>
-      <td><%= @declination.fetch(:vocative_singular) %></td>
-      <td><%= @declination.fetch(:vocative_plural) %></td>
+      <td><%= @parse_result.declination.fetch(:vocative_singular) %></td>
+      <td><%= @parse_result.declination.fetch(:vocative_plural) %></td>
     </tr>
   </table>
 <% end %>
 
-<% if @conjugation.present? %>
+<% if @parse_result.conjugation.present? %>
   Conjugation:
   <table>
     <tr>
@@ -98,28 +98,28 @@
 
     <tr>
       <th colspan="2">infinitive</th>
-      <td colspan="6"><%= @conjugation.fetch(:infinitive) %></td>
+      <td colspan="6"><%= @parse_result.conjugation.fetch(:infinitive) %></td>
     </tr>
 
     <tr>
       <th colspan="2">present</th>
-      <td><%= @conjugation.fetch(:present)[0] %></td>
-      <td><%= @conjugation.fetch(:present)[1] %></td>
-      <td><%= @conjugation.fetch(:present)[2] %></td>
-      <td><%= @conjugation.fetch(:present)[3] %></td>
-      <td><%= @conjugation.fetch(:present)[4] %></td>
-      <td><%= @conjugation.fetch(:present)[5] %></td>
+      <td><%= @parse_result.conjugation.fetch(:present)[0] %></td>
+      <td><%= @parse_result.conjugation.fetch(:present)[1] %></td>
+      <td><%= @parse_result.conjugation.fetch(:present)[2] %></td>
+      <td><%= @parse_result.conjugation.fetch(:present)[3] %></td>
+      <td><%= @parse_result.conjugation.fetch(:present)[4] %></td>
+      <td><%= @parse_result.conjugation.fetch(:present)[5] %></td>
     </tr>
 
     <tr>
       <th rowspan="3">past</th>
       <th>masculine</th>
-      <td><%= @conjugation.fetch(:past).fetch(:masculine)[0] %></td>
-      <td><%= @conjugation.fetch(:past).fetch(:masculine)[1] %></td>
-      <td><%= @conjugation.fetch(:past).fetch(:masculine)[2] %></td>
-      <td><%= @conjugation.fetch(:past).fetch(:masculine)[3] %></td>
-      <td><%= @conjugation.fetch(:past).fetch(:masculine)[4] %></td>
-      <td><%= @conjugation.fetch(:past).fetch(:masculine)[5] %></td>
+      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[0] %></td>
+      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[1] %></td>
+      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[2] %></td>
+      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
+      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
+      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
     </tr>
   </table>
 <% end %>

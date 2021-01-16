@@ -1,16 +1,7 @@
-Result = Struct.new(
-  :translations,
-  :examples,
-  :images,
-  :declination,
-  :conjugation,
-  keyword_init: true
-)
-
 class ParseHtml
   def call(html)
     doc = Nokogiri::HTML(html)
-    Result.new(
+    ParseResult.new(
       translations: translations(doc),
       examples: examples(doc),
       images: images(doc),
