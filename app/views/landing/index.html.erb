@@ -4,7 +4,7 @@
 <% end %>
 
 <% if @view_model.query != @view_model.corrected_query %>
-  <%= @view_model.query %> to <%= @view_model.corrected_query %>
+  <p><%= @view_model.query %> to <%= @view_model.corrected_query %></p>
 <% end %>
 
 <% if @view_model.parse_result.translations.any? %>
