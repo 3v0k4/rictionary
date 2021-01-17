@@ -15,8 +15,13 @@ class ParseHtml
   def translations(doc)
     doc
       .xpath('//*[contains(text(), "angielski:")]')
-      .css("a")
-      .map(&:text)
+      .text
+      .split(' ')
+      .map(&:strip)
+      .join(' ')
+      .split(/\s\(\d+.\d+\)\s/)
+      .drop(1)
+      .map { |string| string.sub(';', '') }
       .uniq
   end
 
