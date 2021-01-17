@@ -58,4 +58,14 @@ class LandingTest < ApplicationSystemTestCase
     assert_text 'robicie'
     assert_text 'robią'
   end
+
+  test "lisc gets autocorrected to liść" do
+    visit root_url
+
+    fill_in "query", with: "lisc"
+    click_button "Search"
+
+    assert_equal "liść", page.find("input[name='query']").value
+    assert_text "lisc to liść"
+  end
 end

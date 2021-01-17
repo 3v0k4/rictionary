@@ -1,6 +1,10 @@
 <%= form_with url: root_path, method: :get do |form| %>
-  <%= form.text_field :query, value: @view_model.query %>
+  <%= form.text_field :query, value: @view_model.corrected_query %>
   <%= form.submit "Search" %>
+<% end %>
+
+<% if @view_model.query != @view_model.corrected_query %>
+  <%= @view_model.query %> to <%= @view_model.corrected_query %>
 <% end %>
 
 <% if @view_model.parse_result.translations.any? %>
