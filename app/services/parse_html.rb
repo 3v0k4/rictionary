@@ -14,7 +14,7 @@ class ParseHtml
 
   def translations(doc)
     doc
-      .xpath('//*[contains(text(), "angielski:")]')
+      .xpath('//*[starts-with(normalize-space(text()), "angielski:")]')
       .text
       .split(' ')
       .map(&:strip)

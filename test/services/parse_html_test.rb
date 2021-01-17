@@ -28,6 +28,23 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_includes actual.translations, 'pair of'
   end
 
+  test 'it skips staroangielski' do
+    actual = ParseHtml.new.call(<<-HTML)
+<ul>
+  <li id="mwog">
+    angielski:
+    (1.21) <a rel="mw:WikiLink" href="./pair" title="pair" id="mwpQ">pair</a> <a rel="mw:WikiLink" href="./of" title="of" id="mwpg">of</a>
+  </li>
+  <li id="mwog">
+    staroangielski:
+    (1.21) <a rel="mw:WikiLink" href="./pair" title="pair" id="mwpQ">pair</a> <a rel="mw:WikiLink" href="./of" title="of" id="mwpg">of</a>
+  </li>
+</ul>
+    HTML
+
+    assert_equal 1, actual.translations.size
+    assert_includes actual.translations, 'pair of'
+  end
 
   test 'it parses examples' do
     actual = ParseHtml.new.call(<<-HTML)
