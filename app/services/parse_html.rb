@@ -42,23 +42,24 @@ class ParseHtml
   end
 
   def declination(doc)
-    return nil if doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "mianownik"]/../../td[2]').empty?
+    base = doc.xpath('//*[text() = "język polski"]/../../..')
+    return nil if base.xpath('(//a[text() = "mianownik"])[1]/../../td[2]').empty?
 
     {
-      nominative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "mianownik"]/../../td[2]').text,
-      nominative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "mianownik"]/../../td[3]').text,
-      genitive_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "dopełniacz"]/../../td[2]').text,
-      genitive_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "dopełniacz"]/../../td[3]').text,
-      dative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "celownik"]/../../td[2]').text,
-      dative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "celownik"]/../../td[3]').text,
-      accusative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "biernik"]/../../td[2]').text,
-      accusative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "biernik"]/../../td[3]').text,
-      instrumental_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "narzędnik"]/../../td[2]').text,
-      instrumental_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "narzędnik"]/../../td[3]').text,
-      locative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "miejscownik"]/../../td[2]').text,
-      locative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "miejscownik"]/../../td[3]').text,
-      vocative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "wołacz"]/../../td[2]').text,
-      vocative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "wołacz"]/../../td[3]').text,
+      nominative_singular: base.xpath('(//a[text() = "mianownik"])[1]/../../td[2]').text,
+      nominative_plural: base.xpath('(//a[text() = "mianownik"])[1]/../../td[3]').text,
+      genitive_singular: base.xpath('(//a[text() = "dopełniacz"])[1]/../../td[2]').text,
+      genitive_plural: base.xpath('(//a[text() = "dopełniacz"])[1]/../../td[3]').text,
+      dative_singular: base.xpath('(//a[text() = "celownik"])[1]/../../td[2]').text,
+      dative_plural: base.xpath('(//a[text() = "celownik"])[1]/../../td[3]').text,
+      accusative_singular: base.xpath('(//a[text() = "biernik"])[1]/../../td[2]').text,
+      accusative_plural: base.xpath('(//a[text() = "biernik"])[1]/../../td[3]').text,
+      instrumental_singular: base.xpath('(//a[text() = "narzędnik"])[1]/../../td[2]').text,
+      instrumental_plural: base.xpath('(//a[text() = "narzędnik"])[1]/../../td[3]').text,
+      locative_singular: base.xpath('(//a[text() = "miejscownik"])[1]/../../td[2]').text,
+      locative_plural: base.xpath('(//a[text() = "miejscownik"])[1]/../../td[3]').text,
+      vocative_singular: base.xpath('(//a[text() = "wołacz"])[1]/../../td[2]').text,
+      vocative_plural: base.xpath('(//a[text() = "wołacz"])[1]/../../td[3]').text,
     }
   end
 

@@ -228,6 +228,70 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_equal expected, actual.declination
   end
 
+  test 'it parses only the first declination' do
+    actual = ParseHtml.new.call(<<-HTML)
+<div>
+  <div>
+    <div>
+      <span>język polski</span>
+    </div>
+  </div>
+  <table class="wikitable odmiana">
+    <tbody>
+      <tr>
+        <th class="forma" style="font-weight:normal">
+          <a rel="mw:WikiLink" href="./przypadek#pl" title="przypadek">przypadek</a>
+        </th>
+        <th style="font-weight:normal">
+          <a rel="mw:WikiLink" href="./liczba_pojedyncza#pl" title="liczba pojedyncza">liczba pojedyncza</a>
+        </th>
+        <th style="font-weight:normal">
+          <a rel="mw:WikiLink" href="./liczba_mnoga#pl" title="liczba mnoga">liczba mnoga</a>
+        </th>
+      </tr>
+      <tr class="forma">
+        <td class="forma">
+          <span id="linkLanguage" title="polski"></span>
+          <a rel="mw:WikiLink" href="./mianownik" title="mianownik">mianownik</a>
+          <span id="linkLanguage" title=""></span>
+        </td>
+        <td class="mianownik">liść</td>
+        <td class="mianownik">liście</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="wikitable odmiana">
+    <tbody>
+      <tr>
+        <th class="forma" style="font-weight:normal">
+          <a rel="mw:WikiLink" href="./przypadek#pl" title="przypadek">przypadek</a>
+        </th>
+        <th style="font-weight:normal">
+          <a rel="mw:WikiLink" href="./liczba_pojedyncza#pl" title="liczba pojedyncza">liczba pojedyncza</a>
+        </th>
+        <th style="font-weight:normal">
+          <a rel="mw:WikiLink" href="./liczba_mnoga#pl" title="liczba mnoga">liczba mnoga</a>
+        </th>
+      </tr>
+      <tr class="forma">
+        <td class="forma">
+          <span id="linkLanguage" title="polski"></span>
+          <a rel="mw:WikiLink" href="./mianownik" title="mianownik">mianownik</a>
+          <span id="linkLanguage" title=""></span>
+        </td>
+        <td class="mianownik">liść</td>
+        <td class="mianownik">liście</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    HTML
+
+    assert_equal 'liść', actual.declination.fetch(:nominative_singular)
+  end
+
+
   test 'it does not pick up the declination of languages other than Polish' do
     actual = ParseHtml.new.call(<<-HTML)
 <div>
