@@ -64,20 +64,21 @@ class ParseHtml
   end
 
   def conjugation(doc)
-    return nil if doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "bezokolicznik"]/../../td').empty?
+    base = doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]')
+    return nil if base.xpath('.//*[text() = "bezokolicznik"]/../../td').empty?
 
     {
-      infinitive: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "bezokolicznik"]/../../td').text.strip,
-      present: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas teraźniejszy"]/../../td').map(&:text),
+      infinitive: base.xpath('.//*[text() = "bezokolicznik"]/../../td').text.strip,
+      present: base.xpath('.//*[text() = "czas teraźniejszy"]/../../td').map(&:text),
       past: {
-        masculine: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../td').map(&:text),
-        feminine: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text),
+        masculine: base.xpath('.//*[text() = "czas przeszły"]/../../td').map(&:text),
+        feminine: base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text),
         neutral:
           ['', ''] +
-          doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text) +
-          doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text),
+          base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text) +
+          base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text),
       },
-      imperative: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "tryb rozkazujący"]/../../td').map(&:text),
+      imperative: base.xpath('.//*[text() = "tryb rozkazujący"]/../../td').map(&:text),
     }
   end
 end
