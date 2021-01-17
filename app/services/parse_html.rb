@@ -22,9 +22,10 @@ class ParseHtml
 
   def examples(doc)
     doc
-      .xpath('//*[contains(text(), "przykłady")]/../..')
+      .xpath('//*[text() = "język polski"]/../../..//*[contains(text(), "przykłady")]/../..')
       .css("i")
       .map(&:text)
+      .map { |string| string.split(' ').map(&:strip).join(' ') }
       .uniq
   end
 
@@ -36,41 +37,41 @@ class ParseHtml
   end
 
   def declination(doc)
-    return nil if doc.xpath('//a[text() = "mianownik"]/../../td[2]').empty?
+    return nil if doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "mianownik"]/../../td[2]').empty?
 
     {
-      nominative_singular: doc.xpath('//a[text() = "mianownik"]/../../td[2]').text,
-      nominative_plural: doc.xpath('//a[text() = "mianownik"]/../../td[3]').text,
-      genitive_singular: doc.xpath('//a[text() = "dopełniacz"]/../../td[2]').text,
-      genitive_plural: doc.xpath('//a[text() = "dopełniacz"]/../../td[3]').text,
-      dative_singular: doc.xpath('//a[text() = "celownik"]/../../td[2]').text,
-      dative_plural: doc.xpath('//a[text() = "celownik"]/../../td[3]').text,
-      accusative_singular: doc.xpath('//a[text() = "biernik"]/../../td[2]').text,
-      accusative_plural: doc.xpath('//a[text() = "biernik"]/../../td[3]').text,
-      instrumental_singular: doc.xpath('//a[text() = "narzędnik"]/../../td[2]').text,
-      instrumental_plural: doc.xpath('//a[text() = "narzędnik"]/../../td[3]').text,
-      locative_singular: doc.xpath('//a[text() = "miejscownik"]/../../td[2]').text,
-      locative_plural: doc.xpath('//a[text() = "miejscownik"]/../../td[3]').text,
-      vocative_singular: doc.xpath('//a[text() = "wołacz"]/../../td[2]').text,
-      vocative_plural: doc.xpath('//a[text() = "wołacz"]/../../td[3]').text,
+      nominative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "mianownik"]/../../td[2]').text,
+      nominative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "mianownik"]/../../td[3]').text,
+      genitive_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "dopełniacz"]/../../td[2]').text,
+      genitive_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "dopełniacz"]/../../td[3]').text,
+      dative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "celownik"]/../../td[2]').text,
+      dative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "celownik"]/../../td[3]').text,
+      accusative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "biernik"]/../../td[2]').text,
+      accusative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "biernik"]/../../td[3]').text,
+      instrumental_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "narzędnik"]/../../td[2]').text,
+      instrumental_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "narzędnik"]/../../td[3]').text,
+      locative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "miejscownik"]/../../td[2]').text,
+      locative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "miejscownik"]/../../td[3]').text,
+      vocative_singular: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "wołacz"]/../../td[2]').text,
+      vocative_plural: doc.xpath('//*[text() = "język polski"]/../../..//a[text() = "wołacz"]/../../td[3]').text,
     }
   end
 
   def conjugation(doc)
-    return nil if doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "bezokolicznik"]/../../td').empty?
+    return nil if doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "bezokolicznik"]/../../td').empty?
 
     {
-      infinitive: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "bezokolicznik"]/../../td').text.strip,
-      present: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas teraźniejszy"]/../../td').map(&:text),
+      infinitive: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "bezokolicznik"]/../../td').text.strip,
+      present: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas teraźniejszy"]/../../td').map(&:text),
       past: {
-        masculine: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../td').map(&:text),
-        feminine: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text),
+        masculine: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../td').map(&:text),
+        feminine: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text),
         neutral:
           ['', ''] +
-          doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text) +
-          doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text),
+          doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text) +
+          doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text),
       },
-      imperative: doc.xpath('(//table[contains(@class, "odmiana")])[1]//*[text() = "tryb rozkazujący"]/../../td').map(&:text),
+      imperative: doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]//*[text() = "tryb rozkazujący"]/../../td').map(&:text),
     }
   end
 end
