@@ -753,7 +753,7 @@ class ParseHtmlTest < ActiveSupport::TestCase
       past: {
         masculine: [ 'robiłem', 'robiłeś', 'robił', 'robiliśmy', 'robiliście', 'robili' ],
         feminine: [ 'robiłam', 'robiłaś', 'robiła', 'robiłyśmy', 'robiłyście', 'robiły' ],
-        neutral: [ '', '', 'robiło', 'robiłyśmy', 'robiłyście', 'robiły' ],
+        neuter: [ '', '', 'robiło', 'robiłyśmy', 'robiłyście', 'robiły' ],
       },
       imperative: [ 'niech robię', 'rób', 'niech robi', 'róbmy', 'róbcie', 'niech robią' ],
     }

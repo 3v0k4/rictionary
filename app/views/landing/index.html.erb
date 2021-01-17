@@ -121,5 +121,25 @@
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
     </tr>
+
+    <tr>
+      <th>feminine</th>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[0] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[1] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[2] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[3] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[4] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[5] %></td>
+    </tr>
+
+    <tr>
+      <th>neuter</th>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[0] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[1] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[2] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[3] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[4] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[5] %></td>
+    </tr>
   </table>
 <% end %>

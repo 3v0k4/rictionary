@@ -73,7 +73,7 @@ class ParseHtml
       past: {
         masculine: base.xpath('.//*[text() = "czas przeszły"]/../../td').map(&:text),
         feminine: base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text),
-        neutral:
+        neuter:
           ['', ''] +
           base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text) +
           base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text),
