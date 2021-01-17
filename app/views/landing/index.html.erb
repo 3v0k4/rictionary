@@ -1,83 +1,83 @@
 <%= form_with url: root_path, method: :get do |form| %>
-  <%= form.text_field :query %>
+  <%= form.text_field :query, value: @view_model.query %>
   <%= form.submit "Search" %>
 <% end %>
 
-<% if @parse_result.translations.any? %>
+<% if @view_model.parse_result.translations.any? %>
   Translations:
   <ul>
-    <% @parse_result.translations.each do |translation| %>
+    <% @view_model.parse_result.translations.each do |translation| %>
       <li><%= translation %></li>
     <% end %>
   </ul>
 <% end %>
 
-<% if @parse_result.examples.any? %>
+<% if @view_model.parse_result.examples.any? %>
   Examples:
   <ul>
-    <% @parse_result.examples.each do |example| %>
+    <% @view_model.parse_result.examples.each do |example| %>
       <li><%= example %></li>
     <% end %>
   </ul>
 <% end %>
 
-<% if @parse_result.images.any? %>
+<% if @view_model.parse_result.images.any? %>
   Images:
   <ul>
-    <% @parse_result.images.each do |image| %>
+    <% @view_model.parse_result.images.each do |image| %>
       <li><img src="<%= image %>"></img></li>
     <% end %>
   </ul>
 <% end %>
 
-<% if @parse_result.declination.present? %>
+<% if @view_model.parse_result.declination.present? %>
   Declination:
   <table>
     <tr>
       <th>nominative</th>
-      <td><%= @parse_result.declination.fetch(:nominative_singular) %></td>
-      <td><%= @parse_result.declination.fetch(:nominative_plural) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:nominative_singular) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:nominative_plural) %></td>
     </tr>
 
     <tr>
       <th>genitive</th>
-      <td><%= @parse_result.declination.fetch(:genitive_singular) %></td>
-      <td><%= @parse_result.declination.fetch(:genitive_plural) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:genitive_singular) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:genitive_plural) %></td>
     </tr>
 
     <tr>
       <th>dative</th>
-      <td><%= @parse_result.declination.fetch(:dative_singular) %></td>
-      <td><%= @parse_result.declination.fetch(:dative_plural) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:dative_singular) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:dative_plural) %></td>
     </tr>
 
     <tr>
       <th>accusative</th>
-      <td><%= @parse_result.declination.fetch(:accusative_singular) %></td>
-      <td><%= @parse_result.declination.fetch(:accusative_plural) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:accusative_singular) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:accusative_plural) %></td>
     </tr>
 
     <tr>
       <th>instrumental</th>
-      <td><%= @parse_result.declination.fetch(:instrumental_singular) %></td>
-      <td><%= @parse_result.declination.fetch(:instrumental_plural) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:instrumental_singular) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:instrumental_plural) %></td>
     </tr>
 
     <tr>
       <th>locative</th>
-      <td><%= @parse_result.declination.fetch(:locative_singular) %></td>
-      <td><%= @parse_result.declination.fetch(:locative_plural) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:locative_singular) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:locative_plural) %></td>
     </tr>
 
     <tr>
       <th>vocative</th>
-      <td><%= @parse_result.declination.fetch(:vocative_singular) %></td>
-      <td><%= @parse_result.declination.fetch(:vocative_plural) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:vocative_singular) %></td>
+      <td><%= @view_model.parse_result.declination.fetch(:vocative_plural) %></td>
     </tr>
   </table>
 <% end %>
 
-<% if @parse_result.conjugation.present? %>
+<% if @view_model.parse_result.conjugation.present? %>
   Conjugation:
   <table>
     <tr>
@@ -98,28 +98,28 @@
 
     <tr>
       <th colspan="2">infinitive</th>
-      <td colspan="6"><%= @parse_result.conjugation.fetch(:infinitive) %></td>
+      <td colspan="6"><%= @view_model.parse_result.conjugation.fetch(:infinitive) %></td>
     </tr>
 
     <tr>
       <th colspan="2">present</th>
-      <td><%= @parse_result.conjugation.fetch(:present)[0] %></td>
-      <td><%= @parse_result.conjugation.fetch(:present)[1] %></td>
-      <td><%= @parse_result.conjugation.fetch(:present)[2] %></td>
-      <td><%= @parse_result.conjugation.fetch(:present)[3] %></td>
-      <td><%= @parse_result.conjugation.fetch(:present)[4] %></td>
-      <td><%= @parse_result.conjugation.fetch(:present)[5] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:present)[3] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:present)[4] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
     </tr>
 
     <tr>
       <th rowspan="3">past</th>
       <th>masculine</th>
-      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[0] %></td>
-      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[1] %></td>
-      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[2] %></td>
-      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
-      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
-      <td><%= @parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[0] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[1] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[2] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
     </tr>
   </table>
 <% end %>

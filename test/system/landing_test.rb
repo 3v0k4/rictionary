@@ -4,8 +4,12 @@ class LandingTest < ApplicationSystemTestCase
   test "liść then robić" do
     visit root_url
 
+    assert_equal "", page.find("input[name='query']").value
+
     fill_in "query", with: "liść"
     click_button "Search"
+
+    assert_equal "liść", page.find("input[name='query']").value
 
     assert_text "leaf"
     assert_text "clip"
@@ -34,6 +38,8 @@ class LandingTest < ApplicationSystemTestCase
 
     fill_in "query", with: "robić"
     click_button "Search"
+
+    assert_equal "robić", page.find("input[name='query']").value
 
     assert_text "make"
     assert_text "create"
