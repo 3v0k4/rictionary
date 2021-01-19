@@ -18,7 +18,7 @@ class Fetch
   def corrected(query)
     [query, query.downcase, correct(query)].each do |q|
       break if q.nil?
-      break [q, html(q)] unless html(q).downcase.include?("not found")
+      break [q, html(q)] if html(q).force_encoding(Encoding::UTF_8).downcase.include?("język polski")
     end
   end
 
