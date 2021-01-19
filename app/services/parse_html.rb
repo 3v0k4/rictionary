@@ -70,6 +70,7 @@ class ParseHtml
     {
       infinitive: base.xpath('.//*[text() = "bezokolicznik"]/../../td').text.strip,
       present: base.xpath('.//*[text() = "czas teraźniejszy"]/../../td').map(&:text),
+      future: base.xpath('.//*[text() = "czas przyszły prosty"]/../../td').map(&:text),
       past: {
         masculine: base.xpath('.//*[text() = "czas przeszły"]/../../td').map(&:text),
         feminine: base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text),

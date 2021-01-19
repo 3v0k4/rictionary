@@ -1,7 +1,7 @@
 require "application_system_test_case"
 
 class LandingTest < ApplicationSystemTestCase
-  test "liść then robić" do
+  test "liść then ptak" do
     visit root_url
 
     assert_equal "", page.find("input[name='query']").value
@@ -36,27 +36,34 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "liściu"
     assert_text "liście"
 
-    fill_in "query", with: "robić"
+    fill_in "query", with: "ptak"
     click_button "Search"
 
-    assert_equal "robić", page.find("input[name='query']").value
+    assert_equal "ptak", page.find("input[name='query']").value
 
-    assert_text "make"
-    assert_text "create"
-    assert_text "do"
+    assert_text "bird"
 
-    assert_text "W tej fabryce robią samochody."
-    assert_text "Moja siostra dziś ma studniówkę i od rana robi makijaż."
+    assert_text "Ptak usiadł na parapecie."
+    assert_text "Głośna zabawa dzieci płoszyła ptaki."
+    assert_text "Świergot ptaków za oknem zapowiadał bliski świt"
+    assert_text "Ptak mi wystaje z rozporka."
 
-    assert_css "img", count: 2
+    assert_css "img", count: 1
 
-    assert_text 'robić'
-    assert_text 'robię'
-    assert_text 'robisz'
-    assert_text 'robi'
-    assert_text 'robimy'
-    assert_text 'robicie'
-    assert_text 'robią'
+    assert_text 'ptak'
+    assert_text 'ptaki'
+    assert_text 'ptaka'
+    assert_text 'ptaków'
+    assert_text 'ptakowi'
+    assert_text 'ptakom'
+    assert_text 'ptaka'
+    assert_text 'ptaki'
+    assert_text 'ptakiem'
+    assert_text 'ptakami'
+    assert_text 'ptaku'
+    assert_text 'ptakach'
+    assert_text 'ptaku'
+    assert_text 'ptaki'
   end
 
   test "lisc gets autocorrected to liść" do
@@ -87,5 +94,47 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_equal "głód", page.find("input[name='query']").value
     assert_text "glod to głód"
+  end
+
+  test "robić then zrobić" do
+    visit root_url
+
+    fill_in "query", with: "robić"
+    click_button "Search"
+
+    assert_equal "robić", page.find("input[name='query']").value
+
+    assert_text "make"
+    assert_text "create"
+    assert_text "do"
+
+    assert_text "W tej fabryce robią samochody."
+    assert_text "Moja siostra dziś ma studniówkę i od rana robi makijaż."
+
+    assert_css "img", count: 2
+
+    assert_text 'robić'
+    assert_text 'robię'
+    assert_text 'robisz'
+    assert_text 'robi'
+    assert_text 'robimy'
+    assert_text 'robicie'
+    assert_text 'robią'
+
+    fill_in "query", with: "zrobić"
+    click_button "Search"
+
+    assert_equal "zrobić", page.find("input[name='query']").value
+
+    assert_text "Oni zrobią wszystko dla pieniędzy."
+    assert_text "Nie mogę uwierzyć, że ktoś mi zrobił takie świństwo."
+
+    assert_text 'zrobić'
+    assert_text 'zrobię'
+    assert_text 'zrobisz'
+    assert_text 'zrobi'
+    assert_text 'zrobimy'
+    assert_text 'zrobicie'
+    assert_text 'zrobią'
   end
 end

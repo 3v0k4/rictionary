@@ -105,15 +105,29 @@
       <td colspan="6"><%= @view_model.parse_result.conjugation.fetch(:infinitive) %></td>
     </tr>
 
-    <tr>
-      <th colspan="2">present</th>
-      <td><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:present)[3] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:present)[4] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
-    </tr>
+    <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
+      <tr>
+        <th colspan="2">present</th>
+        <td><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:present)[3] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:present)[4] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
+      </tr>
+    <% end %>
+
+    <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
+      <tr>
+        <th colspan="2">future</th>
+        <td><%= @view_model.parse_result.conjugation.fetch(:future)[0] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:future)[1] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:future)[2] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:future)[3] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:future)[4] %></td>
+        <td><%= @view_model.parse_result.conjugation.fetch(:future)[5] %></td>
+      </tr>
+    <% end %>
 
     <tr>
       <th rowspan="3">past</th>

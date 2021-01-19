@@ -386,7 +386,7 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_nil actual.declination
   end
 
-  test 'it parses the conjugation' do
+  test 'it parses the conjugation for verb niedokonany' do
     actual = ParseHtml.new.call(<<-HTML)
 <div>
   <div>
@@ -767,6 +767,7 @@ class ParseHtmlTest < ActiveSupport::TestCase
     expected = {
       infinitive: 'robić',
       present: [ 'robię', 'robisz', 'robi', 'robimy', 'robicie', 'robią' ],
+      future: [],
       past: {
         masculine: [ 'robiłem', 'robiłeś', 'robił', 'robiliśmy', 'robiliście', 'robili' ],
         feminine: [ 'robiłam', 'robiłaś', 'robiła', 'robiłyśmy', 'robiłyście', 'robiły' ],
@@ -776,6 +777,304 @@ class ParseHtmlTest < ActiveSupport::TestCase
     }
     assert_equal expected, actual.conjugation
   end
+
+  test 'it parses the conjugation for verb dokonany' do
+    actual = ParseHtml.new.call(<<-HTML)
+<div>
+  <div>
+    <div>
+      <span>język polski</span>
+    </div>
+  </div>
+  <table class="wikitable odmiana" style="text-align: center; border: none;">
+    <tbody>
+      <tr>
+        <th rowspan="2" colspan="2"><a rel="mw:WikiLink" href="./forma" title="forma">forma</a></th>
+        <th colspan="3"><a rel="mw:WikiLink" href="./liczba_pojedyncza" title="liczba pojedyncza">liczba pojedyncza</a></th>
+        <th colspan="3"><a rel="mw:WikiLink" href="./liczba_mnoga" title="liczba mnoga">liczba mnoga</a></th>
+      </tr>
+      <tr>
+        <th width="14%">
+          <i>1.</i> <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt64" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+          <span class="short-container">
+            <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#O" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+              <span class="short-wrapper" title="osoba" data-expanded="osoba"><span class="short-content">os.</span></span>
+            </a>
+          </span>
+        </th>
+        <th width="14%">
+          <i>2.</i> <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt65" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+          <span class="short-container">
+            <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#O" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+              <span class="short-wrapper" title="osoba" data-expanded="osoba"><span class="short-content">os.</span></span>
+            </a>
+          </span>
+        </th>
+        <th width="14%">
+          <i>3.</i> <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt66" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+          <span class="short-container">
+            <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#O" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+              <span class="short-wrapper" title="osoba" data-expanded="osoba"><span class="short-content">os.</span></span>
+            </a>
+          </span>
+        </th>
+        <th width="14%">
+          <i>1.</i> <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt67" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+          <span class="short-container">
+            <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#O" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+              <span class="short-wrapper" title="osoba" data-expanded="osoba"><span class="short-content">os.</span></span>
+            </a>
+          </span>
+        </th>
+        <th width="14%">
+          <i>2.</i> <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt68" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+          <span class="short-container">
+            <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#O" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+              <span class="short-wrapper" title="osoba" data-expanded="osoba"><span class="short-content">os.</span></span>
+            </a>
+          </span>
+        </th>
+        <th width="14%">
+          <i>3.</i> <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt69" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+          <span class="short-container">
+            <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#O" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+              <span class="short-wrapper" title="osoba" data-expanded="osoba"><span class="short-content">os.</span></span>
+            </a>
+          </span>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2"><a rel="mw:WikiLink" href="./bezokolicznik" title="bezokolicznik">bezokolicznik</a></th>
+        <td colspan="13"><b>zrobić </b></td>
+      </tr>
+      <tr>
+        <th colspan="2"><a rel="mw:WikiLink" href="./czas_przyszły_prosty" title="czas przyszły prosty">czas przyszły prosty</a></th>
+        <td>zrobię</td>
+        <td>zrobisz</td>
+        <td>zrobi</td>
+        <td>zrobimy</td>
+        <td>zrobicie</td>
+        <td>zrobią</td>
+      </tr>
+      <tr>
+        <th rowspan="3"><a rel="mw:WikiLink" href="./czas_przeszły" title="czas przeszły">czas przeszły</a></th>
+        <th><i>m</i></th>
+        <td>zrobiłem</td>
+        <td>zrobiłeś</td>
+        <td>zrobił</td>
+        <td>zrobiliśmy</td>
+        <td>zrobiliście</td>
+        <td>zrobili</td>
+      </tr>
+      <tr>
+        <th><i>ż</i></th>
+        <td>zrobiłam</td>
+        <td>zrobiłaś</td>
+        <td>zrobiła</td>
+        <td rowspan="2">zrobiłyśmy</td>
+        <td rowspan="2">zrobiłyście</td>
+        <td rowspan="2">zrobiły</td>
+      </tr>
+      <tr>
+        <th><i>n</i></th>
+        <td>
+          <style data-mw-deduplicate="TemplateStyles:r6240426" typeof="mw:Extension/templatestyles" about="#mwt70" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}'>
+            .mw-parser-output .potential-form {
+              opacity: 0.4;
+              font-weight: normal;
+              cursor: help;
+            }
+            .mw-parser-output .potential-form:hover {
+              opacity: inherit;
+            }
+            @media print {
+              .mw-parser-output .potential-form {
+                font-style: italic;
+                opacity: inherit;
+              }
+            }
+          </style>
+          <span class="potential-form" title="forma potencjalna lub rzadka">zrobiłom </span>
+        </td>
+        <td>
+          <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt71" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+          <span class="potential-form" title="forma potencjalna lub rzadka">zrobiłoś </span>
+        </td>
+        <td>zrobiło</td>
+      </tr>
+      <tr>
+        <th colspan="2"><a rel="mw:WikiLink" href="./tryb_rozkazujący" title="tryb rozkazujący">tryb rozkazujący</a></th>
+        <td><a rel="mw:WikiLink" href="./niech" title="niech">niech</a> zrobię</td>
+        <td>zrób</td>
+        <td><a rel="mw:WikiLink" href="./niech" title="niech">niech</a> zrobi</td>
+        <td>zróbmy</td>
+        <td>zróbcie</td>
+        <td><a rel="mw:WikiLink" href="./niech" title="niech">niech</a> zrobią</td>
+      </tr>
+      <tr>
+        <td colspan="8" style="padding: 0; border: none;">
+          <table class="wikitable odmiana collapsible collapsed" style="width: 100%; margin: 5px 0 0 0;">
+            <tbody>
+              <tr>
+                <th colspan="8" style="font-weight: normal;"><span typeof="mw:Entity">&nbsp;</span>pozostałe formy</th>
+              </tr>
+              <tr>
+                <th rowspan="3"><a rel="mw:WikiLink" href="./czas_zaprzeszły" title="czas zaprzeszły">czas zaprzeszły</a></th>
+                <th><i>m</i></th>
+                <td>zrobiłem <a rel="mw:WikiLink" href="./być" title="być">był</a></td>
+                <td>zrobiłeś <a rel="mw:WikiLink" href="./być" title="być">był</a></td>
+                <td>zrobił <a rel="mw:WikiLink" href="./być" title="być">był</a></td>
+                <td>zrobiliśmy <a rel="mw:WikiLink" href="./być" title="być">byli</a></td>
+                <td>zrobiliście <a rel="mw:WikiLink" href="./być" title="być">byli</a></td>
+                <td>zrobili <a rel="mw:WikiLink" href="./być" title="być">byli</a></td>
+              </tr>
+              <tr>
+                <th><i>ż</i></th>
+                <td>zrobiłam <a rel="mw:WikiLink" href="./być" title="być">była</a></td>
+                <td>zrobiłaś <a rel="mw:WikiLink" href="./być" title="być">była</a></td>
+                <td>zrobiła <a rel="mw:WikiLink" href="./być" title="być">była</a></td>
+                <td rowspan="2">zrobiłyśmy <a rel="mw:WikiLink" href="./być" title="być">były</a></td>
+                <td rowspan="2">zrobiłyście <a rel="mw:WikiLink" href="./być" title="być">były</a></td>
+                <td rowspan="2">zrobiły <a rel="mw:WikiLink" href="./być" title="być">były</a></td>
+              </tr>
+              <tr>
+                <th><i>n</i></th>
+                <td>
+                  <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt72" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+                  <span class="potential-form" title="forma potencjalna lub rzadka">zrobiłom <a rel="mw:WikiLink" href="./być" title="być">było</a></span>
+                </td>
+                <td>
+                  <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt73" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+                  <span class="potential-form" title="forma potencjalna lub rzadka">zrobiłoś <a rel="mw:WikiLink" href="./być" title="być">było</a></span>
+                </td>
+                <td>zrobiło <a rel="mw:WikiLink" href="./być" title="być">było</a></td>
+              </tr>
+              <tr>
+                <th colspan="2"><a rel="mw:WikiLink" href="./forma_bezosobowa" title="forma bezosobowa">forma bezosobowa</a> <a rel="mw:WikiLink" href="./czas_przeszły" title="czas przeszły">czasu przeszłego</a></th>
+                <td colspan="6">zrobiono</td>
+              </tr>
+              <tr>
+                <th rowspan="3"><a rel="mw:WikiLink" href="./tryb_przypuszczający" title="tryb przypuszczający">tryb przypuszczający</a></th>
+                <th><i>m</i></th>
+                <td width="14%">
+                  zrobiłbym,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłbym</a> zrobił
+                </td>
+                <td width="14%">
+                  zrobiłbyś,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłbyś</a> zrobił
+                </td>
+                <td width="14%">
+                  zrobiłby,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłby</a> zrobił
+                </td>
+                <td width="14%">
+                  zrobilibyśmy,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">bylibyśmy</a> zrobili
+                </td>
+                <td width="14%">
+                  zrobilibyście,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">bylibyście</a> zrobili
+                </td>
+                <td width="14%">
+                  zrobiliby,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byliby</a> zrobili
+                </td>
+              </tr>
+              <tr>
+                <th><i>ż</i></th>
+                <td>
+                  zrobiłabym,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłabym</a> zrobiła
+                </td>
+                <td>
+                  zrobiłabyś,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłabyś</a> zrobiła
+                </td>
+                <td>
+                  zrobiłaby,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłaby</a> zrobiła
+                </td>
+                <td rowspan="2">
+                  zrobiłybyśmy,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłybyśmy</a> zrobiły
+                </td>
+                <td rowspan="2">
+                  zrobiłybyście,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłybyście</a> zrobiły
+                </td>
+                <td rowspan="2">
+                  zrobiłyby,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłyby</a> zrobiły
+                </td>
+              </tr>
+              <tr>
+                <th><i>n</i></th>
+                <td>
+                  <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt74" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+                  <span class="potential-form" title="forma potencjalna lub rzadka">
+                    zrobiłobym,<br />
+                    <a rel="mw:WikiLink" href="./być" title="być">byłobym</a> zrobiło
+                  </span>
+                </td>
+                <td>
+                  <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt75" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+                  <span class="potential-form" title="forma potencjalna lub rzadka">
+                    zrobiłobyś,<br />
+                    <a rel="mw:WikiLink" href="./być" title="być">byłobyś</a> zrobiło
+                  </span>
+                </td>
+                <td>
+                  zrobiłoby,<br />
+                  <a rel="mw:WikiLink" href="./być" title="być">byłoby</a> zrobiło
+                </td>
+              </tr>
+              <tr>
+                <th rowspan="3"><a rel="mw:WikiLink" href="./imiesłów_przymiotnikowy_przeszły" title="imiesłów przymiotnikowy przeszły">imiesłów przymiotnikowy przeszły</a></th>
+                <th><i>m</i></th>
+                <td colspan="3">zrobiony</td>
+                <td colspan="3">zrobieni</td>
+              </tr>
+              <tr>
+                <th><i>ż</i></th>
+                <td colspan="3">zrobiona</td>
+                <td rowspan="2" colspan="3">zrobione</td>
+              </tr>
+              <tr>
+                <th><i>n</i></th>
+                <td colspan="3">zrobione</td>
+              </tr>
+              <tr>
+                <th colspan="2"><a rel="mw:WikiLink" href="./imiesłów_przysłówkowy_uprzedni" title="imiesłów przysłówkowy uprzedni">imiesłów przysłówkowy uprzedni</a></th>
+                <td colspan="6">zrobiwszy</td>
+              </tr>
+              <tr>
+                <th colspan="2"><a rel="mw:WikiLink" href="./rzeczownik_odczasownikowy" title="rzeczownik odczasownikowy">rzeczownik odczasownikowy</a></th>
+                <td colspan="6"><a rel="mw:WikiLink" href="./zrobienie" title="zrobienie">zrobienie</a>, <a rel="mw:WikiLink" href="./niezrobienie" title="niezrobienie">niezrobienie</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    HTML
+
+    expected = {
+      infinitive: 'zrobić',
+      present: [],
+      future: [ 'zrobię', 'zrobisz', 'zrobi', 'zrobimy', 'zrobicie', 'zrobią' ],
+      past: {
+        masculine: [ 'zrobiłem', 'zrobiłeś', 'zrobił', 'zrobiliśmy', 'zrobiliście', 'zrobili' ],
+        feminine: [ 'zrobiłam', 'zrobiłaś', 'zrobiła', 'zrobiłyśmy', 'zrobiłyście', 'zrobiły' ],
+        neuter: [ '', '', 'zrobiło', 'zrobiłyśmy', 'zrobiłyście', 'zrobiły' ],
+      },
+      imperative: [ 'niech zrobię', 'zrób', 'niech zrobi', 'zróbmy', 'zróbcie', 'niech zrobią' ],
+    }
+    assert_equal expected, actual.conjugation
+  end
+
 
   test 'it does not pick up the conjugation from languages other than Polish' do
     actual = ParseHtml.new.call(<<-HTML)
