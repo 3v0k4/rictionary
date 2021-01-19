@@ -1,4 +1,5 @@
 ParseResult = Struct.new(
+  :categories,
   :translations,
   :examples,
   :images,

@@ -104,6 +104,10 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_equal "robić", page.find("input[name='query']").value
 
+    assert_text 'czasownik przechodni niedokonany dk. zrobić'
+    assert_text 'czasownik nieprzechodni niedokonany dk. zrobić'
+    assert_text 'czasownik zwrotny niedokonany robić się dk. zrobić się'
+
     assert_text "make"
     assert_text "create"
     assert_text "do"
@@ -125,6 +129,9 @@ class LandingTest < ApplicationSystemTestCase
     click_button "Search"
 
     assert_equal "zrobić", page.find("input[name='query']").value
+
+    assert_text 'czasownik przechodni dokonany ndk. robić'
+    assert_text 'czasownik zwrotny dokonany zrobić się ndk. robić się'
 
     assert_text "Oni zrobią wszystko dla pieniędzy."
     assert_text "Nie mogę uwierzyć, że ktoś mi zrobił takie świństwo."

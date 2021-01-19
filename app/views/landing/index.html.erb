@@ -7,6 +7,15 @@
   <p><%= @view_model.query %> to <%= @view_model.corrected_query %></p>
 <% end %>
 
+<% if @view_model.parse_result.categories.present? %>
+  Categories:
+  <ul>
+    <% @view_model.parse_result.categories.each do |category| %>
+      <li><%= category %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if @view_model.parse_result.translations.any? %>
   Translations:
   <ul>

@@ -1260,4 +1260,279 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_equal 'robić', actual.conjugation.fetch(:infinitive)
   end
 
+  test 'it parses categories' do
+    actual = ParseHtml.new.call(<<-HTML)
+<div>
+  <div>
+    <div>
+      <span>język polski</span>
+    </div>
+  </div>
+  <section data-mw-section-id="1" id="mwAg">
+    <dl about="#mwt12">
+      <dt>
+        <span class="field field-title fld-znaczenia field-pl" data-field="znaczenia" data-section-links="pl">znaczenia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <p id="mwJA">
+      <i id="mwJQ">czasownik przechodni niedokonany</i> (
+      <style data-mw-deduplicate="TemplateStyles:r6240524" typeof="mw:Extension/templatestyles mw:Transclusion" about="#mwt13" data-mw='{"parts":[{"template":{"target":{"wt":"dk","href":"./Szablon:dk"},"params":{},"i":0}}]}' id="mwJg">
+        .mw-parser-output .short-container {
+          font-style: italic;
+          text-decoration: none;
+        }
+        .mw-parser-output .short-no-style {
+          font-style: normal;
+        }
+        .mw-parser-output .short-container a:hover {
+          color: #002bb8;
+          text-decoration: underline;
+        }
+        .mw-parser-output .short-container a,
+        .mw-parser-output .short-container a:visited {
+          color: black;
+        }
+        .mw-parser-output .short-variant1 a,
+        .mw-parser-output .short-variant1 a:visited {
+          color: #002bb8;
+        }
+        .mw-parser-output .short-variant2 a,
+        .mw-parser-output .short-variant2 a:visited {
+          color: red;
+        }
+        .mw-parser-output .short-variant3 a,
+        .mw-parser-output .short-variant3 a:visited {
+          color: green;
+        }
+      </style>
+      <span class="short-container" about="#mwt13" id="mwJw">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#D" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="aspekt dokonany" data-expanded="aspekt dokonany"><span class="short-content">dk.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./pomalować" title="pomalować" id="mwKA">pomalować</a>)
+    </p>
+    <dl id="mwKQ">
+      <dd id="mwKg">
+        (1.1)
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt16"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"techn","href":"./Szablon:techn"},"params":{},"i":0}}]}'
+          id="mwKw"
+        />
+        <span class="short-container" about="#mwt16" id="mwLA">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#T" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="technologia, technika, techniczny" data-expanded="technologia, technika, techniczny"><span class="short-content">techn.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./nakładać" title="nakładać" id="mwLQ">nakładać</a> <a rel="mw:WikiLink" href="./farba" title="farba" id="mwLg">farbę</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwLw">na</a>
+        <a rel="mw:WikiLink" href="./jakiś" title="jakiś" id="mwMA">jakąś</a> <a rel="mw:WikiLink" href="./powierzchnia" title="powierzchnia" id="mwMQ">powierzchnię</a> (
+        <a rel="mw:WikiLink" href="./płótno" title="płótno" id="mwMg">płótno</a>, <a rel="mw:WikiLink" href="./papier" title="papier" id="mwMw">papier</a>, <a rel="mw:WikiLink" href="./tektura" title="tektura" id="mwNA">tekturę</a>,
+        <a rel="mw:WikiLink" href="./ściana" title="ściana" id="mwNQ">ścianę</a>), <a rel="mw:WikiLink" href="./wypełniać" title="wypełniać" id="mwNg">wypełniać</a> <a rel="mw:WikiLink" href="./coś" title="coś" id="mwNw">coś</a>
+        <a rel="mw:WikiLink" href="./kolor" title="kolor" id="mwOA">kolorem</a>
+      </dd>
+      <dd id="mwOQ">
+        (1.2)
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt19"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"fryzj","href":"./Szablon:fryzj"},"params":{},"i":0}}]}'
+          id="mwOg"
+        />
+        <span class="short-container" about="#mwt19" id="mwOw">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#F" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="fryzjerstwo, fryzjerski" data-expanded="fryzjerstwo, fryzjerski"><span class="short-content">fryzj.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./nakładać" title="nakładać" id="mwPA">nakładać</a> <a rel="mw:WikiLink" href="./farba" title="farba" id="mwPQ">farbę</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwPg">na</a>
+        <a rel="mw:WikiLink" href="./włos" title="włos" id="mwPw">włosy</a>
+      </dd>
+    </dl>
+    <p id="mwQA">
+      <i id="mwQQ">czasownik przechodni niedokonany</i> (
+      <link
+        rel="mw-deduplicated-inline-style"
+        href="mw-data:TemplateStyles:r6240524"
+        about="#mwt22"
+        typeof="mw:Extension/templatestyles mw:Transclusion"
+        data-mw='{"parts":[{"template":{"target":{"wt":"dk","href":"./Szablon:dk"},"params":{},"i":0}}]}'
+        id="mwQg"
+      />
+      <span class="short-container" about="#mwt22" id="mwQw">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#D" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="aspekt dokonany" data-expanded="aspekt dokonany"><span class="short-content">dk.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./namalować" title="namalować" id="mwRA">namalować</a>)
+    </p>
+    <dl id="mwRQ">
+      <dd id="mwRg">
+        (2.1)
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt25"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"szt","href":"./Szablon:szt"},"params":{},"i":0}}]}'
+          id="mwRw"
+        />
+        <span class="short-container" about="#mwt25" id="mwSA">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#S" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="sztuka" data-expanded="sztuka"><span class="short-content">szt.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./tworzyć" title="tworzyć" id="mwSQ">tworzyć</a> <a rel="mw:WikiLink" href="./obraz" title="obraz" id="mwSg">obraz</a> <a rel="mw:WikiLink" href="./lub" title="lub" id="mwSw">lub</a>
+        <a rel="mw:WikiLink" href="./dzieło" title="dzieło" id="mwTA">dzieło</a> <a rel="mw:WikiLink" href="./malarski" title="malarski" id="mwTQ">malarskie</a>
+      </dd>
+      <dd id="mwTg">
+        (2.2)
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt28"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"przen","href":"./Szablon:przen"},"params":{},"i":0}}]}'
+          id="mwTw"
+        />
+        <span class="short-container" about="#mwt28" id="mwUA">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#P" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="przenośnie, przenośnia" data-expanded="przenośnie, przenośnia"><span class="short-content">przen.</span></span>
+          </a>
+        </span>
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt31"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"książk","href":"./Szablon:książk"},"params":{},"i":0}}]}'
+          id="mwUQ"
+        />
+        <span class="short-container" about="#mwt31" id="mwUg">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#K" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="książkowy&nbsp;– książkowy styl" data-expanded="książkowy"><span class="short-content">książk.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./ukazywać" title="ukazywać" id="mwUw">ukazywać</a> <a rel="mw:WikiLink" href="./coś" title="coś" id="mwVA">coś</a>
+      </dd>
+    </dl>
+    <p id="mwVQ">
+      <i id="mwVg">czasownik przechodni niedokonany</i> (
+      <link
+        rel="mw-deduplicated-inline-style"
+        href="mw-data:TemplateStyles:r6240524"
+        about="#mwt34"
+        typeof="mw:Extension/templatestyles mw:Transclusion"
+        data-mw='{"parts":[{"template":{"target":{"wt":"dk","href":"./Szablon:dk"},"params":{},"i":0}}]}'
+        id="mwVw"
+      />
+      <span class="short-container" about="#mwt34" id="mwWA">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#D" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="aspekt dokonany" data-expanded="aspekt dokonany"><span class="short-content">dk.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./umalować" title="umalować" id="mwWQ">umalować</a>)
+    </p>
+    <dl id="mwWg">
+      <dd id="mwWw">
+        (3.1)
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt37"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"kosmet","href":"./Szablon:kosmet"},"params":{},"i":0}}]}'
+          id="mwXA"
+        />
+        <span class="short-container" about="#mwt37" id="mwXQ">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#K" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="kosmetyka, kosmetyczny, kosmetologia" data-expanded="kosmetyka, kosmetyczny, kosmetologia"><span class="short-content">kosmet.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./nakładać" title="nakładać" id="mwXg">nakładać</a> <a rel="mw:WikiLink" href="./kolorowy" title="kolorowy" id="mwXw">kolorowe</a>
+        <a rel="mw:WikiLink" href="./kosmetyk" title="kosmetyk" id="mwYA">kosmetyki</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwYQ">na</a> <a rel="mw:WikiLink" href="./twarz" title="twarz" id="mwYg">twarz</a> (
+        <a rel="mw:WikiLink" href="./np." title="np." id="mwYw">np.</a>: <a rel="mw:WikiLink" href="./szminka" title="szminka" id="mwZA">szminkę</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwZQ">na</a>
+        <a rel="mw:WikiLink" href="./usta" title="usta" id="mwZg">usta</a>, <a rel="mw:WikiLink" href="./tusz" title="tusz" id="mwZw">tusz</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwaA">na</a>
+        <a rel="mw:WikiLink" href="./rzęsa" title="rzęsa" id="mwaQ">rzęsy</a>, <a rel="mw:WikiLink" href="./cień" title="cień" id="mwag">cienie</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwaw">na</a>
+        <a rel="mw:WikiLink" href="./powieka" title="powieka" id="mwbA">powieki</a>, <a rel="mw:WikiLink" href="./róż" title="róż" id="mwbQ">róż</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwbg">na</a>
+        <a rel="mw:WikiLink" href="./policzek" title="policzek" id="mwbw">policzki</a> <a rel="mw:WikiLink" href="./itp." title="itp." id="mwcA">itp.</a>)
+      </dd>
+    </dl>
+    <p id="mwcQ">
+      <i id="mwcg">czasownik zwrotny niedokonany <b id="mwcw">malować się</b></i> (
+      <link
+        rel="mw-deduplicated-inline-style"
+        href="mw-data:TemplateStyles:r6240524"
+        about="#mwt40"
+        typeof="mw:Extension/templatestyles mw:Transclusion"
+        data-mw='{"parts":[{"template":{"target":{"wt":"dk","href":"./Szablon:dk"},"params":{},"i":0}}]}'
+        id="mwdA"
+      />
+      <span class="short-container" about="#mwt40" id="mwdQ">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#D" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="aspekt dokonany" data-expanded="aspekt dokonany"><span class="short-content">dk.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./umalować_się" title="umalować się" class="mw-redirect" id="mwdg">umalować się</a>)
+    </p>
+    <dl id="mwdw">
+      <dd id="mweA">
+        (4.1)
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt43"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"kosmet","href":"./Szablon:kosmet"},"params":{},"i":0}}]}'
+          id="mweQ"
+        />
+        <span class="short-container" about="#mwt43" id="mweg">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#K" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="kosmetyka, kosmetyczny, kosmetologia" data-expanded="kosmetyka, kosmetyczny, kosmetologia"><span class="short-content">kosmet.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./robić" title="robić" id="mwew">robić</a> <a rel="mw:WikiLink" href="./sobie" title="sobie" id="mwfA">sobie</a> <a rel="mw:WikiLink" href="./makijaż" title="makijaż" id="mwfQ">makijaż</a>
+      </dd>
+    </dl>
+    <p id="mwfg">
+      <i id="mwfw">czasownik zwrotny niedokonany <b id="mwgA">malować się</b></i> (
+      <link
+        rel="mw-deduplicated-inline-style"
+        href="mw-data:TemplateStyles:r6240524"
+        about="#mwt46"
+        typeof="mw:Extension/templatestyles mw:Transclusion"
+        data-mw='{"parts":[{"template":{"target":{"wt":"dk","href":"./Szablon:dk"},"params":{},"i":0}}]}'
+        id="mwgQ"
+      />
+      <span class="short-container" about="#mwt46" id="mwgg">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#D" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="aspekt dokonany" data-expanded="aspekt dokonany"><span class="short-content">dk.</span></span>
+        </a>
+      </span>
+      <i id="mwgw">brak</i>)
+    </p>
+    <dl id="mwhA">
+      <dd id="mwhQ">
+        (5.1) <i id="mwhg">(o uczuciu, stanie ducha)</i> <a rel="mw:WikiLink" href="./ukazywać_się" title="ukazywać się" class="mw-redirect" id="mwhw">ukazywać się</a>,
+        <a rel="mw:WikiLink" href="./uwidaczniać_się" title="uwidaczniać się" class="new" id="mwiA">uwidaczniać się</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwiQ">na</a>
+        <a rel="mw:WikiLink" href="./twarz" title="twarz" id="mwig">twarzy</a> <a rel="mw:WikiLink" href="./lub" title="lub" id="mwiw">lub</a> <a rel="mw:WikiLink" href="./w" title="w" id="mwjA">w</a>
+        <a rel="mw:WikiLink" href="./postawa" title="postawa" id="mwjQ">postawie</a> <a rel="mw:WikiLink" href="./człowiek" title="człowiek" id="mwjg">człowieka</a>
+      </dd>
+    </dl>
+  </section>
+</div>
+    HTML
+
+    assert_equal 5, actual.categories.size
+    assert_includes actual.categories, 'czasownik przechodni niedokonany dk. pomalować'
+    assert_includes actual.categories, 'czasownik przechodni niedokonany dk. namalować'
+    assert_includes actual.categories, 'czasownik przechodni niedokonany dk. umalować'
+    assert_includes actual.categories, 'czasownik zwrotny niedokonany malować się dk. umalować się'
+    assert_includes actual.categories, 'czasownik zwrotny niedokonany malować się dk. brak'
+  end
 end

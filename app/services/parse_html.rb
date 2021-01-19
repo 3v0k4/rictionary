@@ -2,6 +2,7 @@ class ParseHtml
   def call(html)
     doc = Nokogiri::HTML(html)
     ParseResult.new(
+      categories: categories(doc),
       translations: translations(doc),
       examples: examples(doc),
       images: images(doc),
@@ -11,6 +12,20 @@ class ParseHtml
   end
 
   private
+
+  def categories(doc)
+    doc
+      .xpath('//*[text() = "język polski"]/../../..//*[contains(text(), "znaczenia")]/../../following-sibling::p/i[contains(text(), "dokonany")]/..')
+      .map do |d|
+        d
+          .xpath('*[not(self::style)]')
+          .map(&:text)
+          .map(&:strip)
+          .reject(&:empty?)
+          .join(' ')
+      end
+      .uniq
+  end
 
   def translations(doc)
     doc
