@@ -1,24 +1,36 @@
 class Fetch
   def call(query)
-    if query.empty?
-      return ViewModel.new(query: query, corrected_query: query, parse_result: ParseHtml.new.call(""))
-    end
-
+    return NoQueryViewModel.new if query.empty?
     corrected, html = corrected(query)
-
-    if corrected.nil? && html.nil?
-      return ViewModel.new(query: query, corrected_query: query, parse_result: ParseHtml.new.call(""))
-    end
-
+    return NotFoundViewModel.new(query: query, corrected_query: query) if (corrected.nil? && html.nil?)
+    return FallbackViewModel.new(query: query, corrected_query: corrected) if (!corrected.nil? && html.nil?)
     ViewModel.new(query: query, corrected_query: corrected, parse_result: ParseHtml.new.call(html))
   end
 
   private
 
   def corrected(query)
-    [query, query.downcase, correct(query)].each do |q|
-      break if q.nil?
-      break [q, html(q)] if html(q).force_encoding(Encoding::UTF_8).downcase.include?("język polski")
+    q, h = try(query)
+    return [q, h] unless h.nil?
+
+    q, h = try(query.downcase)
+    return [q, h] unless h.nil?
+
+    q, h = try(correct(query.downcase))
+    return [q, h] unless h.nil?
+
+    [q, nil]
+  end
+
+  def try(query)
+    [query, polish_or_nil(html(query))]
+  end
+
+  def polish_or_nil(h)
+    if h.force_encoding(Encoding::UTF_8).downcase.include?("język polski")
+      h
+    else
+      nil
     end
   end
 

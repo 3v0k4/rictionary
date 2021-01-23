@@ -36,6 +36,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "liściu"
     assert_text "liście"
 
+    fill_in "query", with: ""
     fill_in "query", with: "ptak"
     click_button "Search"
 
@@ -73,7 +74,7 @@ class LandingTest < ApplicationSystemTestCase
     click_button "Search"
 
     assert_equal "liść", page.find("input[name='query']").value
-    assert_text "lisc to liść"
+    assert_text "liść"
   end
 
   test "LIść gets autocorrected to liść" do
@@ -83,7 +84,7 @@ class LandingTest < ApplicationSystemTestCase
     click_button "Search"
 
     assert_equal "liść", page.find("input[name='query']").value
-    assert_text "LIść to liść"
+    assert_text "liść"
   end
 
   test "glod gets autocorrected to głód" do
@@ -93,7 +94,7 @@ class LandingTest < ApplicationSystemTestCase
     click_button "Search"
 
     assert_equal "głód", page.find("input[name='query']").value
-    assert_text "glod to głód"
+    assert_text "głód"
   end
 
   test "robić then zrobić" do
@@ -143,5 +144,27 @@ class LandingTest < ApplicationSystemTestCase
     assert_text 'zrobimy'
     assert_text 'zrobicie'
     assert_text 'zrobią'
+  end
+
+  test "not found" do
+    visit root_url
+
+    assert_equal "", page.find("input[name='query']").value
+
+    fill_in "query", with: "abc123"
+    click_button "Search"
+
+    assert_text /not found/i
+  end
+
+  test "fallback" do
+    visit root_url
+
+    assert_equal "", page.find("input[name='query']").value
+
+    fill_in "query", with: "podkrecic"
+    click_button "Search"
+
+    assert_link "podkręcić"
   end
 end
