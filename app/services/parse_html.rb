@@ -58,24 +58,36 @@ class ParseHtml
 
   def declination(doc)
     base = doc.xpath('//*[text() = "język polski"]/../../..')
-    return nil if base.xpath('(//a[text() = "mianownik"])[1]/../../td[2]').empty?
+    return nil if declination_(base, "mianownik", 2).empty?
 
     {
-      nominative_singular: base.xpath('(//a[text() = "mianownik"])[1]/../../td[2]').text,
-      nominative_plural: base.xpath('(//a[text() = "mianownik"])[1]/../../td[3]').text,
-      genitive_singular: base.xpath('(//a[text() = "dopełniacz"])[1]/../../td[2]').text,
-      genitive_plural: base.xpath('(//a[text() = "dopełniacz"])[1]/../../td[3]').text,
-      dative_singular: base.xpath('(//a[text() = "celownik"])[1]/../../td[2]').text,
-      dative_plural: base.xpath('(//a[text() = "celownik"])[1]/../../td[3]').text,
-      accusative_singular: base.xpath('(//a[text() = "biernik"])[1]/../../td[2]').text,
-      accusative_plural: base.xpath('(//a[text() = "biernik"])[1]/../../td[3]').text,
-      instrumental_singular: base.xpath('(//a[text() = "narzędnik"])[1]/../../td[2]').text,
-      instrumental_plural: base.xpath('(//a[text() = "narzędnik"])[1]/../../td[3]').text,
-      locative_singular: base.xpath('(//a[text() = "miejscownik"])[1]/../../td[2]').text,
-      locative_plural: base.xpath('(//a[text() = "miejscownik"])[1]/../../td[3]').text,
-      vocative_singular: base.xpath('(//a[text() = "wołacz"])[1]/../../td[2]').text,
-      vocative_plural: base.xpath('(//a[text() = "wołacz"])[1]/../../td[3]').text,
+      nominative_singular: declination_(base, "mianownik", 2),
+      nominative_plural: declination_(base, "mianownik", 3),
+      genitive_singular: declination_(base, "dopełniacz", 2),
+      genitive_plural: declination_(base, "dopełniacz", 3),
+      dative_singular: declination_(base, "celownik", 2),
+      dative_plural: declination_(base, "celownik", 3),
+      accusative_singular: declination_(base, "biernik", 2),
+      accusative_plural: declination_(base, "biernik", 3),
+      instrumental_singular: declination_(base, "narzędnik", 2),
+      instrumental_plural: declination_(base, "narzędnik", 3),
+      locative_singular: declination_(base, "miejscownik", 2),
+      locative_plural: declination_(base, "miejscownik", 3),
+      vocative_singular: declination_(base, "wołacz", 2),
+      vocative_plural: declination_(base, "wołacz", 3),
     }
+  end
+
+  def declination_(base, case_, number)
+    base
+      .xpath('(//a[text() = "' + case_ + '"])[1]/../../td[' + number.to_s + ']')
+      .children
+      .filter("//text()|//*[not(self::style)]")
+      .map(&:text)
+      .map(&:strip)
+      .map(&:chomp)
+      .reject(&:empty?)
+      .join("")
   end
 
   def conjugation(doc)

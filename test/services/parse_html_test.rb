@@ -386,6 +386,117 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_nil actual.declination
   end
 
+  test 'it does not pick up style tags' do
+    actual = ParseHtml.new.call(<<-HTML)
+<div>
+  <div>
+    <div>
+      <span>język polski</span>
+    </div>
+  </div>
+  <table class="wikitable odmiana">
+    <tbody>
+      <tr>
+        <th class="forma" style="font-weight: normal;"><a rel="mw:WikiLink" href="./przypadek#pl" title="przypadek">przypadek</a></th>
+        <th style="font-weight: normal;"><a rel="mw:WikiLink" href="./liczba_pojedyncza#pl" title="liczba pojedyncza">liczba pojedyncza</a></th>
+        <th style="font-weight: normal;"><a rel="mw:WikiLink" href="./liczba_mnoga#pl" title="liczba mnoga">liczba mnoga</a></th>
+      </tr>
+      <tr class="forma">
+        <td class="forma"><span id="linkLanguage" title="polski"></span><a rel="mw:WikiLink" href="./mianownik" title="mianownik">mianownik</a><span id="linkLanguage" title=""></span></td>
+        <td class="mianownik">cześć</td>
+        <td class="mianownik">
+          <style data-mw-deduplicate="TemplateStyles:r6240426" typeof="mw:Extension/templatestyles" about="#mwt32" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}'>
+            .mw-parser-output .potential-form {
+              opacity: 0.4;
+              font-weight: normal;
+              cursor: help;
+            }
+            .mw-parser-output .potential-form:hover {
+              opacity: inherit;
+            }
+            @media print {
+              .mw-parser-output .potential-form {
+                font-style: italic;
+                opacity: inherit;
+              }
+            }
+          </style>
+          <span class="potential-form" title="forma potencjalna lub rzadka">czci</span>
+        </td>
+      </tr>
+      <tr class="forma">
+        <td class="forma"><span id="linkLanguage" title="polski"></span><a rel="mw:WikiLink" href="./dopełniacz" title="dopełniacz">dopełniacz</a><span id="linkLanguage" title=""></span></td>
+        <td>czci</td>
+        <td>
+          <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt33" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+          <span class="potential-form" title="forma potencjalna lub rzadka">czci</span>
+        </td>
+      </tr>
+      <tr class="forma">
+        <td class="forma"><span id="linkLanguage" title="polski"></span><a rel="mw:WikiLink" href="./celownik" title="celownik">celownik</a><span id="linkLanguage" title=""></span></td>
+        <td>czci</td>
+        <td>
+          <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt34" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+          <span class="potential-form" title="forma potencjalna lub rzadka">czciom</span>
+        </td>
+      </tr>
+      <tr class="forma">
+        <td class="forma"><span id="linkLanguage" title="polski"></span><a rel="mw:WikiLink" href="./biernik" title="biernik">biernik</a><span id="linkLanguage" title=""></span></td>
+        <td>cześć</td>
+        <td>
+          <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt35" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+          <span class="potential-form" title="forma potencjalna lub rzadka">czci</span>
+        </td>
+      </tr>
+      <tr class="forma">
+        <td class="forma"><span id="linkLanguage" title="polski"></span><a rel="mw:WikiLink" href="./narzędnik" title="narzędnik">narzędnik</a><span id="linkLanguage" title=""></span></td>
+        <td>czcią</td>
+        <td>
+          <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt36" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+          <span class="potential-form" title="forma potencjalna lub rzadka">czciami</span>
+        </td>
+      </tr>
+      <tr class="forma">
+        <td class="forma"><span id="linkLanguage" title="polski"></span><a rel="mw:WikiLink" href="./miejscownik" title="miejscownik">miejscownik</a><span id="linkLanguage" title=""></span></td>
+        <td>czci</td>
+        <td>
+          <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt37" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+          <span class="potential-form" title="forma potencjalna lub rzadka">czciach</span>
+        </td>
+      </tr>
+      <tr class="forma">
+        <td class="forma"><span id="linkLanguage" title="polski"></span><a rel="mw:WikiLink" href="./wołacz" title="wołacz">wołacz</a><span id="linkLanguage" title=""></span></td>
+        <td>czci</td>
+        <td>
+          <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240426" about="#mwt38" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"potencjalnie/styles.css"}}' />
+          <span class="potential-form" title="forma potencjalna lub rzadka">czci</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    HTML
+
+    expected = {
+      nominative_singular: 'cześć',
+      nominative_plural: 'czci',
+      genitive_singular: 'czci',
+      genitive_plural: 'czci',
+      dative_singular: 'czci',
+      dative_plural: 'czciom',
+      accusative_singular: 'cześć',
+      accusative_plural: 'czci',
+      instrumental_singular: 'czcią',
+      instrumental_plural: 'czciami',
+      locative_singular: 'czci',
+      locative_plural: 'czciach',
+      vocative_singular: 'czci',
+      vocative_plural: 'czci',
+    }
+    assert_equal expected, actual.declination
+  end
+
+
   test 'it parses the conjugation for verb niedokonany' do
     actual = ParseHtml.new.call(<<-HTML)
 <div>
