@@ -63,7 +63,12 @@
     Images:
     <ul>
       <% @view_model.parse_result.images.each do |image| %>
-        <li><img src="<%= image %>"></img></li>
+        <li>
+          <figure>
+            <img src="<%= image.fetch(:url) %>" alt="<%= image.fetch(:caption) %>"></img>
+            <figcaption><%= image.fetch(:caption) %></figcaption>
+          </figure>
+        </li>
       <% end %>
     </ul>
   <% end %>

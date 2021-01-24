@@ -51,8 +51,17 @@ class ParseHtml
 
   def images(doc)
     doc
-      .xpath('//figure//img/@src')
-      .map(&:text)
+      .xpath('//figure')
+      .map do |figure|
+        url = figure.xpath('.//img/@src').text
+        caption = figure
+          .xpath('.//figcaption')
+          .text
+          .split(' ')
+          .reject { |string| /\(\d+.\d+\)/.match?(string) }
+          .join(' ')
+        { url: url, caption: caption }
+      end
       .uniq
   end
 

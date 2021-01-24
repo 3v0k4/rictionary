@@ -122,7 +122,7 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_includes actual.examples, 'Ania i Jarek od pewnego czasu są parą.'
   end
 
-  test 'it parses images' do
+  test 'it parses images and captions for liść' do
     actual = ParseHtml.new.call(<<-HTML)
 <section data-mw-section-id="1" id="mwAg">
   <figure class="mw-default-size" typeof="mw:Image/Thumb" id="mwBA"><a href="./Plik:Focus_on_leaf.jpg" id="mwBQ"><img resource="./Plik:Focus_on_leaf.jpg" src="//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/220px-Focus_on_leaf.jpg" data-file-width="512" data-file-height="384" data-file-type="bitmap" height="165" width="220" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/330px-Focus_on_leaf.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/440px-Focus_on_leaf.jpg 2x" id="mwBg"></a><figcaption id="mwBw">liść (1.1)</figcaption></figure>
@@ -132,9 +132,84 @@ class ParseHtmlTest < ActiveSupport::TestCase
     HTML
 
     assert_equal 3, actual.images.size
-    assert_includes actual.images, '//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/220px-Focus_on_leaf.jpg'
-    assert_includes actual.images, '//upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Porop_ruder_100306-0658_la.jpg/220px-Porop_ruder_100306-0658_la.jpg'
-    assert_includes actual.images, '//upload.wikimedia.org/wikipedia/commons/thumb/9/93/Tree.example.png/220px-Tree.example.png'
+    assert_includes actual.images, { url: '//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Focus_on_leaf.jpg/220px-Focus_on_leaf.jpg', caption: 'liść' }
+    assert_includes actual.images, { url: '//upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Porop_ruder_100306-0658_la.jpg/220px-Porop_ruder_100306-0658_la.jpg', caption: 'liść' }
+    assert_includes actual.images, { url: '//upload.wikimedia.org/wikipedia/commons/thumb/9/93/Tree.example.png/220px-Tree.example.png', caption: 'liście D, F, G' }
+  end
+
+  test 'it parses images and captions for sikać' do
+    actual = ParseHtml.new.call(<<-HTML)
+<section data-mw-section-id="1" id="mwAg">
+  <figure class="mw-default-size" typeof="mw:Image/Thumb" id="mwBA">
+    <a href="./Plik:Taking_a_Piss.jpg" id="mwBQ">
+      <img
+        resource="./Plik:Taking_a_Piss.jpg"
+        src="//upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Taking_a_Piss.jpg/220px-Taking_a_Piss.jpg"
+        data-file-width="870"
+        data-file-height="678"
+        data-file-type="bitmap"
+        height="171"
+        width="220"
+        srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Taking_a_Piss.jpg/330px-Taking_a_Piss.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Taking_a_Piss.jpg/440px-Taking_a_Piss.jpg 2x"
+        id="mwBg"
+      />
+    </a>
+    <figcaption id="mwBw">
+      <a rel="mw:WikiLink" href="./mężczyzna" title="mężczyzna" id="mwCA">mężczyzna</a> sika (1.1) <a rel="mw:WikiLink" href="./na" title="na" id="mwCQ">na</a>
+      <a rel="mw:WikiLink" href="./ogrodzenie" title="ogrodzenie" id="mwCg">ogrodzenie</a>
+    </figcaption>
+  </figure>
+  <figure class="mw-default-size" typeof="mw:Image/Thumb" id="mwCw">
+    <a href="./Plik:Fresh_water_fountain.jpg" id="mwDA">
+      <img
+        resource="./Plik:Fresh_water_fountain.jpg"
+        src="//upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Fresh_water_fountain.jpg/220px-Fresh_water_fountain.jpg"
+        data-file-width="1888"
+        data-file-height="2841"
+        data-file-type="bitmap"
+        height="331"
+        width="220"
+        srcset="
+          //upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Fresh_water_fountain.jpg/330px-Fresh_water_fountain.jpg 1.5x,
+          //upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Fresh_water_fountain.jpg/440px-Fresh_water_fountain.jpg 2x
+        "
+        id="mwDQ"
+      />
+    </a>
+    <figcaption id="mwDg"><a rel="mw:WikiLink" href="./woda" title="woda" id="mwDw">woda</a> sika (1.2)</figcaption>
+  </figure>
+  <figure class="mw-default-size" typeof="mw:Image/Thumb" id="mwEA">
+    <a
+      href="./Plik:US_Navy_090226-N-2610F-066_Boatswain's_Mate_2nd_Class_Chris_Fox,_from_Toledo,_Ohio,_hoses_down_the_bow_during_a_fresh-water_wash_down_aboard_the_Arleigh_Burke-class_guided-missile_destroyer_USS_Preble_(DDG_88).jpg"
+      id="mwEQ"
+    >
+      <img
+        resource="./Plik:US_Navy_090226-N-2610F-066_Boatswain's_Mate_2nd_Class_Chris_Fox,_from_Toledo,_Ohio,_hoses_down_the_bow_during_a_fresh-water_wash_down_aboard_the_Arleigh_Burke-class_guided-missile_destroyer_USS_Preble_(DDG_88).jpg"
+        src="//upload.wikimedia.org/wikipedia/commons/thumb/a/a9/US_Navy_090226-N-2610F-066_Boatswain%27s_Mate_2nd_Class_Chris_Fox%2C_from_Toledo%2C_Ohio%2C_hoses_down_the_bow_during_a_fresh-water_wash_down_aboard_the_Arleigh_Burke-class_guided-missile_destroyer_USS_Preble_%28DDG_88%29.jpg/220px-thumbnail.jpg"
+        data-file-width="2100"
+        data-file-height="1406"
+        data-file-type="bitmap"
+        height="147"
+        width="220"
+        srcset="
+          //upload.wikimedia.org/wikipedia/commons/thumb/a/a9/US_Navy_090226-N-2610F-066_Boatswain%27s_Mate_2nd_Class_Chris_Fox%2C_from_Toledo%2C_Ohio%2C_hoses_down_the_bow_during_a_fresh-water_wash_down_aboard_the_Arleigh_Burke-class_guided-missile_destroyer_USS_Preble_%28DDG_88%29.jpg/330px-thumbnail.jpg 1.5x,
+          //upload.wikimedia.org/wikipedia/commons/thumb/a/a9/US_Navy_090226-N-2610F-066_Boatswain%27s_Mate_2nd_Class_Chris_Fox%2C_from_Toledo%2C_Ohio%2C_hoses_down_the_bow_during_a_fresh-water_wash_down_aboard_the_Arleigh_Burke-class_guided-missile_destroyer_USS_Preble_%28DDG_88%29.jpg/440px-thumbnail.jpg 2x
+        "
+        id="mwEg"
+      />
+    </a>
+    <figcaption id="mwEw">
+      <a rel="mw:WikiLink" href="./marynarz" title="marynarz" id="mwFA">marynarze</a> sikają (1.3) <a rel="mw:WikiLink" href="./woda" title="woda" id="mwFQ">wodą</a> <a rel="mw:WikiLink" href="./na" title="na" id="mwFg">na</a>
+      <a rel="mw:WikiLink" href="./pokład" title="pokład" id="mwFw">pokład</a>
+    </figcaption>
+  </figure>
+</section>
+    HTML
+
+    assert_equal 3, actual.images.size
+    assert_includes actual.images, { url: '//upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Taking_a_Piss.jpg/220px-Taking_a_Piss.jpg', caption: 'mężczyzna sika na ogrodzenie' }
+    assert_includes actual.images, { url: '//upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Fresh_water_fountain.jpg/220px-Fresh_water_fountain.jpg', caption: 'woda sika' }
+    assert_includes actual.images, { url: '//upload.wikimedia.org/wikipedia/commons/thumb/a/a9/US_Navy_090226-N-2610F-066_Boatswain%27s_Mate_2nd_Class_Chris_Fox%2C_from_Toledo%2C_Ohio%2C_hoses_down_the_bow_during_a_fresh-water_wash_down_aboard_the_Arleigh_Burke-class_guided-missile_destroyer_USS_Preble_%28DDG_88%29.jpg/220px-thumbnail.jpg', caption: 'marynarze sikają wodą na pokład' }
   end
 
   test 'it parses the declination' do
