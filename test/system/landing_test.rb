@@ -126,6 +126,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text 'robicie'
     assert_text 'robią'
 
+    fill_in "query", with: ""
     fill_in "query", with: "zrobić"
     click_button "Search"
 
