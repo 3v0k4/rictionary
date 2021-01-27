@@ -11,3 +11,14 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+import Autocomplete from "@trevoreyre/autocomplete-js"
+import '@trevoreyre/autocomplete-js/dist/style.css'
+
+document.addEventListener("turbolinks:load", () => {
+  const search = input => input.length === 0 ?
+    Promise.resolve([]) :
+    fetch(`/suggestions?query=${encodeURIComponent(input)}`).then(x => x.json())
+  const onSubmit = () => document.getElementsByTagName('form')[0].submit()
+  new Autocomplete('#autocomplete', { search, onSubmit })
+})

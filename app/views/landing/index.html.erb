@@ -1,5 +1,8 @@
 <%= form_with url: root_path, method: :get do |form| %>
-  <%= form.text_field :query, placeholder: "e.g., sklep", value: @view_model.corrected_query %>
+  <div id="autocomplete" class="autocomplete">
+    <%= form.text_field :query, placeholder: "e.g., sklep", value: @view_model.corrected_query, class: "autocomplete-input" %>
+    <ul class="autocomplete-result-list"></ul>
+  </div>
   <%= form.submit "Search" %>
 <% end %>
 
