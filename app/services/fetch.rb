@@ -19,7 +19,7 @@ class Fetch
     q, h = try(correct(query.downcase))
     return [q, h] unless h.nil?
 
-    [q, nil]
+    [fallback(q), nil]
   end
 
   def try(query)
@@ -48,6 +48,23 @@ class Fetch
   end
 
   def correct(query)
+    host = "pl.wiktionary.org"
+    path = "w/api.php"
+    q = [
+      "action=opensearch",
+      "format=json",
+      "formatversion=2",
+      "search=#{query}",
+      "namespace=0%7C100%7C102",
+      "limit=10"
+    ].join('&')
+    JSON.parse(get_or("https://#{host}/#{path}?#{q}", [nil, [query]]))
+      .second
+      .filter { |suggestion| suggestion.size == query.size }
+      .first || query
+  end
+
+  def fallback(query)
     post(query)
       .map { |suggestion| suggestion.fetch("value") }
       .find { |suggestion| suggestion.size == query.size }
