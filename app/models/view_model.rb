@@ -3,4 +3,8 @@ ViewModel = Struct.new(
   :corrected_query,
   :parse_result,
   keyword_init: true
-)
+) do
+  def link
+    "https://pl.wiktionary.org/wiki/#{corrected_query}"
+  end
+end

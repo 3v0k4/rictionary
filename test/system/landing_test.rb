@@ -168,4 +168,13 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_link "podkręcić"
   end
+
+  test "link to wiktionary" do
+    visit root_url
+
+    fill_in "query", with: "lisc"
+    click_button "Search"
+
+    assert_link "Wiktionary"
+  end
 end
