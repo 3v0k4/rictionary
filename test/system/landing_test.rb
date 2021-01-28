@@ -186,4 +186,13 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_link "bab.la"
   end
+
+  test "multiword" do
+    visit root_url
+
+    fill_in "query", with: "do gory nogami"
+    click_button "Search"
+
+    assert_text "upside down"
+  end
 end

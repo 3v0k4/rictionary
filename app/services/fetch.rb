@@ -31,7 +31,8 @@ class Fetch
   end
 
   def try(query)
-    [query, polish_or_nil(html(query))]
+    q = query.gsub(" ", "_")
+    [query, polish_or_nil(html(q))]
   end
 
   def polish_or_nil(h)
