@@ -74,7 +74,7 @@ class Fetch
   end
 
   def fallback(query)
-    post(query)
+    post(query.gsub(" ", "+"))
       .map { |suggestion| suggestion.fetch("value") }
       .find { |suggestion| suggestion.size == query.size }
   end

@@ -195,4 +195,13 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_text "upside down"
   end
+
+  test "multiword fallback" do
+    visit root_url
+
+    fill_in "query", with: "na dół"
+    click_button "Search"
+
+    assert_link "na dół"
+  end
 end
