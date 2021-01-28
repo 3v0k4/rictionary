@@ -51,7 +51,7 @@ class ParseHtml
 
   def images(doc)
     doc
-      .xpath('//figure')
+      .xpath('//*[text() = "język polski"]/../../..//figure')
       .map do |figure|
         url = figure.xpath('.//img/@src').text
         caption = figure
