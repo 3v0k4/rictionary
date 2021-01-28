@@ -4,10 +4,18 @@ class Fetch
     corrected, html = corrected(query)
     return NotFoundViewModel.new(query: query, corrected_query: query) if (corrected.nil? && html.nil?)
     return FallbackViewModel.new(query: query, corrected_query: corrected) if (!corrected.nil? && html.nil?)
-    ViewModel.new(query: query, corrected_query: corrected, parse_result: ParseHtml.new.call(html))
+    view_model(query, corrected, html)
   end
 
   private
+
+  def view_model(query, corrected, html)
+    parsed = ParseHtml.new.call(html)
+    fallback = parsed.translations.any? ?
+      nil :
+      "https://pl.bab.la/slownik/polski-angielski/#{fallback(corrected)}"
+    ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed, fallback_link: fallback)
+  end
 
   def corrected(query)
     q, h = try(query)

@@ -177,4 +177,13 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_link "Wiktionary"
   end
+
+  test "when translations are missing it shows a link to bab.la" do
+    visit root_url
+
+    fill_in "query", with: "wyczesany"
+    click_button "Search"
+
+    assert_link "bab.la"
+  end
 end

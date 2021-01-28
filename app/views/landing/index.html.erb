@@ -37,6 +37,10 @@
 <% if @view_model.class == ViewModel %>
   <p>View on <a href="<%= @view_model.link %>" target="_blank" rel="noopener">Wiktionary</a>.</p>
 
+  <% if @view_model.fallback_link.present? %>
+    <p>View on <a href="<%= @view_model.fallback_link %>" target="_blank" rel="noopener">bab.la</a>.</p>
+  <% end %>
+
   <% if @view_model.parse_result.categories.present? %>
     Categories:
     <ul>

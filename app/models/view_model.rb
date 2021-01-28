@@ -2,6 +2,7 @@ ViewModel = Struct.new(
   :query,
   :corrected_query,
   :parse_result,
+  :fallback_link,
   keyword_init: true
 ) do
   def link
