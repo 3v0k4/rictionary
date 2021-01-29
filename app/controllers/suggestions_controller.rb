@@ -7,7 +7,7 @@ class SuggestionsController < ApplicationController
       "format=json",
       "formatversion=2",
       "search=#{query}",
-      "namespace=0%7C100%7C102",
+      "namespace=0",
       "limit=10"
     ].join('&')
     xs = JSON.parse(get_or("https://#{host}/#{path}?#{q}", [nil, [query]])).second
