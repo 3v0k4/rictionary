@@ -31,11 +31,13 @@ class Fetch
 
   def try(query)
     q = query.gsub(" ", "_")
-    [query, polish_or_nil(html(q))]
+    [query, polish_or_other_langs_or_nil(html(q))]
   end
 
-  def polish_or_nil(h)
+  def polish_or_other_langs_or_nil(h)
     if h.force_encoding(Encoding::UTF_8).downcase.include?("język polski")
+      h
+    elsif h.force_encoding(Encoding::UTF_8).downcase.include?("język")
       h
     else
       nil

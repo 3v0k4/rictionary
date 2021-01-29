@@ -5,6 +5,7 @@ ParseResult = Struct.new(
   :images,
   :declination,
   :conjugation,
+  :other_translations,
   keyword_init: true
 )
 

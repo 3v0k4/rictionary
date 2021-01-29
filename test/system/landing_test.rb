@@ -204,4 +204,15 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_link "na dół"
   end
+
+  test "skål in Swedish" do
+    visit root_url
+
+    fill_in "query", with: "skål"
+    click_button "Search"
+
+    assert_text "na zdrowie (przed wzniesieniem toastu)"
+    assert_text "miska"
+    assert_text "toast"
+  end
 end

@@ -7,7 +7,8 @@ class ParseHtml
       examples: examples(doc),
       images: images(doc),
       declination: declination(doc),
-      conjugation: conjugation(doc)
+      conjugation: conjugation(doc),
+      other_translations: other_translations(doc)
     )
   end
 
@@ -117,5 +118,20 @@ class ParseHtml
       },
       imperative: base.xpath('.//*[text() = "tryb rozkazujący"]/../../td').map(&:text),
     }
+  end
+
+#.xpath('//*[text() = "język szwedzki"]/../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*//dd')
+  def other_translations(doc)
+    doc
+      .xpath('//*[text() = "język szwedzki"]/../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*')
+      .take_while { |x| x.node_name != 'span' }
+      .map do |x|
+        x.xpath('.//dd')
+      end
+      .flatten
+      .map { |x| x.xpath('./*[not(self::style) and not(self::sup)]') }
+      .map { |ys| ys.map(&:text) }
+      .map { |xs| xs.join(' ') }
+      .reject(&:empty?)
   end
 end

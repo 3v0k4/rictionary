@@ -209,4 +209,13 @@
       </tr>
     </table>
   <% end %>
+
+  <% if @view_model.parse_result.other_translations.present? %>
+    Translations:
+    <ul>
+      <% @view_model.parse_result.other_translations.each do |translation| %>
+        <li><%= translation %></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>

@@ -1752,4 +1752,53 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_includes actual.categories, 'czasownik zwrotny niedokonany malować się dk. umalować się'
     assert_includes actual.categories, 'czasownik zwrotny niedokonany malować się dk. brak'
   end
+
+  test 'it parses translations from Swedish' do
+    actual = ParseHtml.new.call(<<-HTML)
+<div>
+  <div>
+    <div>
+      <span>język szwedzki</span>
+    </div>
+  </div>
+  <section data-mw-section-id="1" id="mwAg">
+    <dl about="#mwt7">
+      <dt>
+        <span class="field field-title fld-znaczenia field-pl" data-field="znaczenia" data-section-links="pl">znaczenia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <p id="mwBg"><i id="mwBw">wykrzyknik</i></p>
+    <dl id="mwCA">
+      <dd id="mwCQ">
+        (1.1) <a rel="mw:WikiLink" href="./na_zdrowie" title="na zdrowie" id="mwCg">na zdrowie</a> <i id="mwCw">(przed wzniesieniem toastu)</i>
+        <sup about="#mwt10" class="mw-ref reference" id="cite_ref-u_1-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"u"},"body":{"id":"mw-reference-text-cite_note-u-1"}}'>
+          <a href="./skål#cite_note-u-1" style="counter-reset: mw-Ref 1;" id="mwDA"><span class="mw-reflink-text" id="mwDQ">[1]</span></a>
+        </sup>
+      </dd>
+    </dl>
+    <p id="mwDg"><i id="mwDw">rzeczownik, rodzaj wspólny</i></p>
+    <dl id="mwEA">
+      <dd id="mwEQ">
+        (2.1) <a rel="mw:WikiLink" href="./miska" title="miska" id="mwEg">miska</a>
+        <sup about="#mwt12" class="mw-ref reference" id="cite_ref-u_1-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"u"}}'>
+          <a href="./skål#cite_note-u-1" style="counter-reset: mw-Ref 1;" id="mwEw"><span class="mw-reflink-text" id="mwFA">[1]</span></a>
+        </sup>
+      </dd>
+      <dd id="mwFQ">
+        (2.2) <a rel="mw:WikiLink" href="./toast" title="toast" id="mwFg">toast</a>
+        <sup about="#mwt14" class="mw-ref reference" id="cite_ref-u_1-2" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"u"}}'>
+          <a href="./skål#cite_note-u-1" style="counter-reset: mw-Ref 1;" id="mwFw"><span class="mw-reflink-text" id="mwGA">[1]</span></a>
+        </sup>
+      </dd>
+    </dl>
+  </section>
+</div>
+    HTML
+
+    assert_equal 3, actual.other_translations.size
+    assert_includes actual.other_translations, 'na zdrowie (przed wzniesieniem toastu)'
+    assert_includes actual.other_translations, 'miska'
+    assert_includes actual.other_translations, 'toast'
+  end
 end
