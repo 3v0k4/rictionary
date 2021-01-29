@@ -67,7 +67,7 @@ class Fetch
       "namespace=0%7C100%7C102",
       "limit=10"
     ].join('&')
-    JSON.parse(get_or("https://#{host}/#{path}?#{q}", [nil, [query]]))
+    JSON.parse(get_or("https://#{host}/#{path}?#{q}", [nil, [query]].to_json))
       .second
       .filter { |suggestion| suggestion.size == query.size }
       .first || query
