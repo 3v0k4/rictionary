@@ -1796,9 +1796,465 @@ class ParseHtmlTest < ActiveSupport::TestCase
 </div>
     HTML
 
-    assert_equal 3, actual.other_translations.size
-    assert_includes actual.other_translations, 'na zdrowie (przed wzniesieniem toastu)'
-    assert_includes actual.other_translations, 'miska'
-    assert_includes actual.other_translations, 'toast'
+    assert_equal ['język szwedzki'], actual.other_translations.keys
+    assert_includes actual.other_translations['język szwedzki'], 'na zdrowie (przed wzniesieniem toastu)'
+    assert_includes actual.other_translations['język szwedzki'], 'miska'
+    assert_includes actual.other_translations['język szwedzki'], 'toast'
+  end
+
+  test 'it parses translations from other languages' do
+    actual = ParseHtml.new.call(<<-HTML)
+<div>
+  <section data-mw-section-id="1" id="mwAw">
+    <h2 id="haus_(język_indonezyjski)">
+      <span id="haus_.28j.C4.99zyk_indonezyjski.29" typeof="mw:FallbackId"></span>haus (
+      <span class="lang-code primary-lang-code lang-code-id" id="id" about="#mwt2" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"język indonezyjski","href":"./Szablon:język_indonezyjski"},"params":{},"i":0}}]}'>
+        <a rel="mw:WikiLink" href="./Kategoria:Język_indonezyjski" title="Kategoria:Język indonezyjski">język indonezyjski</a>
+      </span>
+      <link rel="mw:PageProp/Category" href="./Kategoria:indonezyjski_(indeks)" about="#mwt2" /><link rel="mw:PageProp/Category" href="./Kategoria:indonezyjski_(indeks_a_tergo)#suah" about="#mwt2" />
+      <link rel="mw:PageProp/Category" href="./Kategoria:Język_indonezyjski_-_przymiotniki" about="#mwt2" id="mwBA" />)
+    </h2>
+    <span about="#mwt3" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"wymowa","href":"./Szablon:wymowa"},"params":{},"i":0}}]}' id="mwBQ"> </span>
+    <dl about="#mwt3">
+      <dt>
+        <span class="field field-title fld-wymowa field-keep" data-field="wymowa" data-section-links="keep">wymowa<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt4" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"znaczenia","href":"./Szablon:znaczenia"},"params":{},"i":0}}]}' id="mwBg"> </span>
+    <dl about="#mwt4">
+      <dt>
+        <span class="field field-title fld-znaczenia field-pl" data-field="znaczenia" data-section-links="pl">znaczenia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <p id="mwBw"><i id="mwCA">przymiotnik</i></p>
+    <dl id="mwCQ">
+      <dd id="mwCg">(1.1) <a rel="mw:WikiLink" href="./spragniony" title="spragniony" id="mwCw">spragniony</a></dd>
+    </dl>
+    <span about="#mwt5" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"odmiana","function":"grammar"},"params":{},"i":0}}]}' id="mwDA"> </span>
+    <dl about="#mwt5">
+      <dt>
+        <span class="field field-title fld-odmiana field-foreign" data-field="odmiana" data-section-links="foreign">
+          <a rel="mw:WikiLink" href="./Wikisłownik:Zasady_tworzenia_haseł/Odmiana" title="Wikisłownik:Zasady tworzenia haseł/Odmiana">odmiana</a><span typeof="mw:Entity">:</span>
+        </span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt6" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"przykłady","href":"./Szablon:przykłady"},"params":{},"i":0}}]}' id="mwDQ"> </span>
+    <dl about="#mwt6">
+      <dt>
+        <span class="field field-title fld-przyklady field-exampl" data-field="przyklady" data-section-links="exampl" style="display: block; clear: left;">przykłady<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt7" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"składnia","href":"./Szablon:składnia"},"params":{},"i":0}}]}' id="mwDg"> </span>
+    <dl about="#mwt7">
+      <dt>
+        <span class="field field-title fld-skladnia field-foreign" data-field="skladnia" data-section-links="foreign">składnia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt8" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"kolokacje","href":"./Szablon:kolokacje"},"params":{},"i":0}}]}' id="mwDw"> </span>
+    <dl about="#mwt8">
+      <dt>
+        <span class="field field-title fld-kolokacje field-foreign" data-field="kolokacje" data-section-links="foreign">
+          <a rel="mw:WikiLink" href="./Wikisłownik:ZTH_kolokacje" title="Wikisłownik:ZTH kolokacje" class="mw-redirect">kolokacje</a><span typeof="mw:Entity">:</span>
+        </span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt9" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"synonimy","href":"./Szablon:synonimy"},"params":{},"i":0}}]}' id="mwEA"> </span>
+    <dl about="#mwt9">
+      <dt>
+        <span class="field field-title fld-synonimy field-foreign" data-field="synonimy" data-section-links="foreign">synonimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt10" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"antonimy","href":"./Szablon:antonimy"},"params":{},"i":0}}]}' id="mwEQ"> </span>
+    <dl about="#mwt10">
+      <dt>
+        <span class="field field-title fld-antonimy field-foreign" data-field="antonimy" data-section-links="foreign">antonimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt11" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"hiperonimy","href":"./Szablon:hiperonimy"},"params":{},"i":0}}]}' id="mwEg"> </span>
+    <dl about="#mwt11">
+      <dt>
+        <span class="field field-title fld-hiperonimy field-foreign" data-field="hiperonimy" data-section-links="foreign">hiperonimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt12" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"hiponimy","href":"./Szablon:hiponimy"},"params":{},"i":0}}]}' id="mwEw"> </span>
+    <dl about="#mwt12">
+      <dt>
+        <span class="field field-title fld-hiponimy field-foreign" data-field="hiponimy" data-section-links="foreign">hiponimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt13" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"holonimy","href":"./Szablon:holonimy"},"params":{},"i":0}}]}' id="mwFA"> </span>
+    <dl about="#mwt13">
+      <dt>
+        <span class="field field-title fld-holonimy field-foreign" data-field="holonimy" data-section-links="foreign">holonimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt14" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"meronimy","href":"./Szablon:meronimy"},"params":{},"i":0}}]}' id="mwFQ"> </span>
+    <dl about="#mwt14">
+      <dt>
+        <span class="field field-title fld-meronimy field-foreign" data-field="meronimy" data-section-links="foreign">meronimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt15" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"pokrewne","href":"./Szablon:pokrewne"},"params":{},"i":0}}]}' id="mwFg"> </span>
+    <dl about="#mwt15">
+      <dt>
+        <span class="field field-title fld-pokrewne field-foreign" data-field="pokrewne" data-section-links="foreign">wyrazy pokrewne<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt16" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"frazeologia","href":"./Szablon:frazeologia"},"params":{},"i":0}}]}' id="mwFw"> </span>
+    <dl about="#mwt16">
+      <dt>
+        <span class="field field-title fld-frazeologia field-foreign" data-field="frazeologia" data-section-links="foreign">związki frazeologiczne<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt17" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"etymologia","href":"./Szablon:etymologia"},"params":{},"i":0}}]}' id="mwGA"> </span>
+    <dl about="#mwt17">
+      <dt>
+        <span class="field field-title fld-etymologia field-keep" data-field="etymologia" data-section-links="keep">etymologia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt18" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"uwagi","href":"./Szablon:uwagi"},"params":{},"i":0}}]}' id="mwGQ"> </span>
+    <dl about="#mwt18">
+      <dt>
+        <span class="field field-title fld-uwagi field-keep" data-field="uwagi" data-section-links="keep">uwagi<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span
+      about="#mwt19"
+      typeof="mw:Transclusion"
+      data-mw='{"parts":[{"template":{"target":{"wt":"źródła","href":"./Szablon:źródła"},"params":{},"i":0}},"\n: ",{"template":{"target":{"wt":"importEnWikt","href":"./Szablon:importEnWikt"},"params":{"1":{"wt":"indonezyjski"}},"i":1}}]}'
+      id="mwGg"
+    >
+    </span>
+    <dl about="#mwt19">
+      <dt>
+        <span class="field field-title fld-zrodla field-keep" data-field="zrodla" data-section-links="keep" style="display: block; clear: left;">źródła<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+      <dd>
+        <link rel="mw:PageProp/Category" href="./Kategoria:import_z_angielskiego_Wikisłownika/indonezyjski" />
+        <i>
+          Hasło zaimportowane automatycznie – nie zostało zweryfikowane w papierowych słownikach lub wiarygodnych słownikach online. Jeśli znasz indonezyjski, kliknij na
+          <span class="plainlinks"><a rel="mw:ExtLink" href="//pl.wiktionary.org/w/index.php?title=haus&amp;action=edit" class="external text">Edytuj</a></span>, dokonaj ewentualnych korekt i usuń niniejszy komunikat. Dziękujemy! Listę
+          innych niesprawdzonych haseł w tym języku można znaleźć <a rel="mw:WikiLink" href="./Kategoria:import_z_angielskiego_Wikisłownika/indonezyjski" title="Kategoria:import z angielskiego Wikisłownika/indonezyjski">pod tym linkiem</a>.
+        </i>
+      </dd>
+    </dl>
+  </section>
+  <section data-mw-section-id="3" id="mwRg">
+    <h2 id="haus_(język_wilamowski)">
+      <span id="haus_.28j.C4.99zyk_wilamowski.29" typeof="mw:FallbackId"></span>haus (
+      <span class="lang-code primary-lang-code lang-code-wym" id="wym" about="#mwt50" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"język wilamowski","href":"./Szablon:język_wilamowski"},"params":{},"i":0}}]}'>
+        <a rel="mw:WikiLink" href="./Kategoria:Język_wilamowski" title="Kategoria:Język wilamowski">język wilamowski</a>
+      </span>
+      <link rel="mw:PageProp/Category" href="./Kategoria:wilamowski_(indeks)" about="#mwt50" /><link rel="mw:PageProp/Category" href="./Kategoria:wilamowski_(indeks_a_tergo)#suah" about="#mwt50" />
+      <link rel="mw:PageProp/Category" href="./Kategoria:Język_wilamowski_-_rzeczowniki" about="#mwt50" /><link rel="mw:PageProp/Category" href="./Kategoria:Język_wilamowski_-_rzeczowniki_rodzaju_nijakiego" about="#mwt50" id="mwRw" />)
+    </h2>
+    <span about="#mwt51" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"ortografie","href":"./Szablon:ortografie"},"params":{},"i":0}},"\n: [[haojs]] • [[hoüz]]"]}' id="mwSA"> </span>
+    <dl about="#mwt51">
+      <dt>
+        <span class="field field-title fld-ortografie field-foreign" data-field="ortografie" data-section-links="foreign">zapisy w ortografiach alternatywnych<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+      <dd><a rel="mw:WikiLink" href="./haojs" title="haojs">haojs</a> • <a rel="mw:WikiLink" href="./hoüz" title="hoüz">hoüz</a></dd>
+    </dl>
+    <span about="#mwt52" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"wymowa","href":"./Szablon:wymowa"},"params":{},"i":0}}]}' id="mwSQ"> </span>
+    <dl about="#mwt52">
+      <dt>
+        <span class="field field-title fld-wymowa field-keep" data-field="wymowa" data-section-links="keep">wymowa<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt53" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"znaczenia","href":"./Szablon:znaczenia"},"params":{},"i":0}}]}' id="mwSg"> </span>
+    <dl about="#mwt53">
+      <dt>
+        <span class="field field-title fld-znaczenia field-pl" data-field="znaczenia" data-section-links="pl">znaczenia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <p id="mwSw"><i id="mwTA">rzeczownik, rodzaj nijaki</i></p>
+    <dl id="mwTQ">
+      <dd id="mwTg">
+        (1.1) <a rel="mw:WikiLink" href="./dom" title="dom" id="mwTw">dom</a>, <a rel="mw:WikiLink" href="./sień" title="sień" id="mwUA">sień</a>
+        <sup about="#mwt58" class="mw-ref reference" id="cite_ref-2" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-2"}}'>
+          <a href="./haus#cite_note-2" style="counter-reset: mw-Ref 1;" id="mwUQ"><span class="mw-reflink-text" id="mwUg">[1]</span></a>
+        </sup>
+        <sup about="#mwt61" class="mw-ref reference" id="cite_ref-3" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-3"}}'>
+          <a href="./haus#cite_note-3" style="counter-reset: mw-Ref 2;" id="mwUw"><span class="mw-reflink-text" id="mwVA">[2]</span></a>
+        </sup>
+      </dd>
+    </dl>
+    <span
+      about="#mwt62"
+      typeof="mw:Transclusion"
+      data-mw='{"parts":[{"template":{"target":{"wt":"odmiana","function":"grammar"},"params":{},"i":0}},"\n: (1.1) ",{"template":{"target":{"wt":"lp","href":"./Szablon:lp"},"params":{},"i":1}}," haus; ",{"template":{"target":{"wt":"lm","href":"./Szablon:lm"},"params":{},"i":2}}," houzyn (houzən)"]}'
+      id="mwVQ"
+    >
+    </span>
+    <dl about="#mwt62">
+      <dt>
+        <span class="field field-title fld-odmiana field-foreign" data-field="odmiana" data-section-links="foreign">
+          <a rel="mw:WikiLink" href="./Wikisłownik:Zasady_tworzenia_haseł/Odmiana" title="Wikisłownik:Zasady tworzenia haseł/Odmiana">odmiana</a><span typeof="mw:Entity">:</span>
+        </span>
+      </dt>
+      <dd></dd>
+      <dd>
+        (1.1) <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt66" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+        <span class="short-container short-variant1" about="#mwt67" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#L" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="liczba pojedyncza" data-expanded="liczba pojedyncza"><span class="short-content">lp</span></span>
+          </a>
+        </span>
+        haus; <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt71" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+        <span class="short-container short-variant1" about="#mwt72" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#L" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="liczba mnoga" data-expanded="liczba mnoga"><span class="short-content">lm</span></span>
+          </a>
+        </span>
+        houzyn (houzən)
+      </dd>
+    </dl>
+    <span about="#mwt73" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"przykłady","href":"./Szablon:przykłady"},"params":{},"i":0}}]}' id="mwVg"> </span>
+    <dl about="#mwt73">
+      <dt>
+        <span class="field field-title fld-przyklady field-exampl" data-field="przyklady" data-section-links="exampl" style="display: block; clear: left;">przykłady<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt74" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"składnia","href":"./Szablon:składnia"},"params":{},"i":0}}]}' id="mwVw"> </span>
+    <dl about="#mwt74">
+      <dt>
+        <span class="field field-title fld-skladnia field-foreign" data-field="skladnia" data-section-links="foreign">składnia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt75" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"kolokacje","href":"./Szablon:kolokacje"},"params":{},"i":0}}]}' id="mwWA"> </span>
+    <dl about="#mwt75">
+      <dt>
+        <span class="field field-title fld-kolokacje field-foreign" data-field="kolokacje" data-section-links="foreign">
+          <a rel="mw:WikiLink" href="./Wikisłownik:ZTH_kolokacje" title="Wikisłownik:ZTH kolokacje" class="mw-redirect">kolokacje</a><span typeof="mw:Entity">:</span>
+        </span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt76" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"synonimy","href":"./Szablon:synonimy"},"params":{},"i":0}}]}' id="mwWQ"> </span>
+    <dl about="#mwt76">
+      <dt>
+        <span class="field field-title fld-synonimy field-foreign" data-field="synonimy" data-section-links="foreign">synonimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt77" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"antonimy","href":"./Szablon:antonimy"},"params":{},"i":0}}]}' id="mwWg"> </span>
+    <dl about="#mwt77">
+      <dt>
+        <span class="field field-title fld-antonimy field-foreign" data-field="antonimy" data-section-links="foreign">antonimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt78" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"hiperonimy","href":"./Szablon:hiperonimy"},"params":{},"i":0}}]}' id="mwWw"> </span>
+    <dl about="#mwt78">
+      <dt>
+        <span class="field field-title fld-hiperonimy field-foreign" data-field="hiperonimy" data-section-links="foreign">hiperonimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt79" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"hiponimy","href":"./Szablon:hiponimy"},"params":{},"i":0}}]}' id="mwXA"> </span>
+    <dl about="#mwt79">
+      <dt>
+        <span class="field field-title fld-hiponimy field-foreign" data-field="hiponimy" data-section-links="foreign">hiponimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt80" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"holonimy","href":"./Szablon:holonimy"},"params":{},"i":0}}]}' id="mwXQ"> </span>
+    <dl about="#mwt80">
+      <dt>
+        <span class="field field-title fld-holonimy field-foreign" data-field="holonimy" data-section-links="foreign">holonimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt81" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"meronimy","href":"./Szablon:meronimy"},"params":{},"i":0}}]}' id="mwXg"> </span>
+    <dl about="#mwt81">
+      <dt>
+        <span class="field field-title fld-meronimy field-foreign" data-field="meronimy" data-section-links="foreign">meronimy<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span
+      about="#mwt82"
+      typeof="mw:Transclusion"
+      data-mw='{"parts":[{"template":{"target":{"wt":"pokrewne","href":"./Szablon:pokrewne"},"params":{},"i":0}},"\n: ",{"template":{"target":{"wt":"rzecz","href":"./Szablon:rzecz"},"params":{},"i":1}}," [[hausgənyss]] ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":2}},", [[hausšłyssł̥]] ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":3}},", [[hausśwełł]] ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":4}}," / [[hausšłvełł]] ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":5}},", [[haustjyr]] ",{"template":{"target":{"wt":"ż","href":"./Szablon:ż"},"params":{},"i":6}}]}'
+      id="mwXw"
+    >
+    </span>
+    <dl about="#mwt82">
+      <dt>
+        <span class="field field-title fld-pokrewne field-foreign" data-field="pokrewne" data-section-links="foreign">wyrazy pokrewne<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+      <dd>
+        <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt85" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+        <span class="short-container">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#R" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="rzeczownik" data-expanded="rzeczownik"><span class="short-content">rzecz.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./hausgənyss" title="hausgənyss">hausgənyss</a>
+        <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt88" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+        <span class="short-container">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+          </a>
+        </span>
+        , <a rel="mw:WikiLink" href="./hausšłyssł̥" title="hausšłyssł̥">hausšłyssł̥</a>
+        <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt91" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+        <span class="short-container">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+          </a>
+        </span>
+        , <a rel="mw:WikiLink" href="./hausśwełł" title="hausśwełł">hausśwełł</a>
+        <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt94" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+        <span class="short-container">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+          </a>
+        </span>
+        / <a rel="mw:WikiLink" href="./hausšłvełł" title="hausšłvełł">hausšłvełł</a>
+        <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt97" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+        <span class="short-container">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+          </a>
+        </span>
+        , <a rel="mw:WikiLink" href="./haustjyr" title="haustjyr">haustjyr</a>
+        <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt100" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+        <span class="short-container">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#Ż" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="rodzaj żeński" data-expanded="rodzaj żeński"><span class="short-content">ż</span></span>
+          </a>
+        </span>
+      </dd>
+    </dl>
+    <span about="#mwt101" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"frazeologia","href":"./Szablon:frazeologia"},"params":{},"i":0}}]}' id="mwYA"> </span>
+    <dl about="#mwt101">
+      <dt>
+        <span class="field field-title fld-frazeologia field-foreign" data-field="frazeologia" data-section-links="foreign">związki frazeologiczne<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt102" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"etymologia","href":"./Szablon:etymologia"},"params":{},"i":0}}]}' id="mwYQ"> </span>
+    <dl about="#mwt102">
+      <dt>
+        <span class="field field-title fld-etymologia field-keep" data-field="etymologia" data-section-links="keep">etymologia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <span about="#mwt103" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"uwagi","href":"./Szablon:uwagi"},"params":{},"i":0}},"\n: (1.1) zobacz też: [[Indeks:Wilamowski - Budynki i pomieszczenia]]"]}' id="mwYg">
+    </span>
+    <dl about="#mwt103">
+      <dt>
+        <span class="field field-title fld-uwagi field-keep" data-field="uwagi" data-section-links="keep">uwagi<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+      <dd>(1.1) zobacz też: <a rel="mw:WikiLink" href="./Indeks:Wilamowski_-_Budynki_i_pomieszczenia" title="Indeks:Wilamowski - Budynki i pomieszczenia">Indeks:Wilamowski - Budynki i pomieszczenia</a></dd>
+    </dl>
+    <span about="#mwt104" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"źródła","href":"./Szablon:źródła"},"params":{},"i":0}}]}' id="mwYw"> </span>
+    <dl about="#mwt104">
+      <dt>
+        <span class="field field-title fld-zrodla field-keep" data-field="zrodla" data-section-links="keep" style="display: block; clear: left;">źródła<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <div class="mw-references-wrap" typeof="mw:Extension/references" about="#mwt106" data-mw='{"name":"references","attrs":{}}' id="mwZA">
+      <ol class="mw-references references" id="mwZQ">
+        <li about="#cite_note-2" id="cite_note-2">
+          <a href="./haus#cite_ref-2" rel="mw:referencedBy" id="mwZg"><span class="mw-linkback-text" id="mwZw">↑ </span></a>
+          <span id="mw-reference-text-cite_note-2" class="mw-reference-text">
+            <figure-inline typeof="mw:Transclusion mw:Image" about="#mwt56" data-mw='{"parts":[{"template":{"target":{"wt":"Latosiński1909","href":"./Szablon:Latosiński1909"},"params":{"strony":{"wt":"286"}},"i":0}}]}' id="mwaA">
+              <a href="./w:Otwarty_dostęp" id="mwaQ">
+                <img
+                  resource="./Plik:Open_Access_logo_PLoS_transparent.svg"
+                  src="//upload.wikimedia.org/wikipedia/commons/thumb/7/77/Open_Access_logo_PLoS_transparent.svg/8px-Open_Access_logo_PLoS_transparent.svg.png"
+                  data-file-width="640"
+                  data-file-height="1000"
+                  data-file-type="drawing"
+                  height="13"
+                  width="8"
+                  srcset="
+                    //upload.wikimedia.org/wikipedia/commons/thumb/7/77/Open_Access_logo_PLoS_transparent.svg/12px-Open_Access_logo_PLoS_transparent.svg.png 1.5x,
+                    //upload.wikimedia.org/wikipedia/commons/thumb/7/77/Open_Access_logo_PLoS_transparent.svg/16px-Open_Access_logo_PLoS_transparent.svg.png 2x
+                  "
+                  id="mwag"
+                />
+              </a>
+            </figure-inline>
+            <span typeof="mw:Entity" about="#mwt56" id="mwaw">&nbsp;</span><span about="#mwt56" id="mwbA">Józef Latosiński, </span><span typeof="mw:Nowiki" about="#mwt56" id="mwbQ"></span>
+            <i about="#mwt56" id="mwbg">
+              <a rel="mw:ExtLink" href="http://dlibra.umcs.lublin.pl/dlibra/doccontent?id=7463&amp;from=FBC" class="external text" id="mwbw">Monografia miasteczka Wilamowic: na podstawie źródeł autentycznych: z ilustracyami i mapką</a>
+            </i>
+            <span about="#mwt56" id="mwcA">, Drukarnia Literacka pod zarządem L. K. Górskiego,</span><span typeof="mw:Entity" about="#mwt56" id="mwcQ"> </span><span about="#mwt56" id="mwcg">Kraków</span>
+            <span typeof="mw:Entity" about="#mwt56" id="mwcw"> </span><span about="#mwt56" id="mwdA">1909, </span><span style="white-space: nowrap;" about="#mwt56" id="mwdQ">s. 286</span><span about="#mwt56" id="mwdg">.</span>
+          </span>
+        </li>
+        <li about="#cite_note-3" id="cite_note-3">
+          <a href="./haus#cite_ref-3" rel="mw:referencedBy" id="mwdw"><span class="mw-linkback-text" id="mweA">↑ </span></a>
+          <span id="mw-reference-text-cite_note-3" class="mw-reference-text">
+            <figure-inline
+              typeof="mw:Transclusion mw:Image"
+              about="#mwt59"
+              data-mw='{"parts":[{"template":{"target":{"wt":"Mojmir1930","href":"./Szablon:Mojmir1930"},"params":{"część":{"wt":"A-R"},"strony":{"wt":"194"}},"i":0}}]}'
+              id="mweQ"
+            >
+              <a href="./w:Otwarty_dostęp" id="mweg">
+                <img
+                  resource="./Plik:Open_Access_logo_PLoS_transparent.svg"
+                  src="//upload.wikimedia.org/wikipedia/commons/thumb/7/77/Open_Access_logo_PLoS_transparent.svg/8px-Open_Access_logo_PLoS_transparent.svg.png"
+                  data-file-width="640"
+                  data-file-height="1000"
+                  data-file-type="drawing"
+                  height="13"
+                  width="8"
+                  srcset="
+                    //upload.wikimedia.org/wikipedia/commons/thumb/7/77/Open_Access_logo_PLoS_transparent.svg/12px-Open_Access_logo_PLoS_transparent.svg.png 1.5x,
+                    //upload.wikimedia.org/wikipedia/commons/thumb/7/77/Open_Access_logo_PLoS_transparent.svg/16px-Open_Access_logo_PLoS_transparent.svg.png 2x
+                  "
+                  id="mwew"
+                />
+              </a>
+            </figure-inline>
+            <span typeof="mw:Entity" about="#mwt59" id="mwfA">&nbsp;</span><span about="#mwt59" id="mwfQ">Hermann Mojmir, </span><span typeof="mw:Nowiki" about="#mwt59" id="mwfg"></span>
+            <a rel="mw:ExtLink" href="https://polona.pl/item/worterbuch-der-deutschen-mundart-von-wilamowice-t-1-a-r,OTgwODIwNDk/2/#info:metadata" about="#mwt59" class="external text" id="mwfw">
+              <i id="mwgA">Wörterbuch der deutschen Mundart von Wilamowice</i>
+            </a>
+            <span about="#mwt59" id="mwgQ">, </span><span style="white-space: nowrap;" about="#mwt59" id="mwgg">cz. A-R</span><span about="#mwt59" id="mwgw">, Polska Akademja Umiejętności,</span>
+            <span typeof="mw:Entity" about="#mwt59" id="mwhA"> </span><span about="#mwt59" id="mwhQ">Kraków</span><span typeof="mw:Entity" about="#mwt59" id="mwhg"> </span><span about="#mwt59" id="mwhw">1930‒1936, </span>
+            <span style="white-space: nowrap;" about="#mwt59" id="mwiA">s. 194</span><span about="#mwt59" id="mwiQ">.</span>
+          </span>
+        </li>
+      </ol>
+    </div>
+  </section>
+</div>
+    HTML
+
+    assert_includes actual.other_translations.keys, 'język indonezyjski'
+    assert_includes actual.other_translations.keys, 'język wilamowski'
+    assert_includes actual.other_translations['język indonezyjski'], 'spragniony'
+    assert_includes actual.other_translations['język wilamowski'], 'dom, sień'
   end
 end

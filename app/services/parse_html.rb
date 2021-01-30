@@ -120,18 +120,26 @@ class ParseHtml
     }
   end
 
-#.xpath('//*[text() = "język szwedzki"]/../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*//dd')
   def other_translations(doc)
     doc
-      .xpath('//*[text() = "język szwedzki"]/../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*')
-      .take_while { |x| x.node_name != 'span' }
-      .map do |x|
-        x.xpath('.//dd')
+      .xpath('//*[contains(text(), "język ")]')
+      .reduce({}) do |acc, language|
+        xs = language
+          .xpath('./../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*')
+          .take_while { |x| x.node_name != 'span' }
+          .flat_map do |x|
+            x.xpath('.//dd')
+          end
+          .map do |xs|
+            xs
+              .text
+              .gsub(/\s*\(\d\.\d\)\s*/, "")
+              .gsub(/\s*\[\d\]\s*/, "")
+              .gsub(/\s+/, " ")
+              .strip
+          end
+          .reject(&:empty?)
+        acc.merge(language.text => xs)
       end
-      .flatten
-      .map { |x| x.xpath('./*[not(self::style) and not(self::sup)]') }
-      .map { |ys| ys.map(&:text) }
-      .map { |xs| xs.join(' ') }
-      .reject(&:empty?)
   end
 end

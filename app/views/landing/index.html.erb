@@ -211,11 +211,18 @@
   <% end %>
 
   <% if @view_model.parse_result.other_translations.present? %>
-    Translations:
-    <ul>
-      <% @view_model.parse_result.other_translations.each do |translation| %>
-        <li><%= translation %></li>
+    From other languages:
+      <ul>
+      <% @view_model.parse_result.other_translations.each do |language, translations| %>
+        <li>
+          <p><%= language %></p>
+          <ul>
+            <% translations.each do |translation| %>
+              <li><%= translation %></li>
+            <% end %>
+          </ul>
+        </li>
       <% end %>
-    </ul>
+      </ul>
   <% end %>
 <% end %>
