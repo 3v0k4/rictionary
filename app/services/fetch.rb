@@ -11,10 +11,9 @@ class Fetch
 
   def view_model(query, corrected, html)
     parsed = ParseHtml.new.call(html)
-    fallback = parsed.translations.any? ?
-      nil :
-      "https://pl.bab.la/slownik/polski-angielski/#{fallback(corrected)}"
-    ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed, fallback_link: fallback)
+    fallback = !parsed.translations.any? && fallback(corrected)
+    f = fallback && "https://pl.bab.la/slownik/polski-angielski/#{fallback}"
+    ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed, fallback_link: f)
   end
 
   def corrected(query)
