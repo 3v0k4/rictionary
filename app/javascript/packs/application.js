@@ -20,5 +20,6 @@ document.addEventListener("turbolinks:load", () => {
     Promise.resolve([]) :
     fetch(`/suggestions?query=${encodeURIComponent(input)}`).then(x => x.json())
   const onSubmit = () => document.getElementsByTagName('form')[0].submit()
-  new Autocomplete('#autocomplete', { search, onSubmit })
+  const debounceTime = 300
+  new Autocomplete('#autocomplete', { search, onSubmit, debounceTime })
 })
