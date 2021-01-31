@@ -2257,4 +2257,148 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_includes actual.other_translations['język indonezyjski'], 'spragniony'
     assert_includes actual.other_translations['język wilamowski'], 'dom, sień'
   end
+
+  test 'it skips Polish as other_translations' do
+    actual = ParseHtml.new.call(<<-HTML)
+<div>
+  <div>
+    <div>
+      <span>język polski</span>
+    </div>
+  </div>
+  <section data-mw-section-id="1" id="mwAw">
+    <dl about="#mwt12">
+      <dt>
+        <span class="field field-title fld-znaczenia field-pl" data-field="znaczenia" data-section-links="pl">znaczenia<span typeof="mw:Entity">:</span></span>
+      </dt>
+      <dd></dd>
+    </dl>
+    <p id="mwEw"><i id="mwFA">rzeczownik, rodzaj męskorzeczowy</i></p>
+    <dl id="mwFQ">
+      <dd id="mwFg">
+        (1.1)
+        <style data-mw-deduplicate="TemplateStyles:r6240524" typeof="mw:Extension/templatestyles mw:Transclusion" about="#mwt13" data-mw='{"parts":[{"template":{"target":{"wt":"hand","href":"./Szablon:hand"},"params":{},"i":0}}]}' id="mwFw">
+          .mw-parser-output .short-container {
+            font-style: italic;
+            text-decoration: none;
+          }
+          .mw-parser-output .short-no-style {
+            font-style: normal;
+          }
+          .mw-parser-output .short-container a:hover {
+            color: #002bb8;
+            text-decoration: underline;
+          }
+          .mw-parser-output .short-container a,
+          .mw-parser-output .short-container a:visited {
+            color: black;
+          }
+          .mw-parser-output .short-variant1 a,
+          .mw-parser-output .short-variant1 a:visited {
+            color: #002bb8;
+          }
+          .mw-parser-output .short-variant2 a,
+          .mw-parser-output .short-variant2 a:visited {
+            color: red;
+          }
+          .mw-parser-output .short-variant3 a,
+          .mw-parser-output .short-variant3 a:visited {
+            color: green;
+          }
+        </style>
+        <span class="short-container" about="#mwt13" id="mwGA">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#H" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="handel, handlowy" data-expanded="handel, handlowy"><span class="short-content">hand.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./pomieszczenie" title="pomieszczenie" id="mwGQ">pomieszczenie</a> <a rel="mw:WikiLink" href="./z" title="z" id="mwGg">z</a> <a rel="mw:WikiLink" href="./wejście" title="wejście" id="mwGw">wejściem</a>
+        <a rel="mw:WikiLink" href="./od" title="od" id="mwHA">od</a> <a rel="mw:WikiLink" href="./ulica" title="ulica" id="mwHQ">ulicy</a>, <a rel="mw:WikiLink" href="./gdzie" title="gdzie" id="mwHg">gdzie</a>
+        <a rel="mw:WikiLink" href="./sprzedawać" title="sprzedawać" id="mwHw">sprzedaje</a> <a rel="mw:WikiLink" href="./się" title="się" id="mwIA">się</a> <a rel="mw:WikiLink" href="./towar" title="towar" id="mwIQ">towary</a>
+      </dd>
+      <dd id="mwIg">
+        (1.2)
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt19"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"daw","href":"./Szablon:daw"},"params":{},"i":0}}]}'
+          id="mwIw"
+        />
+        <span class="short-container" about="#mwt19" id="mwJA">
+          <a rel="mw:WikiLink" href="./Wikisłownik:Użycie_szablonów_daw,_hist,_przest,_stpol" title="Wikisłownik:Użycie szablonów daw, hist, przest, stpol">
+            <span class="short-wrapper" title="dawniej, dawny" data-expanded="dawniej, dawny"><span class="short-content">daw.</span></span>
+          </a>
+        </span>
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt22"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"gw-pl","href":"./Szablon:gw-pl"},"params":{"1":{"wt":"Poznań"}},"i":0}}]}'
+          id="mwJQ"
+        />
+        <span class="short-container" about="#mwt22">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#G" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="gwara, gwarowe" data-expanded="gwara, gwarowe"><span class="short-content">gw.</span></span>
+          </a>
+        </span>
+        <span about="#mwt22"> </span>
+        <i about="#mwt22">(<a rel="mw:WikiLink" href="./Kategoria:Dialektyzmy_polskie_-_Poznań" title="Kategoria:Dialektyzmy polskie - Poznań">Poznań</a><link rel="mw:PageProp/Category" href="./Kategoria:Dialektyzmy_polskie_-_Poznań" />)</i>
+        <link rel="mw:PageProp/Category" href="./Kategoria:Dialektyzmy_polskie" about="#mwt22" id="mwJg" />
+        <sup about="#mwt29" class="mw-ref reference" id="cite_ref-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-1"}}'>
+          <a href="./sklep#cite_note-1" style="counter-reset: mw-Ref 1;" id="mwJw"><span class="mw-reflink-text" id="mwKA">[1]</span></a>
+        </sup>
+        ,
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt25"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"gw-pl","href":"./Szablon:gw-pl"},"params":{"1":{"wt":"Górny Śląsk, Mazury"}},"i":0}}]}'
+          id="mwKQ"
+        />
+        <span class="short-container" about="#mwt25">
+          <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#G" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+            <span class="short-wrapper" title="gwara, gwarowe" data-expanded="gwara, gwarowe"><span class="short-content">gw.</span></span>
+          </a>
+        </span>
+        <span about="#mwt25"> </span>
+        <i about="#mwt25">
+          (<a rel="mw:WikiLink" href="./Kategoria:Dialektyzmy_polskie_-_Mazury" title="Kategoria:Dialektyzmy polskie - Mazury">Mazury</a><link rel="mw:PageProp/Category" href="./Kategoria:Dialektyzmy_polskie_-_Mazury" /> i
+          <a rel="mw:WikiLink" href="./Kategoria:Dialektyzmy_polskie_-_Górny_Śląsk" title="Kategoria:Dialektyzmy polskie - Górny Śląsk">Górny Śląsk</a><link rel="mw:PageProp/Category" href="./Kategoria:Dialektyzmy_polskie_-_Górny_Śląsk" />)
+        </i>
+        <link rel="mw:PageProp/Category" href="./Kategoria:Dialektyzmy_polskie" about="#mwt25" id="mwKg" />
+        <sup about="#mwt32" class="mw-ref reference" id="cite_ref-slask_2-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"slask"},"body":{"id":"mw-reference-text-cite_note-slask-2"}}'>
+          <a href="./sklep#cite_note-slask-2" style="counter-reset: mw-Ref 2;" id="mwKw"><span class="mw-reflink-text" id="mwLA">[2]</span></a>
+        </sup>
+        <sup about="#mwt33" class="mw-ref reference" id="cite_ref-3" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-3"}}'>
+          <a href="./sklep#cite_note-3" style="counter-reset: mw-Ref 3;" id="mwLQ"><span class="mw-reflink-text" id="mwLg">[3]</span></a>
+        </sup>
+        <a rel="mw:WikiLink" href="./piwnica" title="piwnica" id="mwLw">piwnica</a>
+      </dd>
+      <dd id="mwMA">
+        (1.3)
+        <link
+          rel="mw-deduplicated-inline-style"
+          href="mw-data:TemplateStyles:r6240524"
+          about="#mwt34"
+          typeof="mw:Extension/templatestyles mw:Transclusion"
+          data-mw='{"parts":[{"template":{"target":{"wt":"daw","href":"./Szablon:daw"},"params":{},"i":0}}]}'
+          id="mwMQ"
+        />
+        <span class="short-container" about="#mwt34" id="mwMg">
+          <a rel="mw:WikiLink" href="./Wikisłownik:Użycie_szablonów_daw,_hist,_przest,_stpol" title="Wikisłownik:Użycie szablonów daw, hist, przest, stpol">
+            <span class="short-wrapper" title="dawniej, dawny" data-expanded="dawniej, dawny"><span class="short-content">daw.</span></span>
+          </a>
+        </span>
+        <a rel="mw:WikiLink" href="./sufit" title="sufit" id="mwMw">sufit</a>
+      </dd>
+    </dl>
+  </section>
+</div>
+    HTML
+
+    assert_equal 0, actual.other_translations.size
+  end
 end

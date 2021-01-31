@@ -123,6 +123,7 @@ class ParseHtml
   def other_translations(doc)
     doc
       .xpath('//*[contains(text(), "język ")]')
+      .reject { |x| x.text == "język polski" }
       .reduce({}) do |acc, language|
         xs = language
           .xpath('./../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*')
