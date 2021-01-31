@@ -2447,4 +2447,462 @@ class ParseHtmlTest < ActiveSupport::TestCase
 
     assert_equal 0, actual.other_translations.size
   end
+
+  test "it skips styles in other_translations" do
+    actual = ParseHtml.new.call(<<-HTML)
+<section data-mw-section-id="1" id="mwAg">
+  <h2 id="rosso_(język_włoski)">
+    <span id="rosso_.28j.C4.99zyk_w.C5.82oski.29" typeof="mw:FallbackId"></span>rosso (
+    <span class="lang-code primary-lang-code lang-code-it" id="it" about="#mwt2" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"język włoski","href":"./Szablon:język_włoski"},"params":{},"i":0}}]}'>
+      <a rel="mw:WikiLink" href="./Słownik_języka_włoskiego" title="Słownik języka włoskiego">język włoski</a>
+    </span>
+    <link rel="mw:PageProp/Category" href="./Kategoria:włoski_(indeks)" about="#mwt2" /><link rel="mw:PageProp/Category" href="./Kategoria:włoski_(indeks_a_tergo)#ossor" about="#mwt2" />
+    <link rel="mw:PageProp/Category" href="./Kategoria:Język_włoski_-_rzeczowniki" about="#mwt2" /><link rel="mw:PageProp/Category" href="./Kategoria:Język_włoski_-_rzeczowniki_rodzaju_męskiego" about="#mwt2" />
+    <link rel="mw:PageProp/Category" href="./Kategoria:Język_włoski_-_przymiotniki" about="#mwt2" id="mwAw" />)
+  </h2>
+  <div class="tright" about="#mwt3" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"kolor","href":"./Szablon:kolor"},"params":{"1":{"wt":"red"},"2":{"wt":"rosso (1.1, 2.1)"}},"i":0}}]}' id="mwBA">
+    <table>
+      <tbody>
+        <tr>
+          <td style="width: 225px; height: 50px; background-color: red; text-align: center; color: white;">rosso (1.1, 2.1)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <span
+    about="#mwt4"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"wymowa","href":"./Szablon:wymowa"},"params":{},"i":0}},"\n: ",{"template":{"target":{"wt":"IPA3","href":"./Szablon:IPA3"},"params":{"1":{"wt":"ˈros.so"}},"i":1}},", ",{"template":{"target":{"wt":"audio","href":"./Szablon:audio"},"params":{"1":{"wt":"It-rosso.ogg"}},"i":2}},"\n: ",{"template":{"target":{"wt":"audio","href":"./Szablon:audio"},"params":{"1":{"wt":"It-rosso.oga"}},"i":3}}]}'
+    id="mwBQ"
+  >
+  </span>
+  <dl about="#mwt4">
+    <dt>
+      <span class="field field-title fld-wymowa field-keep" data-field="wymowa" data-section-links="keep">wymowa<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd>
+      <a rel="mw:WikiLink" href="./Aneks:IPA" title="Aneks:IPA">IPA</a>:<span typeof="mw:Entity">&nbsp;</span>
+      <style data-mw-deduplicate="TemplateStyles:r6239616" typeof="mw:Extension/templatestyles" about="#mwt7" data-mw='{"name":"templatestyles","attrs":{"src":"ZapisIPA/styles.css"}}'>
+        .mw-parser-output .ipa {
+          white-space: nowrap;
+          font-family: "Charis SIL", "Doulos SIL", Junicode, "TITUS Cyberbit Basic", "DejaVu Sans", "DejaVu Sans Condensed", Gentium, GentiumAlt, LeedsUni, "Arial Unicode MS", "DejaVu Serif", "DejaVu Serif Condensed", SImPL, Thryomanes,
+            Code2000, "Hindsight Unicode";
+          font-size: 110%;
+        }
+      </style>
+      <span title="To jest wymowa w zapisie IPA; zobacz hasło IPA w Wikipedii" class="ipa">[ˈros.so]</span>,
+      <style data-mw-deduplicate="TemplateStyles:r7249982" typeof="mw:Extension/templatestyles" about="#mwt10" data-mw='{"name":"templatestyles","attrs":{"src":"audio/styles.css"}}'>
+        .mw-parser-output .audiolink a {
+          background: url("//upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/16px-Loudspeaker.svg.png") center left no-repeat !important;
+          padding-left: 20px !important;
+          padding-right: 0 !important;
+        }
+        .mw-parser-output .audioinfo {
+          font-family: monospace, "Courier";
+        }
+      </style>
+      <span class="audiolink">
+        <a rel="mw:MediaLink" href="//upload.wikimedia.org/wikipedia/commons/f/fd/It-rosso.ogg" resource="./Media:It-rosso.ogg" title="It-rosso.ogg"><span typeof="mw:Entity">​</span></a>
+      </span>
+      <span class="noprint">
+        <sup>
+          <a rel="mw:WikiLink/Interwiki" href="https://commons.wikimedia.org/wiki/Commons:Pomoc%20-%20multimedia" title="commons:Commons:Pomoc - multimedia">?</a>/
+          <a rel="mw:WikiLink" href="./Plik:It-rosso.ogg" title="Plik:It-rosso.ogg"><span class="audioinfo">i</span></a>
+        </sup>
+      </span>
+    </dd>
+    <dd>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r7249982" about="#mwt13" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"audio/styles.css"}}' />
+      <span class="audiolink">
+        <a rel="mw:MediaLink" href="//upload.wikimedia.org/wikipedia/commons/4/49/It-rosso.oga" resource="./Media:It-rosso.oga" title="It-rosso.oga"><span typeof="mw:Entity">​</span></a>
+      </span>
+      <span class="noprint">
+        <sup>
+          <a rel="mw:WikiLink/Interwiki" href="https://commons.wikimedia.org/wiki/Commons:Pomoc%20-%20multimedia" title="commons:Commons:Pomoc - multimedia">?</a>/
+          <a rel="mw:WikiLink" href="./Plik:It-rosso.oga" title="Plik:It-rosso.oga"><span class="audioinfo">i</span></a>
+        </sup>
+      </span>
+    </dd>
+  </dl>
+  <span about="#mwt14" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"znaczenia","href":"./Szablon:znaczenia"},"params":{},"i":0}}]}' id="mwBg"> </span>
+  <dl about="#mwt14">
+    <dt>
+      <span class="field field-title fld-znaczenia field-pl" data-field="znaczenia" data-section-links="pl">znaczenia<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <p id="mwBw"><i id="mwCA">rzeczownik, rodzaj męski</i></p>
+  <dl id="mwCQ">
+    <dd id="mwCg">
+      (1.1) <a rel="mw:WikiLink" href="./kolor" title="kolor" id="mwCw">kolor</a> <a rel="mw:WikiLink" href="./czerwony" title="czerwony" id="mwDA">czerwony</a>, <a rel="mw:WikiLink" href="./czerwień" title="czerwień" id="mwDQ">czerwień</a>
+    </dd>
+    <dd id="mwDg">(1.2) <a rel="mw:WikiLink" href="./rudzielec" title="rudzielec" id="mwDw">rudzielec</a>, <a rel="mw:WikiLink" href="./ryży" title="ryży" id="mwEA">ryży</a></dd>
+    <dd id="mwEQ">
+      (1.3)
+      <style
+        data-mw-deduplicate="TemplateStyles:r6240524"
+        typeof="mw:Extension/templatestyles mw:Transclusion"
+        about="#mwt15"
+        data-mw='{"parts":[{"template":{"target":{"wt":"polit","href":"./Szablon:polit"},"params":{},"i":0}}]}'
+        id="mwEg"
+      >
+        .mw-parser-output .short-container {
+          font-style: italic;
+          text-decoration: none;
+        }
+        .mw-parser-output .short-no-style {
+          font-style: normal;
+        }
+        .mw-parser-output .short-container a:hover {
+          color: #002bb8;
+          text-decoration: underline;
+        }
+        .mw-parser-output .short-container a,
+        .mw-parser-output .short-container a:visited {
+          color: black;
+        }
+        .mw-parser-output .short-variant1 a,
+        .mw-parser-output .short-variant1 a:visited {
+          color: #002bb8;
+        }
+        .mw-parser-output .short-variant2 a,
+        .mw-parser-output .short-variant2 a:visited {
+          color: red;
+        }
+        .mw-parser-output .short-variant3 a,
+        .mw-parser-output .short-variant3 a:visited {
+          color: green;
+        }
+      </style>
+      <span class="short-container" about="#mwt15" id="mwEw">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#P" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="politologia, polityka, politologiczny, polityczny" data-expanded="politologia, polityka, politologiczny, polityczny"><span class="short-content">polit.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./czerwony" title="czerwony" id="mwFA">czerwony</a>, <a rel="mw:WikiLink" href="./lewicowiec" title="lewicowiec" id="mwFQ">lewicowiec</a>
+    </dd>
+  </dl>
+  <p id="mwFg"><i id="mwFw">przymiotnik</i></p>
+  <dl id="mwGA">
+    <dd id="mwGQ">(2.1) <a rel="mw:WikiLink" href="./czerwony" title="czerwony" id="mwGg">czerwony</a></dd>
+  </dl>
+  <span
+    about="#mwt18"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"odmiana","function":"grammar"},"params":{},"i":0}},"\n: (1) ",{"template":{"target":{"wt":"lp","href":"./Szablon:lp"},"params":{},"i":1}}," rosso; ",{"template":{"target":{"wt":"lm","href":"./Szablon:lm"},"params":{},"i":2}}," rossi\n: (2) ",{"template":{"target":{"wt":"lp","href":"./Szablon:lp"},"params":{},"i":3}}," rosso ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":4}},", rossa ",{"template":{"target":{"wt":"ż","href":"./Szablon:ż"},"params":{},"i":5}},"; ",{"template":{"target":{"wt":"lm","href":"./Szablon:lm"},"params":{},"i":6}}," rossi ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":7}},", rosse ",{"template":{"target":{"wt":"ż","href":"./Szablon:ż"},"params":{},"i":8}}]}'
+    id="mwGw"
+  >
+  </span>
+  <dl about="#mwt18">
+    <dt>
+      <span class="field field-title fld-odmiana field-foreign" data-field="odmiana" data-section-links="foreign">
+        <a rel="mw:WikiLink" href="./Wikisłownik:Zasady_tworzenia_haseł/Odmiana" title="Wikisłownik:Zasady tworzenia haseł/Odmiana">odmiana</a><span typeof="mw:Entity">:</span>
+      </span>
+    </dt>
+    <dd></dd>
+    <dd>
+      (1) <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt22" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container short-variant1" about="#mwt23" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#L" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="liczba pojedyncza" data-expanded="liczba pojedyncza"><span class="short-content">lp</span></span>
+        </a>
+      </span>
+      rosso; <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt27" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container short-variant1" about="#mwt28" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#L" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="liczba mnoga" data-expanded="liczba mnoga"><span class="short-content">lm</span></span>
+        </a>
+      </span>
+      rossi
+    </dd>
+    <dd>
+      (2) <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt32" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container short-variant1" about="#mwt33" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#L" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="liczba pojedyncza" data-expanded="liczba pojedyncza"><span class="short-content">lp</span></span>
+        </a>
+      </span>
+      rosso <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt36" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+        </a>
+      </span>
+      , rossa <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt39" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#Ż" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj żeński" data-expanded="rodzaj żeński"><span class="short-content">ż</span></span>
+        </a>
+      </span>
+      ; <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt43" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container short-variant1" about="#mwt44" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#L" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="liczba mnoga" data-expanded="liczba mnoga"><span class="short-content">lm</span></span>
+        </a>
+      </span>
+      rossi <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt47" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+        </a>
+      </span>
+      , rosse <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt50" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#Ż" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj żeński" data-expanded="rodzaj żeński"><span class="short-content">ż</span></span>
+        </a>
+      </span>
+    </dd>
+  </dl>
+  <span
+    about="#mwt51"
+    typeof="mw:Transclusion"
+    data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;przykłady&quot;,&quot;href&quot;:&quot;./Szablon:przykłady&quot;},&quot;params&quot;:{},&quot;i&quot;:0}},&quot;\n: (2.1) ''[[rosso|Rosso]] [[come]] [[il]] [[sangue]].'' → '''[[czerwony|Czerwony]]''' [[jak]] [[krew]].\n: (2.1) ''[[avere|Avevo]] [[una]] [[bicicletta]] [[rosso|rossa]].'' → [[mieć|Miałem]] '''[[czerwony]]''' [[rower]].&quot;]}"
+    id="mwHA"
+  >
+  </span>
+  <dl about="#mwt51">
+    <dt>
+      <span class="field field-title fld-przyklady field-exampl" data-field="przyklady" data-section-links="exampl" style="display: block; clear: left;">przykłady<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd>
+      (2.1)
+      <i>
+        <a rel="mw:WikiLink" href="./rosso" title="rosso">Rosso</a> <a rel="mw:WikiLink" href="./come" title="come">come</a> <a rel="mw:WikiLink" href="./il" title="il">il</a> <a rel="mw:WikiLink" href="./sangue" title="sangue">sangue</a>.
+      </i>
+      → <b><a rel="mw:WikiLink" href="./czerwony" title="czerwony">Czerwony</a></b> <a rel="mw:WikiLink" href="./jak" title="jak">jak</a> <a rel="mw:WikiLink" href="./krew" title="krew">krew</a>.
+    </dd>
+    <dd>
+      (2.1)
+      <i>
+        <a rel="mw:WikiLink" href="./avere" title="avere">Avevo</a> <a rel="mw:WikiLink" href="./una" title="una">una</a> <a rel="mw:WikiLink" href="./bicicletta" title="bicicletta">bicicletta</a>
+        <a rel="mw:WikiLink" href="./rosso" title="rosso">rossa</a>.
+      </i>
+      → <a rel="mw:WikiLink" href="./mieć" title="mieć">Miałem</a> <b><a rel="mw:WikiLink" href="./czerwony" title="czerwony">czerwony</a></b> <a rel="mw:WikiLink" href="./rower" title="rower">rower</a>.
+    </dd>
+  </dl>
+  <span about="#mwt52" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"składnia","href":"./Szablon:składnia"},"params":{},"i":0}}]}' id="mwHQ"> </span>
+  <dl about="#mwt52">
+    <dt>
+      <span class="field field-title fld-skladnia field-foreign" data-field="skladnia" data-section-links="foreign">składnia<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span
+    about="#mwt53"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"kolokacje","href":"./Szablon:kolokacje"},"params":{},"i":0}},"\n: (2.1) &apos;&apos;[[capello|capelli]] rossi&apos;&apos; → [[rudy|rude]] [[włos]]y"]}'
+    id="mwHg"
+  >
+  </span>
+  <dl about="#mwt53">
+    <dt>
+      <span class="field field-title fld-kolokacje field-foreign" data-field="kolokacje" data-section-links="foreign">
+        <a rel="mw:WikiLink" href="./Wikisłownik:ZTH_kolokacje" title="Wikisłownik:ZTH kolokacje" class="mw-redirect">kolokacje</a><span typeof="mw:Entity">:</span>
+      </span>
+    </dt>
+    <dd></dd>
+    <dd>
+      (2.1) <i><a rel="mw:WikiLink" href="./capello" title="capello">capelli</a> rossi</i> → <a rel="mw:WikiLink" href="./rudy" title="rudy">rude</a> <a rel="mw:WikiLink" href="./włos" title="włos">włosy</a>
+    </dd>
+  </dl>
+  <span about="#mwt54" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"synonimy","href":"./Szablon:synonimy"},"params":{},"i":0}}]}' id="mwHw"> </span>
+  <dl about="#mwt54">
+    <dt>
+      <span class="field field-title fld-synonimy field-foreign" data-field="synonimy" data-section-links="foreign">synonimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt55" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"antonimy","href":"./Szablon:antonimy"},"params":{},"i":0}}]}' id="mwIA"> </span>
+  <dl about="#mwt55">
+    <dt>
+      <span class="field field-title fld-antonimy field-foreign" data-field="antonimy" data-section-links="foreign">antonimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt56" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"hiperonimy","href":"./Szablon:hiperonimy"},"params":{},"i":0}}]}' id="mwIQ"> </span>
+  <dl about="#mwt56">
+    <dt>
+      <span class="field field-title fld-hiperonimy field-foreign" data-field="hiperonimy" data-section-links="foreign">hiperonimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt57" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"hiponimy","href":"./Szablon:hiponimy"},"params":{},"i":0}}]}' id="mwIg"> </span>
+  <dl about="#mwt57">
+    <dt>
+      <span class="field field-title fld-hiponimy field-foreign" data-field="hiponimy" data-section-links="foreign">hiponimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt58" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"holonimy","href":"./Szablon:holonimy"},"params":{},"i":0}}]}' id="mwIw"> </span>
+  <dl about="#mwt58">
+    <dt>
+      <span class="field field-title fld-holonimy field-foreign" data-field="holonimy" data-section-links="foreign">holonimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt59" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"meronimy","href":"./Szablon:meronimy"},"params":{},"i":0}}]}' id="mwJA"> </span>
+  <dl about="#mwt59">
+    <dt>
+      <span class="field field-title fld-meronimy field-foreign" data-field="meronimy" data-section-links="foreign">meronimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span
+    about="#mwt60"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"pokrewne","href":"./Szablon:pokrewne"},"params":{},"i":0}},"\n: ",{"template":{"target":{"wt":"rzecz","href":"./Szablon:rzecz"},"params":{},"i":1}}," [[rossello]] ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":2}},", [[rossetto]] ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":3}},", [[rossezza]] ",{"template":{"target":{"wt":"ż","href":"./Szablon:ż"},"params":{},"i":4}},", [[rossiccio]] ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":5}},", [[rossola]] ",{"template":{"target":{"wt":"ż","href":"./Szablon:ż"},"params":{},"i":6}},", [[rossore]] ",{"template":{"target":{"wt":"m","href":"./Szablon:m"},"params":{},"i":7}},"\n: ",{"template":{"target":{"wt":"czas","href":"./Szablon:czas"},"params":{},"i":8}}," [[rosseggiare]]\n: ",{"template":{"target":{"wt":"przym","href":"./Szablon:przym"},"params":{},"i":9}}," [[rossastro]], [[rossiccio]], [[rossigno]], [[rossino]]"]}'
+    id="mwJQ"
+  >
+  </span>
+  <dl about="#mwt60">
+    <dt>
+      <span class="field field-title fld-pokrewne field-foreign" data-field="pokrewne" data-section-links="foreign">wyrazy pokrewne<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt63" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#R" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rzeczownik" data-expanded="rzeczownik"><span class="short-content">rzecz.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./rossello" title="rossello" class="new">rossello</a>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt66" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+        </a>
+      </span>
+      , <a rel="mw:WikiLink" href="./rossetto" title="rossetto">rossetto</a>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt69" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+        </a>
+      </span>
+      , <a rel="mw:WikiLink" href="./rossezza" title="rossezza" class="new">rossezza</a>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt72" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#Ż" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj żeński" data-expanded="rodzaj żeński"><span class="short-content">ż</span></span>
+        </a>
+      </span>
+      , <a rel="mw:WikiLink" href="./rossiccio" title="rossiccio">rossiccio</a>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt75" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+        </a>
+      </span>
+      , <a rel="mw:WikiLink" href="./rossola" title="rossola" class="new">rossola</a>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt78" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#Ż" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj żeński" data-expanded="rodzaj żeński"><span class="short-content">ż</span></span>
+        </a>
+      </span>
+      , <a rel="mw:WikiLink" href="./rossore" title="rossore">rossore</a>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt81" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#M" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj męski" data-expanded="rodzaj męski"><span class="short-content">m</span></span>
+        </a>
+      </span>
+    </dd>
+    <dd>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt84" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#C" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="czasownik" data-expanded="czasownik"><span class="short-content">czas.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./rosseggiare" title="rosseggiare" class="new">rosseggiare</a>
+    </dd>
+    <dd>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt87" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#P" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="przymiotnik" data-expanded="przymiotnik"><span class="short-content">przym.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./rossastro" title="rossastro">rossastro</a>, <a rel="mw:WikiLink" href="./rossiccio" title="rossiccio">rossiccio</a>, <a rel="mw:WikiLink" href="./rossigno" title="rossigno" class="new">rossigno</a>,
+      <a rel="mw:WikiLink" href="./rossino" title="rossino" class="new">rossino</a>
+    </dd>
+  </dl>
+  <span about="#mwt88" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"frazeologia","href":"./Szablon:frazeologia"},"params":{},"i":0}}]}' id="mwJg"> </span>
+  <dl about="#mwt88">
+    <dt>
+      <span class="field field-title fld-frazeologia field-foreign" data-field="frazeologia" data-section-links="foreign">związki frazeologiczne<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span
+    about="#mwt89"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"etymologia","href":"./Szablon:etymologia"},"params":{},"i":0}},"\n: ",{"template":{"target":{"wt":"etym2","href":"./Szablon:etym2"},"params":{"1":{"wt":"łac"},"2":{"wt":"russus"},"3":{"wt":"rŭssus"}},"i":1}},"<ref>{{Treccani}}</ref>"]}'
+    id="mwJw"
+  >
+  </span>
+  <dl about="#mwt89">
+    <dt>
+      <span class="field field-title fld-etymologia field-keep" data-field="etymologia" data-section-links="keep">etymologia<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt93" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Kategoria:Język_łaciński" title="Kategoria:Język łaciński">
+          <span class="short-wrapper" title="łacina" data-expanded="łacina"><span class="short-content">łac.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./russus#russus_(język_łaciński)" title="russus" class="new">rŭssus</a><link rel="mw:PageProp/Category" href="./Kategoria:Język_łaciński_w_etymologii" />
+      <sup about="#mwt95" class="mw-ref reference" id="cite_ref-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-1"}}'>
+        <a href="./rosso#cite_note-1" style="counter-reset: mw-Ref 1;" id="mwKA"><span class="mw-reflink-text" id="mwKQ">[1]</span></a>
+      </sup>
+    </dd>
+  </dl>
+  <span about="#mwt96" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"uwagi","href":"./Szablon:uwagi"},"params":{},"i":0}},"\n: (2.1) zobacz też: [[Indeks:Włoski - Kolory]]"]}' id="mwKg"> </span>
+  <dl about="#mwt96">
+    <dt>
+      <span class="field field-title fld-uwagi field-keep" data-field="uwagi" data-section-links="keep">uwagi<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd>(2.1) zobacz też: <a rel="mw:WikiLink" href="./Indeks:Włoski_-_Kolory" title="Indeks:Włoski - Kolory">Indeks:Włoski - Kolory</a></dd>
+  </dl>
+  <span about="#mwt97" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"źródła","href":"./Szablon:źródła"},"params":{},"i":0}}]}' id="mwKw"> </span>
+  <dl about="#mwt97">
+    <dt>
+      <span class="field field-title fld-zrodla field-keep" data-field="zrodla" data-section-links="keep" style="display: block; clear: left;">źródła<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <div class="mw-references-wrap" typeof="mw:Extension/references" about="#mwt99" data-mw='{"name":"references","attrs":{}}' id="mwLA">
+    <ol class="mw-references references" id="mwLQ">
+      <li about="#cite_note-1" id="cite_note-1">
+        <a href="./rosso#cite_ref-1" rel="mw:referencedBy" id="mwLg"><span class="mw-linkback-text" id="mwLw">↑ </span></a>
+        <span id="mw-reference-text-cite_note-1" class="mw-reference-text">
+          <a
+            rel="mw:ExtLink"
+            href="http://www.treccani.it/vocabolario/"
+            about="#mwt94"
+            typeof="mw:Transclusion"
+            class="external text"
+            data-mw='{"parts":[{"template":{"target":{"wt":"Treccani","href":"./Szablon:Treccani"},"params":{},"i":0}}]}'
+            id="mwMA"
+          >
+            treccani.it
+          </a>
+          <span about="#mwt94" id="mwMQ">.</span>
+        </span>
+      </li>
+    </ol>
+  </div>
+</section>
+    HTML
+
+    assert_includes actual.other_translations['język włoski'], "polit.czerwony, lewicowiec"
+  end
 end

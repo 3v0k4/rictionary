@@ -133,10 +133,16 @@ class ParseHtml
           end
           .map do |xs|
             xs
-              .text
-              .gsub(/\s*\(\d\.\d\)\s*/, "")
-              .gsub(/\s*\[\d\]\s*/, "")
-              .gsub(/\s+/, " ")
+              .xpath('.//text()')
+              .reject { |x| x.class == Nokogiri::XML::CDATA }
+              .map(&:text)
+              .reject { |str| /\s*\(\d\.\d\)\s*/.match?(str) }
+              .reject { |str| /\s*\[\d\]\s*/.match?(str) }
+              .map { |str| str.gsub(/\s+/, " ") }
+              .map(&:chomp)
+              .reject(&:empty?)
+              .uniq
+              .join('')
               .strip
           end
           .reject(&:empty?)
