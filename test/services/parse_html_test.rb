@@ -2401,4 +2401,50 @@ class ParseHtmlTest < ActiveSupport::TestCase
 
     assert_equal 0, actual.other_translations.size
   end
+
+  test "it skips Polish sign language in other_translations" do
+    actual = ParseHtml.new.call(<<-HTML)
+<div>
+  <div>
+    <div>
+      <span>język polski</span>
+    </div>
+  </div>
+  <section data-mw-section-id="1" id="mwAw">
+    <li id="mwARI">
+      polski język migowy:
+      <div
+        class="NavFrame collapse-sign-language"
+        style="display: inline;"
+        about="#mwt271"
+        typeof="mw:Transclusion"
+        data-mw='{"parts":[{"template":{"target":{"wt":"PJM-ukryj","href":"./Szablon:PJM-ukryj"},"params":{"1":{"wt":" (1.1) {{PJM|dziewczyna}} {{,}} {{PJM|dziewczyna 2}}"}},"i":0}}]}'
+        id="mwARM"
+      >
+        <i>(w zapisie <a rel="mw:WikiLink/Interwiki" href="https://pl.wikipedia.org/wiki/SignWriting" title="w:SignWriting">SignWriting</a>)</i>
+        <div class="NavHead" style="background: transparent; text-align: left; padding-right: 55px; display: inline;"></div>
+        <div class="NavContent" style="text-align: left; display: block;">
+          (1.1)
+          <span class="mw-default-size" typeof="mw:Image">
+            <a href="./Plik:SGN-PL_SW_dziewczyna.PNG">
+              <img resource="./Plik:SGN-PL_SW_dziewczyna.PNG" src="//upload.wikimedia.org/wikipedia/commons/6/6c/SGN-PL_SW_dziewczyna.PNG" data-file-width="66" data-file-height="45" data-file-type="bitmap" height="45" width="66" />
+            </a>
+          </span>
+          <link rel="mw:PageProp/Category" href="./Kategoria:polski_język_migowy_(indeks)" /> <span typeof="mw:Entity">&nbsp;</span><span style="font-size: xx-large;">,</span><span typeof="mw:Entity">&nbsp;</span>
+          <span typeof="mw:Entity">&nbsp;</span><span typeof="mw:Entity">&nbsp;</span><span typeof="mw:Entity">&nbsp;</span>
+          <span class="mw-default-size" typeof="mw:Image">
+            <a href="./Plik:SGN-PL_SW_dziewczyna_2.PNG">
+              <img resource="./Plik:SGN-PL_SW_dziewczyna_2.PNG" src="//upload.wikimedia.org/wikipedia/commons/e/e7/SGN-PL_SW_dziewczyna_2.PNG" data-file-width="62" data-file-height="47" data-file-type="bitmap" height="47" width="62" />
+            </a>
+          </span>
+          <link rel="mw:PageProp/Category" href="./Kategoria:polski_język_migowy_(indeks)" />
+        </div>
+      </div>
+    </li>
+  </section>
+</div>
+    HTML
+
+    assert_equal 0, actual.other_translations.size
+  end
 end
