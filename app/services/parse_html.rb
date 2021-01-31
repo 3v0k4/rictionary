@@ -30,8 +30,9 @@ class ParseHtml
 
   def translations(doc)
     doc
-      .xpath('//*[starts-with(normalize-space(text()), "angielski:")]')
-      .text
+      .xpath('//*[starts-with(normalize-space(text()), "angielski:")]//text()')
+      .reject { |x| x.class == Nokogiri::XML::CDATA }
+      .join
       .split(' ')
       .map(&:strip)
       .join(' ')

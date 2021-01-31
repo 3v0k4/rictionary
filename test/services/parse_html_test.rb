@@ -46,6 +46,74 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_includes actual.translations, 'pair of'
   end
 
+  test 'it skips styles' do
+    actual = ParseHtml.new.call(<<-HTML)
+<ul class="text-other lang-pl fldt-tlumaczenia">
+  <li class="text-other lang-pl fldt-tlumaczenia">
+    angielski: <span class="term-num text-en lang-pl fldt-tlumaczenia term-lookup">(1.1)</span> <a href="/wiki/ahead#en" title="ahead" class="text-en lang-pl fldt-tlumaczenia">ahead</a>,
+    <a href="/wiki/forward#en" title="forward" class="text-en lang-pl fldt-tlumaczenia">forward</a> /
+    <style data-mw-deduplicate="TemplateStyles:r7574220" class="text-en lang-pl fldt-tlumaczenia">
+      .mw-parser-output .short-container {
+        font-style: italic;
+        text-decoration: none;
+      }
+      .mw-parser-output .short-no-style {
+        font-style: normal;
+      }
+      .mw-parser-output .short-container a:hover {
+        color: #002bb8;
+        text-decoration: underline;
+      }
+      .mw-parser-output .short-container a,
+      .mw-parser-output .short-container a:visited {
+        color: black;
+      }
+      .mw-parser-output .short-variant1 a,
+      .mw-parser-output .short-variant1 a:visited {
+        color: #002bb8;
+      }
+      .mw-parser-output .short-variant2 a,
+      .mw-parser-output .short-variant2 a:visited {
+        color: red;
+      }
+      .mw-parser-output .short-variant3 a,
+      .mw-parser-output .short-variant3 a:visited {
+        color: green;
+      }
+    </style>
+    <span class="short-container text-en lang-pl fldt-tlumaczenia">
+      <a href="/wiki/Aneks:Skr%C3%B3ty_u%C5%BCywane_w_Wikis%C5%82owniku#A" class="mw-redirect text-en lang-pl fldt-tlumaczenia" title="Aneks:Skróty używane w Wikisłowniku">
+        <span class="short-wrapper text-en lang-pl fldt-tlumaczenia" title="amerykański angielski&nbsp;– angielskie „American English”" data-expanded="amerykański angielski">
+          <span class="short-content text-en lang-pl fldt-tlumaczenia">amer.</span>
+        </span>
+      </a>
+    </span>
+    <a href="/wiki/forwards#en" title="forwards" class="text-en lang-pl fldt-tlumaczenia">forwards</a>, <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r7574220" class="text-en lang-pl fldt-tlumaczenia" />
+    <span class="short-container text-en lang-pl fldt-tlumaczenia">
+      <a href="/wiki/Aneks:Skr%C3%B3ty_u%C5%BCywane_w_Wikis%C5%82owniku#S" class="mw-redirect text-en lang-pl fldt-tlumaczenia" title="Aneks:Skróty używane w Wikisłowniku">
+        <span class="short-wrapper text-en lang-pl fldt-tlumaczenia" title="skrót, skrótowiec, skrótowo" data-expanded="skrót, skrótowiec, skrótowo"><span class="short-content text-en lang-pl fldt-tlumaczenia">skr.</span></span>
+      </a>
+    </span>
+    <a href="/w/index.php?title=fwd&amp;action=edit&amp;redlink=1#en" class="new text-en lang-pl fldt-tlumaczenia" title="fwd (strona nie istnieje)">fwd</a>,
+    <a href="/wiki/forth#en" title="forth" class="text-en lang-pl fldt-tlumaczenia">forth</a>,
+    <a href="/w/index.php?title=frontward&amp;action=edit&amp;redlink=1#en" class="new text-en lang-pl fldt-tlumaczenia" title="frontward (strona nie istnieje)">frontward</a>,
+    <a href="/wiki/onward#en" title="onward" class="text-en lang-pl fldt-tlumaczenia">onward</a> / <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r7574220" class="text-en lang-pl fldt-tlumaczenia" />
+    <span class="short-container text-en lang-pl fldt-tlumaczenia">
+      <a href="/wiki/Aneks:Skr%C3%B3ty_u%C5%BCywane_w_Wikis%C5%82owniku#A" class="mw-redirect text-en lang-pl fldt-tlumaczenia" title="Aneks:Skróty używane w Wikisłowniku">
+        <span class="short-wrapper text-en lang-pl fldt-tlumaczenia" title="amerykański angielski&nbsp;– angielskie „American English”" data-expanded="amerykański angielski">
+          <span class="short-content text-en lang-pl fldt-tlumaczenia">amer.</span>
+        </span>
+      </a>
+    </span>
+    <a href="/wiki/onwards#en" title="onwards" class="text-en lang-pl fldt-tlumaczenia">onwards</a>; <span class="term-num text-en lang-pl fldt-tlumaczenia term-lookup">(2.1)</span>
+    <a href="/wiki/go_ahead#en" title="go ahead" class="text-en lang-pl fldt-tlumaczenia">go ahead</a>!
+  </li>
+</ul>
+    HTML
+
+    assert_includes actual.translations, 'ahead, forward / amer. forwards, skr. fwd, forth, frontward, onward / amer. onwards'
+  end
+
   test 'it parses examples' do
     actual = ParseHtml.new.call(<<-HTML)
 <div>
