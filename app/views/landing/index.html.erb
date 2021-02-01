@@ -6,9 +6,24 @@
   <%= form.submit "Search" %>
 <% end %>
 
-<h2><%= @view_model.corrected_query %></h2>
+<% if @view_model.class == NoQueryViewModel %>
+  <p>First time here?</p>
+
+  <ol>
+    <li>Search for a word in any language.</li>
+  </ol>
+
+  <p>Or try the following examples:</p>
+  <ul>
+    <li><a href="<%= root_path(query: 'sklep') %>">sklep</a></li>
+    <li><a href="<%= root_path(query: 'shop') %>">shop</a></li>
+    <li><a href="<%= root_path(query: 'negozio') %>">negozio</a></li>
+  </ul>
+<% end %>
 
 <% if @view_model.class == NotFoundViewModel %>
+  <h2><%= @view_model.corrected_query %></h2>
+
   <p>Not found.</p>
 
   <ul>
@@ -19,6 +34,8 @@
 <% end %>
 
 <% if @view_model.class == FallbackViewModel %>
+  <h2><%= @view_model.corrected_query %></h2>
+
   <p>Not found.</p>
 
   <p>
@@ -35,6 +52,8 @@
 <% end %>
 
 <% if @view_model.class == ViewModel %>
+  <h2><%= @view_model.corrected_query %></h2>
+
   <p>View on <a href="<%= @view_model.link %>" target="_blank" rel="noopener">Wiktionary</a>.</p>
 
   <% if @view_model.fallback_link.present? %>
