@@ -215,4 +215,13 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "miska"
     assert_text "toast"
   end
+
+  test "follows redirects" do
+    visit root_url
+
+    fill_in "query", with: "wahać się"
+    click_button "Search"
+
+    assert_text "hesitate"
+  end
 end

@@ -45,14 +45,22 @@ class Fetch
   end
 
   def html(query)
-    host = "pl.wiktionary.org"
-    path = "api/rest_v1/page/html/#{query}"
-    get_or("https://#{host}/#{path}", "")
+    uri_builder = ->(query) { "https://pl.wiktionary.org/api/rest_v1/page/html/#{query}" }
+    get_or_redirect(uri_builder, query, "")
   end
 
   def get_or(address, default)
-    uri = URI::Parser.new.escape(address)
-    Net::HTTP.get(URI(uri))
+    get_or_redirect(->(_) { address }, nil, default)
+  end
+
+  def get_or_redirect(uri_builder, query, default)
+    uri = URI(URI::Parser.new.escape(uri_builder.call(query)))
+    response = Net::HTTP.get_response(uri)
+    if response.code == "302"
+      new_query = URI::Parser.new.unescape(response["location"])
+      return get_or_redirect(uri_builder, new_query, default)
+    end
+    response.body
   rescue StandardError
     default
   end
