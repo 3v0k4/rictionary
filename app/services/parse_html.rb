@@ -16,7 +16,9 @@ class ParseHtml
 
   def categories(doc)
     doc
-      .xpath('//*[text() = "język polski"]/../../..//*[contains(text(), "znaczenia")]/../../following-sibling::p/i[contains(text(), "dokonany")]/..')
+      .xpath('//*[text() = "język polski"]/../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*')
+      .take_while { |x| x.node_name != "span" }
+      .flat_map { |x| x.xpath('//i[contains(text(), "dokonany")]/..') }
       .map do |d|
         d
           .xpath('*[not(self::style)]')

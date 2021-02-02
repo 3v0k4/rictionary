@@ -1821,6 +1821,308 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_includes actual.categories, 'czasownik zwrotny niedokonany malować się dk. brak'
   end
 
+  test 'it parses categories 2' do
+    actual = ParseHtml.new.call(<<-HTML)
+<section data-mw-section-id="1" id="mwAg">
+  <h2 id="wcisnąć_(język_polski)">
+    <span id="wcisn.C4.85.C4.87_.28j.C4.99zyk_polski.29" typeof="mw:FallbackId"></span>wcisnąć (
+    <span class="lang-code primary-lang-code lang-code-pl" id="pl" about="#mwt1" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"język polski","href":"./Szablon:język_polski"},"params":{},"i":0}}]}'>
+      <a rel="mw:WikiLink" href="./Słownik_języka_polskiego" title="Słownik języka polskiego">język polski</a>
+    </span>
+    <link rel="mw:PageProp/Category" href="./Kategoria:polski_(indeks)" about="#mwt1" /><link rel="mw:PageProp/Category" href="./Kategoria:polski_(indeks_a_tergo)#ćąnsicw" about="#mwt1" />
+    <link rel="mw:PageProp/Category" href="./Kategoria:Język_polski_-_czasowniki" about="#mwt1" /><link rel="mw:PageProp/Category" href="./Kategoria:Język_polski_-_czasowniki_przechodnie" about="#mwt1" id="mwAw" />)
+  </h2>
+  <span
+    about="#mwt2"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"wymowa","href":"./Szablon:wymowa"},"params":{},"i":0}}," ",{"template":{"target":{"wt":"IPA3","href":"./Szablon:IPA3"},"params":{"1":{"wt":"ˈfʲʨ̑isnɔ̃ɲʨ̑"}},"i":1}},", ",{"template":{"target":{"wt":"AS3","href":"./Szablon:AS3"},"params":{"1":{"wt":"fʹć&apos;&apos;&apos;i&apos;&apos;&apos;snõńć"}},"i":2}},", ",{"template":{"target":{"wt":"objaśnienie wymowy","href":"./Szablon:objaśnienie_wymowy"},"params":{"1":{"wt":"ZM"},"2":{"wt":"BDŹW"},"3":{"wt":"NAZAL"},"4":{"wt":"AS-Ą"}},"i":3}}]}'
+    id="mwBA"
+  >
+  </span>
+  <dl about="#mwt2">
+    <dt>
+      <span class="field field-title fld-wymowa field-keep" data-field="wymowa" data-section-links="keep">wymowa<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd>
+      <a rel="mw:WikiLink" href="./Aneks:IPA" title="Aneks:IPA">IPA</a>:<span typeof="mw:Entity">&nbsp;</span>
+      <style data-mw-deduplicate="TemplateStyles:r6239616" typeof="mw:Extension/templatestyles" about="#mwt5" data-mw='{"name":"templatestyles","attrs":{"src":"ZapisIPA/styles.css"}}'>
+        .mw-parser-output .ipa {
+          white-space: nowrap;
+          font-family: "Charis SIL", "Doulos SIL", Junicode, "TITUS Cyberbit Basic", "DejaVu Sans", "DejaVu Sans Condensed", Gentium, GentiumAlt, LeedsUni, "Arial Unicode MS", "DejaVu Serif", "DejaVu Serif Condensed", SImPL, Thryomanes,
+            Code2000, "Hindsight Unicode";
+          font-size: 110%;
+        }
+      </style>
+      <span title="To jest wymowa w zapisie IPA; zobacz hasło IPA w Wikipedii" class="ipa">[ˈfʲʨ̑isnɔ̃ɲʨ̑]</span>, <a rel="mw:WikiLink" href="./Aneks:AS" title="Aneks:AS" class="mw-redirect">AS</a>:<span typeof="mw:Entity">&nbsp;</span>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6239616" about="#mwt8" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"ZapisIPA/styles.css"}}' />
+      <span title="To jest wymowa w zapisie alfabetu slawistycznego; zobacz hasło Slawistyczny alfabet fonetyczny w Wikipedii" class="ipa">[fʹć<b>i</b>snõńć]</span>, zjawiska fonetyczne:
+      <style data-mw-deduplicate="TemplateStyles:r6240524" typeof="mw:Extension/templatestyles" about="#mwt18" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}'>
+        .mw-parser-output .short-container {
+          font-style: italic;
+          text-decoration: none;
+        }
+        .mw-parser-output .short-no-style {
+          font-style: normal;
+        }
+        .mw-parser-output .short-container a:hover {
+          color: #002bb8;
+          text-decoration: underline;
+        }
+        .mw-parser-output .short-container a,
+        .mw-parser-output .short-container a:visited {
+          color: black;
+        }
+        .mw-parser-output .short-variant1 a,
+        .mw-parser-output .short-variant1 a:visited {
+          color: #002bb8;
+        }
+        .mw-parser-output .short-variant2 a,
+        .mw-parser-output .short-variant2 a:visited {
+          color: red;
+        }
+        .mw-parser-output .short-variant3 a,
+        .mw-parser-output .short-variant3 a:visited {
+          color: green;
+        }
+      </style>
+      <span class="short-container short-variant1" about="#mwt22" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Język_polski_-_wymowa_-_zasady#Zmiękczenie" title="Aneks:Język polski - wymowa - zasady">
+          <span class="short-wrapper" title="zmiękczenie&nbsp;" data-expanded="zmiękczenie&nbsp;"><span class="short-content">zmięk.</span></span>
+        </a>
+      </span>
+      <link rel="mw:PageProp/Category" href="./Kategoria:Wymowa_polska_-_zmiękczenie" />•
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt19" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container short-variant1" about="#mwt23" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Język_polski_-_wymowa_-_zasady#Utrata_dźwięczności" title="Aneks:Język polski - wymowa - zasady">
+          <span class="short-wrapper" title="utrata dźwięczności&nbsp;&nbsp;– w wyniku bezdźwięczności innej spółgłoski w zbitce" data-expanded="utrata dźwięczności&nbsp;"><span class="short-content">utr. dźw.</span></span>
+        </a>
+      </span>
+      <link rel="mw:PageProp/Category" href="./Kategoria:Wymowa_polska_-_utrata_dźwięczności_w_wyniku_bezdźwięczności_innej_spółgłoski" />•
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt20" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container short-variant1" about="#mwt24" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Język_polski_-_wymowa_-_głoski#Nazalizacja_i_podwyższona_artykulacja" title="Aneks:Język polski - wymowa - głoski">
+          <span class="short-wrapper" title="nazalizacja&nbsp;" data-expanded="nazalizacja&nbsp;"><span class="short-content">nazal.</span></span>
+        </a>
+      </span>
+      <link rel="mw:PageProp/Category" href="./Kategoria:Wymowa_polska_-_nazalizacja" />•
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt21" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container short-variant1" about="#mwt25" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-variant1"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Język_polski_-_wymowa_-_zasady#Wymowa_samogłosek_nosowych" title="Aneks:Język polski - wymowa - zasady">
+          <span class="short-wrapper" title="asynchroniczna wymowa ą&nbsp;" data-expanded="asynchroniczna wymowa ą&nbsp;">
+            <span class="short-content">asynch. ą<span typeof="mw:Entity">&nbsp;</span></span>
+          </span>
+        </a>
+      </span>
+      <link rel="mw:PageProp/Category" href="./Kategoria:Wymowa_polska_-_asynchroniczna_wymowa_ą" />
+    </dd>
+  </dl>
+  <span about="#mwt26" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"znaczenia","href":"./Szablon:znaczenia"},"params":{},"i":0}}]}' id="mwBQ"> </span>
+  <dl about="#mwt26">
+    <dt>
+      <span class="field field-title fld-znaczenia field-pl" data-field="znaczenia" data-section-links="pl">znaczenia<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <p id="mwBg"><i id="mwBw">czasownik przechodni</i></p>
+  <dl id="mwCA">
+    <dd id="mwCQ">
+      (1.1) <i about="#mwt27" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"dokonany od","href":"./Szablon:dokonany_od"},"params":{"1":{"wt":"wciskać"}},"i":0}}]}' id="mwCg">aspekt dokonany od:</i>
+      <span about="#mwt27"> </span><span class="set-foreign" about="#mwt27"><a rel="mw:WikiLink" href="./wciskać" title="wciskać" class="new">wciskać</a></span>
+      <link rel="mw:PageProp/Category" href="./Kategoria:Zerwane_miękkie_przekierowania" about="#mwt27" id="mwCw" />
+    </dd>
+  </dl>
+  <span
+    about="#mwt28"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"odmiana","function":"grammar"},"params":{},"i":0}},"\n: (1.1) ",{"template":{"target":{"wt":"zob","href":"./Szablon:zob"},"params":{"1":{"wt":"[[wciskać]]"}},"i":1}}]}'
+    id="mwDA"
+  >
+  </span>
+  <dl about="#mwt28">
+    <dt>
+      <span class="field field-title fld-odmiana field-foreign" data-field="odmiana" data-section-links="foreign">
+        <a rel="mw:WikiLink" href="./Wikisłownik:Zasady_tworzenia_haseł/Odmiana" title="Wikisłownik:Zasady tworzenia haseł/Odmiana">odmiana</a><span typeof="mw:Entity">:</span>
+      </span>
+    </dt>
+    <dd></dd>
+    <dd>
+      (1.1) <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt32" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container short-no-comma-next" about="#mwt33" typeof="mw:ExpandedAttrs" data-mw='{"attribs":[[{"txt":"class"},{"html":"short-container<span typeof=\"mw:Nowiki\" data-parsoid=\"{}\"></span> short-no-comma-next"}]]}'>
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#Z" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="zobacz" data-expanded="zobacz"><span class="short-content">zob.</span></span>
+        </a>
+      </span>
+      <span class="set-foreign"><a rel="mw:WikiLink" href="./wciskać" title="wciskać" class="new">wciskać</a></span>
+    </dd>
+  </dl>
+  <span about="#mwt34" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"przykłady","href":"./Szablon:przykłady"},"params":{},"i":0}}]}' id="mwDQ"> </span>
+  <dl about="#mwt34">
+    <dt>
+      <span class="field field-title fld-przyklady field-exampl" data-field="przyklady" data-section-links="exampl" style="display: block; clear: left;">przykłady<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt35" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"składnia","href":"./Szablon:składnia"},"params":{},"i":0}}]}' id="mwDg"> </span>
+  <dl about="#mwt35">
+    <dt>
+      <span class="field field-title fld-skladnia field-foreign" data-field="skladnia" data-section-links="foreign">składnia<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt36" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"kolokacje","href":"./Szablon:kolokacje"},"params":{},"i":0}}]}' id="mwDw"> </span>
+  <dl about="#mwt36">
+    <dt>
+      <span class="field field-title fld-kolokacje field-foreign" data-field="kolokacje" data-section-links="foreign">
+        <a rel="mw:WikiLink" href="./Wikisłownik:ZTH_kolokacje" title="Wikisłownik:ZTH kolokacje" class="mw-redirect">kolokacje</a><span typeof="mw:Entity">:</span>
+      </span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span
+    about="#mwt37"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"synonimy","href":"./Szablon:synonimy"},"params":{},"i":0}},"\n: (1.1) ",{"template":{"target":{"wt":"gw-pl","href":"./Szablon:gw-pl"},"params":{"1":{"wt":"Śląsk Cieszyński"},"2":{"wt":"[[styrczyć]]"}},"i":1}}]}'
+    id="mwEA"
+  >
+  </span>
+  <dl about="#mwt37">
+    <dt>
+      <span class="field field-title fld-synonimy field-foreign" data-field="synonimy" data-section-links="foreign">synonimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd>
+      (1.1) <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt40" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#G" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="gwara, gwarowe" data-expanded="gwara, gwarowe"><span class="short-content">gw.</span></span>
+        </a>
+      </span>
+      <i>(<a rel="mw:WikiLink" href="./Kategoria:Dialektyzmy_polskie_-_Śląsk_Cieszyński" title="Kategoria:Dialektyzmy polskie - Śląsk Cieszyński">Śląsk Cieszyński</a>)</i> <a rel="mw:WikiLink" href="./styrczyć" title="styrczyć">styrczyć</a>
+    </dd>
+  </dl>
+  <span about="#mwt41" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"antonimy","href":"./Szablon:antonimy"},"params":{},"i":0}}]}' id="mwEQ"> </span>
+  <dl about="#mwt41">
+    <dt>
+      <span class="field field-title fld-antonimy field-foreign" data-field="antonimy" data-section-links="foreign">antonimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt42" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"hiperonimy","href":"./Szablon:hiperonimy"},"params":{},"i":0}}]}' id="mwEg"> </span>
+  <dl about="#mwt42">
+    <dt>
+      <span class="field field-title fld-hiperonimy field-foreign" data-field="hiperonimy" data-section-links="foreign">hiperonimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt43" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"hiponimy","href":"./Szablon:hiponimy"},"params":{},"i":0}}]}' id="mwEw"> </span>
+  <dl about="#mwt43">
+    <dt>
+      <span class="field field-title fld-hiponimy field-foreign" data-field="hiponimy" data-section-links="foreign">hiponimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt44" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"holonimy","href":"./Szablon:holonimy"},"params":{},"i":0}}]}' id="mwFA"> </span>
+  <dl about="#mwt44">
+    <dt>
+      <span class="field field-title fld-holonimy field-foreign" data-field="holonimy" data-section-links="foreign">holonimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt45" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"meronimy","href":"./Szablon:meronimy"},"params":{},"i":0}}]}' id="mwFQ"> </span>
+  <dl about="#mwt45">
+    <dt>
+      <span class="field field-title fld-meronimy field-foreign" data-field="meronimy" data-section-links="foreign">meronimy<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span
+    about="#mwt46"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"pokrewne","href":"./Szablon:pokrewne"},"params":{},"i":0}},"\n: ",{"template":{"target":{"wt":"rzecz","href":"./Szablon:rzecz"},"params":{},"i":1}}," [[wciśnięcie]] ",{"template":{"target":{"wt":"n","href":"./Szablon:n"},"params":{},"i":2}},", [[wciskanie]] ",{"template":{"target":{"wt":"n","href":"./Szablon:n"},"params":{},"i":3}}]}'
+    id="mwFg"
+  >
+  </span>
+  <dl about="#mwt46">
+    <dt>
+      <span class="field field-title fld-pokrewne field-foreign" data-field="pokrewne" data-section-links="foreign">wyrazy pokrewne<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt49" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#R" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rzeczownik" data-expanded="rzeczownik"><span class="short-content">rzecz.</span></span>
+        </a>
+      </span>
+      <a rel="mw:WikiLink" href="./wciśnięcie" title="wciśnięcie" class="new">wciśnięcie</a>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt52" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#N" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj nijaki" data-expanded="rodzaj nijaki"><span class="short-content">n</span></span>
+        </a>
+      </span>
+      , <a rel="mw:WikiLink" href="./wciskanie" title="wciskanie" class="new">wciskanie</a>
+      <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r6240524" about="#mwt55" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"skrót/styles.css"}}' />
+      <span class="short-container">
+        <a rel="mw:WikiLink" href="./Aneks:Skróty_używane_w_Wikisłowniku#N" title="Aneks:Skróty używane w Wikisłowniku" class="mw-redirect">
+          <span class="short-wrapper" title="rodzaj nijaki" data-expanded="rodzaj nijaki"><span class="short-content">n</span></span>
+        </a>
+      </span>
+    </dd>
+  </dl>
+  <span about="#mwt56" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"frazeologia","href":"./Szablon:frazeologia"},"params":{},"i":0}},"\n: [[wcisnąć gaz do dechy]]"]}' id="mwFw"> </span>
+  <dl about="#mwt56">
+    <dt>
+      <span class="field field-title fld-frazeologia field-foreign" data-field="frazeologia" data-section-links="foreign">związki frazeologiczne<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd><a rel="mw:WikiLink" href="./wcisnąć_gaz_do_dechy" title="wcisnąć gaz do dechy">wcisnąć gaz do dechy</a></dd>
+  </dl>
+  <span about="#mwt57" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"etymologia","href":"./Szablon:etymologia"},"params":{},"i":0}}]}' id="mwGA"> </span>
+  <dl about="#mwt57">
+    <dt>
+      <span class="field field-title fld-etymologia field-keep" data-field="etymologia" data-section-links="keep">etymologia<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span about="#mwt58" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"uwagi","href":"./Szablon:uwagi"},"params":{},"i":0}}]}' id="mwGQ"> </span>
+  <dl about="#mwt58">
+    <dt>
+      <span class="field field-title fld-uwagi field-keep" data-field="uwagi" data-section-links="keep">uwagi<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+  <span
+    about="#mwt59"
+    typeof="mw:Transclusion"
+    data-mw='{"parts":[{"template":{"target":{"wt":"tłumaczenia","href":"./Szablon:tłumaczenia"},"params":{},"i":0}},"\n: (1.1) ",{"template":{"target":{"wt":"zobtłum aspekt","href":"./Szablon:zobtłum_aspekt"},"params":{"1":{"wt":"wciskać"}},"i":1}}]}'
+    id="mwGg"
+  >
+  </span>
+  <dl about="#mwt59">
+    <dt>
+      <span id="transl" class="field field-title fld-tlumaczenia field-transl" data-field="tlumaczenia" data-section-links="transl">tłumaczenia<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+    <dd>
+      (1.1) <i>dla języków nierozróżniających aspektów</i> <i>zobacz listę tłumaczeń w haśle:</i>
+      <span style="font-weight: bold;"><a rel="mw:WikiLink" href="./wciskać#wciskać_(język_polski)" title="wciskać" class="new">wciskać</a><link rel="mw:PageProp/Category" href="./Kategoria:Zerwane_miękkie_przekierowania" /></span>
+    </dd>
+  </dl>
+  <span about="#mwt61" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"źródła","href":"./Szablon:źródła"},"params":{},"i":0}}]}' id="mwGw"> </span>
+  <dl about="#mwt61">
+    <dt>
+      <span class="field field-title fld-zrodla field-keep" data-field="zrodla" data-section-links="keep" style="display: block; clear: left;">źródła<span typeof="mw:Entity">:</span></span>
+    </dt>
+    <dd></dd>
+  </dl>
+</section>
+    HTML
+
+    assert_equal 1, actual.categories.size
+    assert_includes actual.categories, 'aspekt dokonany od: wciskać'
+  end
+
   test 'it parses translations from Swedish' do
     actual = ParseHtml.new.call(<<-HTML)
 <div>
