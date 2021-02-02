@@ -1,6 +1,7 @@
 <%= form_with url: root_path, method: :get do |form| %>
   <div id="autocomplete" class="autocomplete">
-    <%= form.text_field :query, placeholder: "e.g., sklep", value: @view_model.corrected_query, class: "autocomplete-input" %>
+    <%= form.text_field :query, placeholder: "e.g., sklep", value: @view_model.corrected_query, class: "autocomplete-input", id: "query" %>
+    <button type="button" onclick="document.getElementById('query').value = ''; document.getElementById('query').focus();">X</button>
     <ul class="autocomplete-result-list"></ul>
   </div>
   <%= select_tag(:language, options_for_select(Language.options, Language.default)) %>
