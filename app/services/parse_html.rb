@@ -108,18 +108,18 @@ class ParseHtml
     return nil if base.xpath('.//*[text() = "bezokolicznik"]/../../td').empty?
 
     {
-      infinitive: base.xpath('.//*[text() = "bezokolicznik"]/../../td').text.strip,
-      present: base.xpath('.//*[text() = "czas teraźniejszy"]/../../td').map(&:text),
-      future: base.xpath('.//*[text() = "czas przyszły prosty"]/../../td').map(&:text),
+      infinitive: base.xpath('.//*[text() = "bezokolicznik"]/../../td').text.strip.gsub(/\s+/, " "),
+      present: base.xpath('.//*[text() = "czas teraźniejszy"]/../../td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
+      future: base.xpath('.//*[text() = "czas przyszły prosty"]/../../td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
       past: {
-        masculine: base.xpath('.//*[text() = "czas przeszły"]/../../td').map(&:text),
-        feminine: base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text),
+        masculine: base.xpath('.//*[text() = "czas przeszły"]/../../td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
+        feminine: base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
         neuter:
           ['', ''] +
-          base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text) +
-          base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text),
+          base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") } +
+          base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
       },
-      imperative: base.xpath('.//*[text() = "tryb rozkazujący"]/../../td').map(&:text),
+      imperative: base.xpath('.//*[text() = "tryb rozkazujący"]/../../td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
     }
   end
 
