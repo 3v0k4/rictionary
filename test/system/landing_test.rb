@@ -166,7 +166,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "query", with: "podkrecic"
     click_button "Search"
 
-    assert_link "podkręcić"
+    assert_link "bab.la"
   end
 
   test "link to wiktionary" do
@@ -202,7 +202,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "query", with: "na dół"
     click_button "Search"
 
-    assert_link "na dół"
+    assert_link "bab.la"
   end
 
   test "skål in Swedish" do

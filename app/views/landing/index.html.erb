@@ -42,42 +42,47 @@
   <% end %>
 
   <% if @view_model.class == FallbackViewModel %>
-    <h2><%= @view_model.corrected_query %></h2>
-
-    <p>Not found.</p>
-
-    <p>
-      Try
-      <a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener"><%= @view_model.corrected_query %></a>
-      on bab.la (↵).
-    </p>
+    <h2>
+      <%= @view_model.corrected_query %>
+      (<a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener">bab.la</a> ↵)
+    </h2>
 
     <button
       onclick="document.getElementById('babla').click();"
       autofocus
       style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
     >Open <%= @view_model.corrected_query %> in bab.la.</a>
+    </button>
+
+    <p>Not found.</p>
   <% end %>
 
   <% if @view_model.class == ViewModel %>
-    <h2><%= @view_model.corrected_query %></h2>
+    <h2>
+      <%= @view_model.corrected_query %>
+      <% if @view_model.fallback_link.present? %>
+        (<a
+           href="<%= @view_model.link %>"
+           target="_blank"
+           rel="noopener"
+         >Wiktionary</a>,
+         <a
+           id="babla"
+           href="<%= @view_model.fallback_link %>"
+           target="_blank"
+           rel="noopener"
+          >bab.la</a> ↵)
 
-    <p>View on <a href="<%= @view_model.link %>" target="_blank" rel="noopener">Wiktionary</a>.</p>
-
-    <% if @view_model.fallback_link.present? %>
-      <p>
-        View on
-        <a id="babla" href="<%= @view_model.fallback_link %>" target="_blank" rel="noopener">bab.la</a>
-        (↵).
-      </p>
-
-      <button
-        onclick="document.getElementById('babla').click();"
-        autofocus
-        style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
-      >Open <%= @view_model.corrected_query %> in bab.la.</a>
-      </button>
-    <% end %>
+        <button
+          onclick="document.getElementById('babla').click();"
+          autofocus
+          style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
+        >Open <%= @view_model.corrected_query %> in bab.la.</a>
+        </button>
+      <% else %>
+        (<a href="<%= @view_model.link %>" target="_blank" rel="noopener">Wiktionary</a>)
+      <% end %>
+    </h2>
 
     <% if @view_model.parse_result.categories.present? %>
       Categories:
