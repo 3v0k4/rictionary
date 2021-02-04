@@ -95,12 +95,12 @@ class ParseHtml
     base
       .xpath('(//a[text() = "' + case_ + '"])[1]/../../td[' + number.to_s + ']')
       .children
-      .filter("//text()|//*[not(self::style)]")
+      .filter("//text()|//*[not(self::style) and not(self::sup)]")
       .map(&:text)
       .map(&:strip)
       .map(&:chomp)
       .reject(&:empty?)
-      .join("")
+      .join(" ")
   end
 
   def conjugation(doc)

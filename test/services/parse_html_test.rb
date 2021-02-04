@@ -159,6 +159,29 @@ class ParseHtmlTest < ActiveSupport::TestCase
     assert_equal expected, actual.declination
   end
 
+  test 'it parses the declination maintaining spaces' do
+    html = File.read('test/htmls/dziecko.html')
+
+    actual = ParseHtml.new.call(html)
+
+    expected = {
+      nominative_singular: 'dziecko',
+      nominative_plural: 'dzieci lub przest. reg. dziecka',
+      genitive_singular: 'dziecka',
+      genitive_plural: 'dzieci lub przest. reg. dziecek',
+      dative_singular: 'dziecku',
+      dative_plural: 'dzieciom lub przest. reg. dzieckom',
+      accusative_singular: 'dziecko',
+      accusative_plural: 'dzieci lub przest. reg. dziecka',
+      instrumental_singular: 'dzieckiem',
+      instrumental_plural: 'dziećmi lub przest. reg. dzieckami',
+      locative_singular: 'dziecku',
+      locative_plural: 'dzieciach lub przest. reg. dzieckach',
+      vocative_singular: 'dziecko',
+      vocative_plural: 'dzieci lub przest. reg. dziecka',
+    }
+    assert_equal expected, actual.declination
+  end
 
   test 'it parses the conjugation for verb niedokonany' do
     html = File.read('test/htmls/robić.html')
