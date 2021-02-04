@@ -49,7 +49,7 @@
     <p>
       Try
       <a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener"><%= @view_model.corrected_query %></a>
-      on bab.la (press enter if you want to open the link).
+      on bab.la (↵).
     </p>
 
     <button
@@ -65,7 +65,17 @@
     <p>View on <a href="<%= @view_model.link %>" target="_blank" rel="noopener">Wiktionary</a>.</p>
 
     <% if @view_model.fallback_link.present? %>
-      <p>View on <a href="<%= @view_model.fallback_link %>" target="_blank" rel="noopener">bab.la</a>.</p>
+      <p>
+        View on
+        <a id="babla" href="<%= @view_model.fallback_link %>" target="_blank" rel="noopener">bab.la</a>
+        (↵).
+      </p>
+
+      <button
+        onclick="document.getElementById('babla').click();"
+        autofocus
+        style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
+      >Open <%= @view_model.corrected_query %> in bab.la.</a>
     <% end %>
 
     <% if @view_model.parse_result.categories.present? %>
