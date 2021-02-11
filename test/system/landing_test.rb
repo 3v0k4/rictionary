@@ -7,7 +7,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_equal "", page.find("input[name='query']").value
 
     fill_in "query", with: "liść"
-    click_button "Search"
+    click_button "Go"
 
     assert_equal "liść", page.find("input[name='query']").value
 
@@ -38,7 +38,7 @@ class LandingTest < ApplicationSystemTestCase
 
     fill_in "query", with: ""
     fill_in "query", with: "ptak"
-    click_button "Search"
+    click_button "Go"
 
     assert_equal "ptak", page.find("input[name='query']").value
 
@@ -71,7 +71,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "lisc"
-    click_button "Search"
+    click_button "Go"
 
     assert_equal "liść", page.find("input[name='query']").value
     assert_text "liść"
@@ -81,7 +81,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "LIść"
-    click_button "Search"
+    click_button "Go"
 
     assert_equal "liść", page.find("input[name='query']").value
     assert_text "liść"
@@ -91,7 +91,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "glod"
-    click_button "Search"
+    click_button "Go"
 
     assert_equal "głód", page.find("input[name='query']").value
     assert_text "głód"
@@ -101,7 +101,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "robić"
-    click_button "Search"
+    click_button "Go"
 
     assert_equal "robić", page.find("input[name='query']").value
 
@@ -128,7 +128,7 @@ class LandingTest < ApplicationSystemTestCase
 
     fill_in "query", with: ""
     fill_in "query", with: "zrobić"
-    click_button "Search"
+    click_button "Go"
 
     assert_equal "zrobić", page.find("input[name='query']").value
 
@@ -153,7 +153,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_equal "", page.find("input[name='query']").value
 
     fill_in "query", with: "abc123"
-    click_button "Search"
+    click_button "Go"
 
     assert_text /not found/i
   end
@@ -164,7 +164,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_equal "", page.find("input[name='query']").value
 
     fill_in "query", with: "podkrecic"
-    click_button "Search"
+    click_button "Go"
 
     assert_link "bab.la"
   end
@@ -173,7 +173,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "lisc"
-    click_button "Search"
+    click_button "Go"
 
     assert_link "Wiktionary"
   end
@@ -182,7 +182,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "wyczesany"
-    click_button "Search"
+    click_button "Go"
 
     assert_link "bab.la"
   end
@@ -191,7 +191,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "do gory nogami"
-    click_button "Search"
+    click_button "Go"
 
     assert_text "upside down"
   end
@@ -200,7 +200,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "na dół"
-    click_button "Search"
+    click_button "Go"
 
     assert_link "bab.la"
   end
@@ -209,7 +209,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "skål"
-    click_button "Search"
+    click_button "Go"
 
     assert_text "na zdrowie (przed wzniesieniem toastu)"
     assert_text "miska"
@@ -220,7 +220,7 @@ class LandingTest < ApplicationSystemTestCase
     visit root_url
 
     fill_in "query", with: "wahać się"
-    click_button "Search"
+    click_button "Go"
 
     assert_text "hesitate"
   end

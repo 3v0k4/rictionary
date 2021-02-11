@@ -1,272 +1,304 @@
-<%= form_with url: root_path, method: :get do |form| %>
-  <div id="autocomplete" class="autocomplete">
-    <%= form.text_field :query, placeholder: "e.g., sklep", value: @view_model.corrected_query, class: "autocomplete-input", id: "query" %>
-    <button type="button" onclick="document.getElementById('query').value = ''; document.getElementById('query').focus();">X</button>
-    <ul class="autocomplete-result-list"></ul>
-  </div>
-  <%= select_tag(:language, options_for_select(Language.options, Language.default)) %>
-  <%= form.submit "Search" %>
-<% end %>
+<header>
+  <%= form_with url: root_path, method: :get do |form| %>
+    <div id="autocomplete" class="autocomplete">
+      <%= form.text_field :query, placeholder: "word in any lang", value: @view_model.corrected_query, class: "autocomplete-input", id: "query" %>
+      <button id="reset" type="button">X</button>
+      <ul class="autocomplete-result-list"></ul>
+    </div>
+    <%= select_tag(:language, options_for_select(Language.options, Language.default)) %>
+    <%= form.submit "Go" %>
+  <% end %>
+</header>
 
 <% if !["", "polish"].include?(@language) %>
-  <p>Language "<%= @language %>" is not yet implemented</p>
+  <main>
+    <p>Language "<%= @language %>" is not yet implemented.</p>
 
-  <p>Please, get in touch if you want me to implement it.</p>
+    <p>
+      Please,
+      <a href="https://odone.io" target="_blank" rel="noopener">get in touch</a>
+      if you want me to code it.
+    </p>
+  </main>
 <% else %>
   <% if @view_model.class == NoQueryViewModel %>
-    <p>First time here?</p>
+    <main>
+      <p>First time here?</p>
 
-    <ol>
-      <li>Select the target language.</li>
-      <li>Search for a word in any language.</li>
-    </ol>
+      <ol>
+        <li>Select the target language.</li>
+        <li>Search for a word in any language.</li>
+      </ol>
 
-    <p>Or try the following examples with Polish as a target:</p>
-    <ul>
-      <li><a href="<%= root_path(query: 'sklep') %>">sklep</a></li>
-      <li><a href="<%= root_path(query: 'shop') %>">shop</a></li>
-      <li><a href="<%= root_path(query: 'negozio') %>">negozio</a></li>
-    </ul>
+      <p>Or try the following examples with Polish as a target:</p>
+      <ul>
+        <li><a href="<%= root_path(query: 'sklep') %>">sklep</a></li>
+        <li><a href="<%= root_path(query: 'shop') %>">shop</a></li>
+        <li><a href="<%= root_path(query: 'negozio') %>">negozio</a></li>
+      </ul>
+    </main>
   <% end %>
 
   <% if @view_model.class == NotFoundViewModel %>
-    <h2><%= @view_model.corrected_query %></h2>
+    <main>
+      <h1><%= @view_model.corrected_query %></h1>
 
-    <p>Not found.</p>
+      <p>Not found.</p>
 
-    <ul>
-      <li>If you are looking for a verb, make sure the term is infinitive.</li>
-      <li>Otherwise, make sure the term is singular, masculine, and in nominative case.</li>
-      <li>Use a single word.</li>
-    </ul>
+      <ul>
+        <li>If you are looking for a verb, make sure the term is infinitive.</li>
+        <li>Otherwise, make sure the term is singular, masculine, and in nominative case.</li>
+        <li>Use a single word.</li>
+      </ul>
+    </main>
   <% end %>
 
   <% if @view_model.class == FallbackViewModel %>
-    <h2>
-      <%= @view_model.corrected_query %>
-      (<a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener">bab.la</a> ↵)
-    </h2>
+    <main>
+      <h1>
+        <%= @view_model.corrected_query %>
+        <span class="small">
+          (<a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener">bab.la</a> <kbd>↵</kbd>)
+        </span>
+      </h1>
 
-    <button
-      onclick="document.getElementById('babla').click();"
-      autofocus
-      style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
-    >Open <%= @view_model.corrected_query %> in bab.la.</a>
-    </button>
+      <button
+        onclick="document.getElementById('babla').click();"
+        autofocus
+        style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
+      >Open <%= @view_model.corrected_query %> in bab.la.</a>
+      </button>
 
-    <p>Not found.</p>
+      <p>Not found.</p>
+    </main>
   <% end %>
 
   <% if @view_model.class == ViewModel %>
-    <h2>
-      <%= @view_model.corrected_query %>
-      <% if @view_model.fallback_link.present? %>
-        (<a
-           href="<%= @view_model.link %>"
-           target="_blank"
-           rel="noopener"
-         >Wiktionary</a>,
-         <a
-           id="babla"
-           href="<%= @view_model.fallback_link %>"
-           target="_blank"
-           rel="noopener"
-          >bab.la</a> ↵)
+    <main>
+      <h1>
+        <%= @view_model.corrected_query %>
+        <% if @view_model.fallback_link.present? %>
+          <span class="small">
+            (<a
+               href="<%= @view_model.link %>"
+               target="_blank"
+               rel="noopener"
+             >Wiktionary</a>,
+             <a
+               id="babla"
+               href="<%= @view_model.fallback_link %>"
+               target="_blank"
+               rel="noopener"
+              >bab.la</a> <kbd>↵</kbd>)
+          </span>
 
-        <button
-          onclick="document.getElementById('babla').click();"
-          autofocus
-          style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
-        >Open <%= @view_model.corrected_query %> in bab.la.</a>
-        </button>
-      <% else %>
-        (<a href="<%= @view_model.link %>" target="_blank" rel="noopener">Wiktionary</a>)
+          <button
+            onclick="document.getElementById('babla').click();"
+            autofocus
+            style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
+          >Open <%= @view_model.corrected_query %> in bab.la.</a>
+          </button>
+        <% else %>
+          <span class="small">
+            (<a href="<%= @view_model.link %>" target="_blank" rel="noopener">Wiktionary</a>)
+          </span>
+        <% end %>
+      </h1>
+
+      <% if @view_model.parse_result.categories.present? %>
+        <section>
+          <ul>
+            <% @view_model.parse_result.categories.each do |category| %>
+              <li><%= category %></li>
+            <% end %>
+          </ul>
+        </section>
       <% end %>
-    </h2>
 
-    <% if @view_model.parse_result.categories.present? %>
-      Categories:
-      <ul>
-        <% @view_model.parse_result.categories.each do |category| %>
-          <li><%= category %></li>
-        <% end %>
-      </ul>
-    <% end %>
+      <% if @view_model.parse_result.translations.any? %>
+        <section class="section">
+          <h2>Translations</h2>
+          <ul>
+            <% @view_model.parse_result.translations.each do |translation| %>
+              <li><%= translation %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
 
-    <% if @view_model.parse_result.translations.any? %>
-      Translations:
-      <ul>
-        <% @view_model.parse_result.translations.each do |translation| %>
-          <li><%= translation %></li>
-        <% end %>
-      </ul>
-    <% end %>
+      <% if @view_model.parse_result.examples.any? %>
+        <section class="section">
+          <h2>Examples</h2>
+          <ul>
+            <% @view_model.parse_result.examples.each do |example| %>
+              <li><%= example %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
 
-    <% if @view_model.parse_result.examples.any? %>
-      Examples:
-      <ul>
-        <% @view_model.parse_result.examples.each do |example| %>
-          <li><%= example %></li>
-        <% end %>
-      </ul>
-    <% end %>
+      <% if @view_model.parse_result.images.any? %>
+        <section class="section">
+          <ul class="images">
+            <% @view_model.parse_result.images.each do |image| %>
+              <li class="image">
+                <figure>
+                  <img src="<%= image.fetch(:url) %>" alt="<%= image.fetch(:caption) %>"></img>
+                  <figcaption><%= image.fetch(:caption) %></figcaption>
+                </figure>
+              </li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
 
-    <% if @view_model.parse_result.images.any? %>
-      Images:
-      <ul>
-        <% @view_model.parse_result.images.each do |image| %>
-          <li>
-            <figure>
-              <img src="<%= image.fetch(:url) %>" alt="<%= image.fetch(:caption) %>"></img>
-              <figcaption><%= image.fetch(:caption) %></figcaption>
-            </figure>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
+      <% if @view_model.parse_result.declination.present? %>
+        <section class="section">
+          <table>
+            <tr>
+              <th>nominative</th>
+              <td><%= @view_model.parse_result.declination.fetch(:nominative_singular) %></td>
+              <td><%= @view_model.parse_result.declination.fetch(:nominative_plural) %></td>
+            </tr>
 
-    <% if @view_model.parse_result.declination.present? %>
-      Declination:
-      <table>
-        <tr>
-          <th>nominative</th>
-          <td><%= @view_model.parse_result.declination.fetch(:nominative_singular) %></td>
-          <td><%= @view_model.parse_result.declination.fetch(:nominative_plural) %></td>
-        </tr>
+            <tr>
+              <th>genitive</th>
+              <td><%= @view_model.parse_result.declination.fetch(:genitive_singular) %></td>
+              <td><%= @view_model.parse_result.declination.fetch(:genitive_plural) %></td>
+            </tr>
 
-        <tr>
-          <th>genitive</th>
-          <td><%= @view_model.parse_result.declination.fetch(:genitive_singular) %></td>
-          <td><%= @view_model.parse_result.declination.fetch(:genitive_plural) %></td>
-        </tr>
+            <tr>
+              <th>dative</th>
+              <td><%= @view_model.parse_result.declination.fetch(:dative_singular) %></td>
+              <td><%= @view_model.parse_result.declination.fetch(:dative_plural) %></td>
+            </tr>
 
-        <tr>
-          <th>dative</th>
-          <td><%= @view_model.parse_result.declination.fetch(:dative_singular) %></td>
-          <td><%= @view_model.parse_result.declination.fetch(:dative_plural) %></td>
-        </tr>
+            <tr>
+              <th>accusative</th>
+              <td><%= @view_model.parse_result.declination.fetch(:accusative_singular) %></td>
+              <td><%= @view_model.parse_result.declination.fetch(:accusative_plural) %></td>
+            </tr>
 
-        <tr>
-          <th>accusative</th>
-          <td><%= @view_model.parse_result.declination.fetch(:accusative_singular) %></td>
-          <td><%= @view_model.parse_result.declination.fetch(:accusative_plural) %></td>
-        </tr>
+            <tr>
+              <th>instrumental</th>
+              <td><%= @view_model.parse_result.declination.fetch(:instrumental_singular) %></td>
+              <td><%= @view_model.parse_result.declination.fetch(:instrumental_plural) %></td>
+            </tr>
 
-        <tr>
-          <th>instrumental</th>
-          <td><%= @view_model.parse_result.declination.fetch(:instrumental_singular) %></td>
-          <td><%= @view_model.parse_result.declination.fetch(:instrumental_plural) %></td>
-        </tr>
+            <tr>
+              <th>locative</th>
+              <td><%= @view_model.parse_result.declination.fetch(:locative_singular) %></td>
+              <td><%= @view_model.parse_result.declination.fetch(:locative_plural) %></td>
+            </tr>
 
-        <tr>
-          <th>locative</th>
-          <td><%= @view_model.parse_result.declination.fetch(:locative_singular) %></td>
-          <td><%= @view_model.parse_result.declination.fetch(:locative_plural) %></td>
-        </tr>
+            <tr>
+              <th>vocative</th>
+              <td><%= @view_model.parse_result.declination.fetch(:vocative_singular) %></td>
+              <td><%= @view_model.parse_result.declination.fetch(:vocative_plural) %></td>
+            </tr>
+          </table>
+        </section>
+      <% end %>
 
-        <tr>
-          <th>vocative</th>
-          <td><%= @view_model.parse_result.declination.fetch(:vocative_singular) %></td>
-          <td><%= @view_model.parse_result.declination.fetch(:vocative_plural) %></td>
-        </tr>
-      </table>
-    <% end %>
+      <% if @view_model.parse_result.conjugation.present? %>
+        <section class="section">
+          <table>
+            <tr>
+              <td colspan="2"></td>
+              <td colspan="3">singular</td>
+              <td colspan="3">plural</td>
+            </tr>
 
-    <% if @view_model.parse_result.conjugation.present? %>
-      Conjugation:
-      <table>
-        <tr>
-          <td colspan="2"></td>
-          <td colspan="3">singular</td>
-          <td colspan="3">plural</td>
-        </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td>1st</td>
+              <td>2nd</td>
+              <td>3nd</td>
+              <td>1st</td>
+              <td>2nd</td>
+              <td>3nd</td>
+            </tr>
 
-        <tr>
-          <td colspan="2"></td>
-          <td>1st</td>
-          <td>2nd</td>
-          <td>3nd</td>
-          <td>1st</td>
-          <td>2nd</td>
-          <td>3nd</td>
-        </tr>
+            <tr>
+              <th colspan="2">infinitive</th>
+              <td colspan="6"><%= @view_model.parse_result.conjugation.fetch(:infinitive) %></td>
+            </tr>
 
-        <tr>
-          <th colspan="2">infinitive</th>
-          <td colspan="6"><%= @view_model.parse_result.conjugation.fetch(:infinitive) %></td>
-        </tr>
+            <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
+              <tr>
+                <th colspan="2">present</th>
+                <td><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:present)[3] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:present)[4] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
+              </tr>
+            <% end %>
 
-        <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-          <tr>
-            <th colspan="2">present</th>
-            <td><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:present)[3] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:present)[4] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
-          </tr>
-        <% end %>
+            <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
+              <tr>
+                <th colspan="2">future</th>
+                <td><%= @view_model.parse_result.conjugation.fetch(:future)[0] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:future)[1] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:future)[2] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:future)[3] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:future)[4] %></td>
+                <td><%= @view_model.parse_result.conjugation.fetch(:future)[5] %></td>
+              </tr>
+            <% end %>
 
-        <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-          <tr>
-            <th colspan="2">future</th>
-            <td><%= @view_model.parse_result.conjugation.fetch(:future)[0] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:future)[1] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:future)[2] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:future)[3] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:future)[4] %></td>
-            <td><%= @view_model.parse_result.conjugation.fetch(:future)[5] %></td>
-          </tr>
-        <% end %>
+            <tr>
+              <th rowspan="3">past</th>
+              <th>masculine</th>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[0] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[1] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[2] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
+            </tr>
 
-        <tr>
-          <th rowspan="3">past</th>
-          <th>masculine</th>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[0] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[1] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[2] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
-        </tr>
+            <tr>
+              <th>feminine</th>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[0] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[1] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[2] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[3] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[4] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[5] %></td>
+            </tr>
 
-        <tr>
-          <th>feminine</th>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[0] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[1] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[2] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[3] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[4] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[5] %></td>
-        </tr>
+            <tr>
+              <th>neuter</th>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[0] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[1] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[2] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[3] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[4] %></td>
+              <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[5] %></td>
+            </tr>
+          </table>
+        </section>
+      <% end %>
 
-        <tr>
-          <th>neuter</th>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[0] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[1] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[2] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[3] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[4] %></td>
-          <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[5] %></td>
-        </tr>
-      </table>
-    <% end %>
-
-    <% if @view_model.parse_result.other_translations.present? %>
-      From other languages:
-        <ul>
-        <% @view_model.parse_result.other_translations.each do |language, translations| %>
-          <li>
-            <p><%= language %></p>
-            <ul>
-              <% translations.each do |translation| %>
-                <li><%= translation %></li>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
-        </ul>
-    <% end %>
+      <% if @view_model.parse_result.other_translations.present? %>
+        <section class="section">
+          <h2>From other languages</h2>
+          <ul>
+            <% @view_model.parse_result.other_translations.each do |language, translations| %>
+              <li>
+                <%= language %>
+                <ul>
+                  <% translations.each do |translation| %>
+                    <li><%= translation %></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+    </main>
   <% end %>
 <% end %>

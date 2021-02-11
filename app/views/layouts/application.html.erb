@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= @view_model.corrected_query.empty? ? "" : "#{@view_model.corrected_query} | " %>Yellow</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,11 +8,24 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <%= yield %>
   </body>
+
+  <footer>
+    <h2 class="separator">* * *</h2>
+
+    <p>
+      Ciao, I'm
+      <a href="https://odone.io" target="_blank" rel="noopener">Riccardo</a>
+      and I wrote this application to help me study Polish.
+    </p>
+
+    <p>
+      <span class="highlight">Want to fund a feature, support development with a donation, or simply say hi? Please, get in touch!</span>
+    </p>
+  </footer>
 </html>

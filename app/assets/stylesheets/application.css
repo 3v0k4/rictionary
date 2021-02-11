@@ -13,3 +13,122 @@
  *= require_tree .
  *= require_self
  */
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  width: 90%;
+  margin: auto;
+  padding-top: 10px;
+  line-height: 1.3rem;
+}
+
+@media only screen and (min-width: 480px) {
+  body {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    width: 60%;
+  }
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+ol {
+  list-style-type: decimal;
+  margin: 0.5rem 0 0 0;
+  padding: 0 2rem 0 2rem;
+}
+
+ul {
+  list-style-type: disc;
+  margin: 0.5rem 0 1rem 0;
+  padding: 0 0 0 2rem;
+}
+
+ul ul {
+  margin-top: 0.2rem;
+  list-style-type: circle;
+}
+
+li {
+  margin-bottom: 0.2rem;
+}
+
+p {
+  margin: 1rem 0 1rem 0;
+}
+
+main {
+  margin-top: 1rem;
+}
+
+.section {
+  margin-top: 2rem;
+}
+
+footer {
+  margin: 2rem 0;
+}
+
+.separator {
+  text-align: center;
+}
+
+.small {
+  font-size: 0.8rem;
+}
+
+.highlight {
+  background: yellow;
+}
+
+kbd {
+  white-space: nowrap;
+  display: inline-block;
+  margin: 0 .1em;
+  padding: 0 .6em;
+  font-size: 0.1rem;
+  text-shadow: 0 1px 0 white;
+  background-color: lightgray;
+  border: 1px solid darkgray;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px lightgray, inset 0 1px 0 0 #fff;
+  overflow-wrap: break-word;
+}
+
+table {
+  width: 100%;
+  overflow: scroll;
+  display: block;
+  border-spacing: 0.5rem;
+  border-collapse: separate;
+}
+
+th {
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: left;
+}
+
+td {
+  padding: 0 0.5rem;
+}

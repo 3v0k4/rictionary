@@ -13,7 +13,6 @@ Turbolinks.start()
 ActiveStorage.start()
 
 import Autocomplete from "@trevoreyre/autocomplete-js"
-import '@trevoreyre/autocomplete-js/dist/style.css'
 
 document.addEventListener("turbolinks:load", () => {
   const search = input => input.length === 0 ?
@@ -22,4 +21,18 @@ document.addEventListener("turbolinks:load", () => {
   const onSubmit = () => document.getElementsByTagName('form')[0].submit()
   const debounceTime = 300
   new Autocomplete('#autocomplete', { search, onSubmit, debounceTime })
+
+  const resetButton = document.getElementById('reset');
+  const queryInput = document.getElementById('query');
+  const resetVisibility = () => {
+    const display = queryInput.value.length > 0 ? 'inline-block' : 'none';
+    resetButton.style.display = display;
+  };
+  resetVisibility();
+  queryInput.addEventListener('input', resetVisibility);
+  resetButton.addEventListener('click', () => {
+    queryInput.value = '';
+    resetVisibility();
+    queryInput.focus();
+  });
 })

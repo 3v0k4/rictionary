@@ -1,0 +1,157 @@
+form {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: -10px;
+}
+
+.autocomplete {
+  flex: 1 0 200px;
+  margin: 10px 0px 0 0;
+  max-width: 300px;
+  font-size: 0;
+}
+
+button[type="button"] {
+  width: 15%;
+  height: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0;
+}
+
+.autocomplete-input {
+  width: 85%;
+  border: none;
+  padding: 12px 12px 12px 48px;
+  box-sizing: border-box;
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iOCIvPjxwYXRoIGQ9Ik0yMSAyMWwtNC00Ii8+PC9zdmc+');
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  display: inline-block;
+}
+
+.autocomplete-input:focus,
+.autocomplete-input[aria-expanded="true"] {
+  outline: none;
+}
+
+[data-position="below"] .autocomplete-input[aria-expanded="true"] {
+  border-bottom-color: transparent;
+  border-radius: 8px 8px 0 0;
+}
+
+[data-position="above"] .autocomplete-input[aria-expanded="true"] {
+  border-top-color: transparent;
+  border-radius: 0 0 8px 8px;
+  z-index: 2;
+}
+
+.autocomplete[data-loading="true"]::after {
+  content: "";
+  border: 3px solid rgba(0, 0, 0, 0.12);
+  border-right: 3px solid rgba(0, 0, 0, 0.48);
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: calc(10% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  animation: rotate 1s infinite linear;
+}
+
+.autocomplete-result-list {
+  margin: 0;
+  border: none;
+  padding: 0;
+  box-sizing: border-box;
+  max-height: 296px;
+  overflow-y: auto;
+  background: #fff;
+  list-style: none;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.16);
+}
+
+[data-position="below"] .autocomplete-result-list {
+  margin-top: -1px;
+  border-top-color: transparent;
+  border-radius: 0 0 8px 8px;
+  padding-bottom: 8px;
+}
+
+[data-position="above"] .autocomplete-result-list {
+  margin-bottom: -1px;
+  border-bottom-color: transparent;
+  border-radius: 8px 8px 0 0;
+  padding-top: 8px;
+}
+
+.autocomplete-result {
+  cursor: default;
+  padding: 12px 12px 12px 48px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iOCIvPjxwYXRoIGQ9Ik0yMSAyMWwtNC00Ii8+PC9zdmc+');
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  font-size: 1rem;
+}
+
+.autocomplete-result:hover,
+.autocomplete-result[aria-selected="true"] {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+@keyframes rotate {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(359deg);
+  }
+}
+
+select {
+  flex: 0 0 auto;
+  font-size: 1.2rem;
+  margin: 10px 5px 0 0;
+  width: 4rem;
+  color: #444;
+  padding: 0em 1.4em 0em .8em;
+  box-sizing: border-box;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%;
+  background-size: .4em auto, 100%;
+}
+
+select:focus {
+  outline: none;
+}
+
+input[type="submit"] {
+  height: 30px;
+  min-width: 52px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background-color: white;
+  border: 1px solid rgb(238, 238, 238);
+  color: black;
+  cursor: pointer;
+  margin: 22px 0 0 0;
+  -webkit-appearance: none;
+}
+
+input[type="submit"]:hover {
+  background-color: rgb(238, 238, 238);
+}

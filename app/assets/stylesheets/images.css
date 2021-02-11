@@ -1,0 +1,21 @@
+.images {
+  margin: 2rem 0 2rem 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: scroll;
+}
+
+.image {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.image:last-child {
+  margin-right: 0;
+}
+
+figure {
+  margin: 0;
+}
