@@ -15,30 +15,36 @@ ActiveStorage.start()
 import Autocomplete from "@trevoreyre/autocomplete-js"
 
 document.addEventListener("turbolinks:load", () => {
+  setupAutocomplete()
+  setupResetButton()
+  setupShortcut('babla', 'b')
+  setupShortcut('wiktionary', 'w')
+})
+
+const setupAutocomplete = () => {
   const search = input => input.length === 0 ?
     Promise.resolve([]) :
     fetch(`/suggestions?query=${encodeURIComponent(input)}`).then(x => x.json())
   const onSubmit = () => document.getElementsByTagName('form')[0].submit()
   const debounceTime = 300
   new Autocomplete('#autocomplete', { search, onSubmit, debounceTime })
+}
 
-  const resetButton = document.getElementById('reset');
-  const queryInput = document.getElementById('query');
+const setupResetButton = () => {
+  const resetButton = document.getElementById('reset')
+  const queryInput = document.getElementById('query')
   const resetVisibility = () => {
-    const display = queryInput.value.length > 0 ? 'inline-block' : 'none';
-    resetButton.style.display = display;
-  };
-  resetVisibility();
-  queryInput.addEventListener('input', resetVisibility);
+    const display = queryInput.value.length > 0 ? 'inline-block' : 'none'
+    resetButton.style.display = display
+  }
+  resetVisibility()
+  queryInput.addEventListener('input', resetVisibility)
   resetButton.addEventListener('click', () => {
-    queryInput.value = '';
-    resetVisibility();
-    queryInput.focus();
-  });
-
-  setupShortcut('babla', 'b')
-  setupShortcut('wiktionary', 'w')
-})
+    queryInput.value = ''
+    resetVisibility()
+    queryInput.focus()
+  })
+}
 
 const setupShortcut = (id, key) => {
   const link = document.getElementById(id)
