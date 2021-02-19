@@ -35,4 +35,16 @@ document.addEventListener("turbolinks:load", () => {
     resetVisibility();
     queryInput.focus();
   });
+
+  setupShortcut('babla', 'b')
+  setupShortcut('wiktionary', 'w')
 })
+
+const setupShortcut = (id, key) => {
+  const link = document.getElementById(id)
+  if (!link) { return }
+  document.addEventListener('keypress', event => {
+    if (event.key !== key) { return }
+    link.click()
+  })
+}

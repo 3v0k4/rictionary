@@ -58,16 +58,9 @@
       <h1>
         <%= @view_model.corrected_query %>
         <span class="small">
-          (<a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener">bab.la</a> <kbd>↵</kbd>)
+          (<a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener">bab.la</a> <kbd>b</kbd>)
         </span>
       </h1>
-
-      <button
-        onclick="document.getElementById('babla').click();"
-        autofocus
-        style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
-      >Open <%= @view_model.corrected_query %> in bab.la.</a>
-      </button>
 
       <p>Not found.</p>
     </main>
@@ -80,27 +73,26 @@
         <% if @view_model.fallback_link.present? %>
           <span class="small">
             (<a
+               id="wiktionary"
                href="<%= @view_model.link %>"
                target="_blank"
                rel="noopener"
-             >Wiktionary</a>,
+             >Wiktionary</a> <kbd>w</kbd>,
              <a
                id="babla"
                href="<%= @view_model.fallback_link %>"
                target="_blank"
                rel="noopener"
-              >bab.la</a> <kbd>↵</kbd>)
+              >bab.la</a> <kbd>b</kbd>)
           </span>
-
-          <button
-            onclick="document.getElementById('babla').click();"
-            autofocus
-            style="position: absolute !important; top: -9999px !important; left: -9999px !important;"
-          >Open <%= @view_model.corrected_query %> in bab.la.</a>
-          </button>
         <% else %>
           <span class="small">
-            (<a href="<%= @view_model.link %>" target="_blank" rel="noopener">Wiktionary</a>)
+            (<a
+               id="wiktionary"
+               href="<%= @view_model.link %>"
+               target="_blank"
+               rel="noopener"
+            >Wiktionary</a> <kbd>w</kbd>)
           </span>
         <% end %>
       </h1>
