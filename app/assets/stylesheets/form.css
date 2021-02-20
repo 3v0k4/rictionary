@@ -11,7 +11,7 @@ form {
   font-size: 0;
 }
 
-button[type="button"] {
+button#reset {
   width: 15%;
   height: 100%;
   border: none;

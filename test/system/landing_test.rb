@@ -224,4 +224,29 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_text "hesitate"
   end
+
+  test "persists queries" do
+    visit root_url
+
+    assert_no_text /previous queries/i
+
+    fill_in "query", with: "halo"
+    click_button "Go"
+
+    assert_text /previous queries/i
+    within "#previous-queries" do
+      assert_text "halo"
+    end
+
+    visit root_url
+
+    assert_text /previous queries/i
+    within "#previous-queries" do
+      assert_text "halo"
+    end
+
+    click_button "Clear"
+
+    assert_no_text /previous queries/i
+  end
 end

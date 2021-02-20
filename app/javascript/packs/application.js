@@ -19,6 +19,9 @@ document.addEventListener("turbolinks:load", () => {
   setupResetButton()
   setupShortcut('babla', 'b')
   setupShortcut('wiktionary', 'w')
+  persistQuery()
+  showPersistedQueries()
+  setupClearPersistedQueriesButton()
 })
 
 const setupAutocomplete = () => {
@@ -52,5 +55,43 @@ const setupShortcut = (id, key) => {
   document.addEventListener('keypress', event => {
     if (event.key !== key) { return }
     link.click()
+  })
+}
+
+const PERSISTED_QUERIES_KEY = 'queries'
+const PREVIOUS_QUERIES_ID = 'previous-queries'
+
+const persistedQueries = () =>
+  (window.localStorage.getItem(PERSISTED_QUERIES_KEY) || '')
+    .split(',')
+    .filter(x => x.length > 0)
+
+const persistQuery = () => {
+  const correctedQueryElement = document.getElementById('corrected-query')
+  if (!correctedQueryElement) { return }
+  const query = correctedQueryElement.textContent.trim()
+  const toPersist = [query].concat(persistedQueries()).join(',')
+  window.localStorage.setItem(PERSISTED_QUERIES_KEY, toPersist)
+}
+
+const showPersistedQueries = () => {
+  const persisted = persistedQueries()
+  if (persisted.length === 0) { return }
+  const ul = document.getElementById('previous-queries').getElementsByTagName('ul')[0]
+  persisted.forEach(query => {
+    const li = document.createElement("li")
+    const text = document.createTextNode(query)
+    li.appendChild(text)
+    ul.appendChild(li)
+  })
+  document.getElementById(PREVIOUS_QUERIES_ID).style.display = 'block'
+}
+
+const setupClearPersistedQueriesButton = () => {
+  const button = document.getElementById('clear-persisted-queries')
+  if (!button) { return }
+  button.addEventListener('click', () => {
+    document.getElementById(PREVIOUS_QUERIES_ID).style.display = 'none'
+    window.localStorage.removeItem(PERSISTED_QUERIES_KEY)
   })
 }

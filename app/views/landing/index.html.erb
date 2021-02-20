@@ -55,7 +55,9 @@
   <% if @view_model.class == FallbackViewModel %>
     <main>
       <h1>
-        <%= @view_model.corrected_query %>
+        <span id="corrected-query">
+          <%= @view_model.corrected_query %>
+        </span>
         <span class="small">
           (<a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener">bab.la</a> <kbd>b</kbd>)
         </span>
@@ -68,7 +70,9 @@
   <% if @view_model.class == ViewModel %>
     <main>
       <h1>
-        <%= @view_model.corrected_query %>
+        <span id="corrected-query">
+          <%= @view_model.corrected_query %>
+        </span>
         <% if @view_model.fallback_link.present? %>
           <span class="small">
             (<a
@@ -292,4 +296,9 @@
       <% end %>
     </main>
   <% end %>
+
+  <section style="display: none;" id="previous-queries" class="section">
+    <h2>Previous Queries <button id="clear-persisted-queries" type="button">Clear</button></h2>
+    <ul></ul>
+  </section>
 <% end %>
