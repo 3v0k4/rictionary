@@ -54,6 +54,7 @@ const setupShortcut = (id, key) => {
   if (!link) { return }
   document.addEventListener('keypress', event => {
     if (event.key !== key) { return }
+    if (document.activeElement !== document.getElementsByTagName('body')[0]) { return }
     link.click()
   })
 }
