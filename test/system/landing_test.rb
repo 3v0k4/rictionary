@@ -249,4 +249,33 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_no_text /previous queries/i
   end
+
+  test "persists queries in anti-chronological order without duplicates" do
+    visit root_url
+
+    fill_in "query", with: ""
+    fill_in "query", with: "halo"
+    click_button "Go"
+
+    all("#previous-queries a", count: 1)
+
+    fill_in "query", with: ""
+    fill_in "query", with: "sklep"
+    click_button "Go"
+
+    all("#previous-queries a", count: 2)
+
+    fill_in "query", with: ""
+    fill_in "query", with: "halo"
+    click_button "Go"
+
+    within "#previous-queries" do
+      assert_link "halo", count: 1
+    end
+
+    within "#previous-queries" do
+      links = all("a").map(&:text)
+      assert_equal(["halo", "sklep"], links)
+    end
+  end
 end

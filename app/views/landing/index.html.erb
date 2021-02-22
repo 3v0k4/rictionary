@@ -299,6 +299,10 @@
 
   <section style="display: none;" id="previous-queries" class="section">
     <h2>Previous Queries <button id="clear-persisted-queries" type="button">Clear</button></h2>
-    <ul></ul>
+    <ul>
+      <li id="template" style="display: none">
+        <a href="<%= root_path(query: 'QUERY') %>">QUERY</a>
+      </li>
+    </ul>
   </section>
 <% end %>

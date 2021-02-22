@@ -71,7 +71,7 @@ const persistQuery = () => {
   const correctedQueryElement = document.getElementById('corrected-query')
   if (!correctedQueryElement) { return }
   const query = correctedQueryElement.textContent.trim()
-  const toPersist = [query].concat(persistedQueries()).join(',')
+  const toPersist = [...new Set([query].concat(persistedQueries()))].join(',')
   window.localStorage.setItem(PERSISTED_QUERIES_KEY, toPersist)
 }
 
@@ -79,10 +79,13 @@ const showPersistedQueries = () => {
   const persisted = persistedQueries()
   if (persisted.length === 0) { return }
   const ul = document.getElementById('previous-queries').getElementsByTagName('ul')[0]
+  const liTemplate = document.getElementById('template')
   persisted.forEach(query => {
-    const li = document.createElement("li")
-    const text = document.createTextNode(query)
-    li.appendChild(text)
+    const li = liTemplate.cloneNode(true)
+    const a = li.getElementsByTagName('a')[0]
+    a.href = a.href.replace('QUERY', query)
+    a.text = query
+    li.style = 'inline-block'
     ul.appendChild(li)
   })
   document.getElementById(PREVIOUS_QUERIES_ID).style.display = 'block'
