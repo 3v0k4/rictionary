@@ -117,7 +117,7 @@ kbd {
 
 table {
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
   display: block;
   border-spacing: 0.5rem;
   border-collapse: separate;
