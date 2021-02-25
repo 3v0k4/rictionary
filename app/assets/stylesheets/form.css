@@ -9,6 +9,8 @@ form {
   margin: 10px 0px 0 0;
   max-width: 300px;
   font-size: 0;
+  letter-spacing: 0;
+  word-spacing: 0;
 }
 
 button#reset {
@@ -118,6 +120,7 @@ button#reset {
 }
 
 select {
+  background-color: white;
   flex: 0 0 auto;
   font-size: 1.2rem;
   margin: 10px 5px 0 0;
@@ -148,7 +151,7 @@ input[type="submit"] {
   border: 1px solid rgb(238, 238, 238);
   color: black;
   cursor: pointer;
-  margin: 22px 0 0 0;
+  margin: 19px 0 0 0;
   -webkit-appearance: none;
 }
 

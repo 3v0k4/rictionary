@@ -15,6 +15,7 @@ ActiveStorage.start()
 import Autocomplete from "@trevoreyre/autocomplete-js"
 
 document.addEventListener("turbolinks:load", () => {
+  addFontClass()
   setupAutocomplete()
   setupResetButton()
   setupShortcut('babla', 'b')
@@ -98,4 +99,20 @@ const setupClearPersistedQueriesButton = () => {
     document.getElementById(PREVIOUS_QUERIES_ID).style.display = 'none'
     window.localStorage.removeItem(PERSISTED_QUERIES_KEY)
   })
+}
+
+const addFontClass = () => {
+  if (sessionStorage.fontsLoaded === "true") {
+    document.documentElement.classList.add("fonts-loaded")
+    return
+  }
+
+  if ("fonts" in document) {
+    Promise.all([
+      document.fonts.load('123px "Poppins"'),
+    ]).then(() => {
+      document.documentElement.classList.add("fonts-loaded")
+      sessionStorage.fontsLoaded = "true"
+    })
+  }
 }
