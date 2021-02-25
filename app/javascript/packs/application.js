@@ -85,7 +85,7 @@ const showPersistedQueries = () => {
     const a = li.getElementsByTagName('a')[0]
     a.href = a.href.replace('QUERY', query)
     a.text = query
-    li.style = 'inline-block'
+    li.style.display = 'list-item'
     ul.appendChild(li)
   })
   document.getElementById(PREVIOUS_QUERIES_ID).style.display = 'block'
