@@ -18,4 +18,10 @@
 
 figure {
   margin: 0;
+  width: min-content;
+}
+
+figure img {
+  height: 150px;
+  object-fit: cover;
 }
