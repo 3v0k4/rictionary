@@ -18,8 +18,9 @@ document.addEventListener("turbolinks:load", () => {
   addFontClass()
   setupAutocomplete()
   setupResetButton()
-  setupShortcut('babla', 'b')
-  setupShortcut('wiktionary', 'w')
+  setupShortcut('babla', 'b', 'click')
+  setupShortcut('wiktionary', 'w', 'click')
+  setupShortcut('query', 'f', 'select')
   persistQuery()
   showPersistedQueries()
   setupClearPersistedQueriesButton()
@@ -50,13 +51,14 @@ const setupResetButton = () => {
   })
 }
 
-const setupShortcut = (id, key) => {
+const setupShortcut = (id, key, action) => {
   const link = document.getElementById(id)
   if (!link) { return }
   document.addEventListener('keypress', event => {
     if (event.key !== key) { return }
     if (document.activeElement !== document.getElementsByTagName('body')[0]) { return }
-    link.click()
+    link[action]()
+    event.preventDefault()
   })
 }
 
