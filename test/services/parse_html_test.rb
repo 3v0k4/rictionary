@@ -295,4 +295,13 @@ class ParseHtmlTest < ActiveSupport::TestCase
 
     assert_includes actual.other_translations['język włoski'], "polit. czerwony, lewicowiec"
   end
+
+  test 'it parses translations for improve' do
+    html = File.read('test/htmls/improve.html')
+
+    actual = ParseHtml.new.call(html)
+
+    assert_includes actual.other_translations.keys, 'język angielski'
+    assert_includes actual.other_translations['język angielski'], 'poprawiać, polepszać, doskonalić, udoskonalać, ulepszać'
+  end
 end

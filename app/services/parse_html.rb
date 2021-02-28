@@ -144,7 +144,6 @@ class ParseHtml
               .map { |str| str.gsub(/\s+/, " ") }
               .map(&:chomp)
               .reject(&:empty?)
-              .uniq
               .join('')
               .strip
           end
