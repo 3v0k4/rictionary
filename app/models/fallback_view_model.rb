@@ -1,6 +1,7 @@
 FallbackViewModel = Struct.new(
   :query,
   :corrected_query,
+  :translations,
   keyword_init: true
 ) do
   def link

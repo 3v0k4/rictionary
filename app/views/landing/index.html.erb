@@ -46,7 +46,14 @@
       </span>
     </h1>
 
-    <p>Not found.</p>
+    <section class="section">
+      <h2>Translations</h2>
+      <ul>
+        <% @view_model.translations.each do |translation| %>
+          <li><%= translation %></li>
+        <% end %>
+      </ul>
+    </section>
   </main>
 <% end %>
 

@@ -1,32 +1,57 @@
 class Fetch
   def call(query)
     return NoQueryViewModel.new if query.empty?
-    corrected, html = corrected(query)
-    return NotFoundViewModel.new(query: query, corrected_query: query) if (corrected.nil? && html.nil?)
-    return FallbackViewModel.new(query: query, corrected_query: corrected) if (!corrected.nil? && html.nil?)
-    view_model(query, corrected, html)
+
+    q, h = try(query)
+    return view_model(query, q, h) unless h.nil?
+
+    q, h = try(query.downcase)
+    return view_model(query, q, h) unless h.nil?
+
+    q, h = try(correct_via_wiktionary(query.downcase))
+    return view_model(query, q, h) unless h.nil?
+
+    q, h = [correct_via_babla(q), nil]
+
+    if q.nil?
+      NotFoundViewModel.new(query: query, corrected_query: query)
+    else
+      fallback_(query, q)
+    end
   end
 
   private
 
-  def view_model(query, corrected, html)
-    parsed = ParseHtml.new.call(html)
-    fallback = !parsed.translations.any? && fallback(corrected)
-    f = fallback && "https://pl.bab.la/slownik/polski-angielski/#{fallback}"
-    ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed, fallback_link: f)
+  def fallback_(query, corrected)
+    link = "https://pl.bab.la/slownik/polski-angielski/#{corrected}".gsub(' ', '-')
+    ts = parse_html_from_babla(get_or(link, ""), corrected)
+    FallbackViewModel.new(query: query, corrected_query: corrected, translations: ts)
   end
 
-  def corrected(query)
-    q, h = try(query)
-    return [q, h] unless h.nil?
+  def view_model(query, corrected, html)
+    parsed = ParseHtml.new.call(html)
+    if parsed.translations.any?
+      ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed, fallback_link: nil)
+    else
+      corrected_via_babla = correct_via_babla(corrected)
+      if corrected_via_babla
+        flink = "https://pl.bab.la/slownik/polski-angielski/#{corrected}"
+        ts = fallback_("", corrected_via_babla).translations
+        ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed.with_translations(ts), fallback_link: flink)
+      else
+        ts = []
+        ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed.with_translations(ts), fallback_link: flink)
+      end
+    end
+  end
 
-    q, h = try(query.downcase)
-    return [q, h] unless h.nil?
-
-    q, h = try(correct(query.downcase))
-    return [q, h] unless h.nil?
-
-    [fallback(q), nil]
+  def parse_html_from_babla(html, corrected)
+    doc = Nokogiri::HTML(html)
+    doc
+      .xpath('//*[contains(@class, "babQuickResult") and text() = "' + corrected + '"]')
+      .map { |x| x.xpath('../../*[contains(@class, "quick-result-overview")]//a/text()') }
+      .flatten
+      .map(&:text)
   end
 
   def try(query)
@@ -65,7 +90,7 @@ class Fetch
     default
   end
 
-  def correct(query)
+  def correct_via_wiktionary(query)
     host = "pl.wiktionary.org"
     path = "w/api.php"
     q = [
@@ -82,7 +107,7 @@ class Fetch
       .first || query
   end
 
-  def fallback(query)
+  def correct_via_babla(query)
     post(query.gsub(" ", "+"))
       .map { |suggestion| suggestion.fetch("value") }
       .find { |suggestion| suggestion.size == query.size }

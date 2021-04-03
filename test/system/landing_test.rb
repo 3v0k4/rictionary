@@ -167,6 +167,15 @@ class LandingTest < ApplicationSystemTestCase
     click_button "Go"
 
     assert_link "bab.la"
+
+    assert_text "to crank up"
+    assert_text "to overclock"
+    assert_text "to gun"
+    assert_text "to pump up"
+    assert_text "to put spin on"
+    assert_text "to twirl"
+    assert_text "to spoon"
+    assert_text "to whack up"
   end
 
   test "link to wiktionary" do
@@ -178,13 +187,14 @@ class LandingTest < ApplicationSystemTestCase
     assert_link "Wiktionary"
   end
 
-  test "when translations are missing it shows a link to bab.la" do
+  test "when translations are missing but present on bab.la they are stolen" do
     visit root_url
 
     fill_in "query", with: "wyczesany"
     click_button "Go"
 
     assert_link "bab.la"
+    assert_text "fanfuckingtastic"
   end
 
   test "multiword" do
