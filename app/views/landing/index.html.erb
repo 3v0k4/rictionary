@@ -1,7 +1,7 @@
 <header>
   <%= form_with url: root_path, method: :get do |form| %>
     <div id="autocomplete" class="autocomplete">
-      <%= form.text_field :query, placeholder: "word in any lang", value: @view_model.corrected_query, class: "autocomplete-input", id: "query" %>
+      <%= form.text_field :query, placeholder: "word in any language", value: @view_model.corrected_query, class: "autocomplete-input", id: "query" %>
       <button id="reset" type="button">X</button>
       <ul class="autocomplete-result-list"></ul>
     </div>
