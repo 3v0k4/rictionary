@@ -29,7 +29,7 @@ class Fetch
   end
 
   def view_model(query, corrected, html)
-    parsed = ParseHtml.new.call(html)
+    parsed = ParseWiktionaryHtml.new.call(html)
     if parsed.translations.any?
       ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed, fallback_link: nil)
     else

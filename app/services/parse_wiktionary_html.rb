@@ -1,4 +1,4 @@
-class ParseHtml
+class ParseWiktionaryHtml
   def call(html)
     doc = Nokogiri::HTML(html)
     ParseResult.new(
