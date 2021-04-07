@@ -34,18 +34,19 @@ class Fetch
 
   def view_model(query, corrected, html)
     parsed = ParseWiktionaryHtml.new.call(html)
-    if parsed.translations.any?
-      ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed, fallback_link: nil)
-    else
-      corrected_via_babla = CorrectQueryViaBabla.new.call(corrected)
-      if corrected_via_babla
-        flink = "https://pl.bab.la/slownik/polski-angielski/#{corrected}"
-        ts = fallback_("", corrected_via_babla).translations
-        ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed.with_translations(ts), fallback_link: flink)
+
+    ts, flink =
+      if parsed.translations.any?
+        [parsed.translations, nil]
+      elsif corrected_via_babla = CorrectQueryViaBabla.new.call(corrected)
+        [
+          fallback_("", corrected_via_babla).translations,
+          "https://pl.bab.la/slownik/polski-angielski/#{corrected}",
+        ]
       else
-        ts = []
-        ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed.with_translations(ts), fallback_link: flink)
+        [[], nil]
       end
-    end
+
+    ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed.with_translations(ts), fallback_link: flink)
   end
 end
