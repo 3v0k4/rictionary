@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   test 'it parses translations' do
-    html = File.read('test/htmls/liść.html')
+    html = File.read('test/htmls/wiktionary/liść.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -12,7 +12,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses translations composed of multiple links' do
-    html = File.read('test/htmls/para.html')
+    html = File.read('test/htmls/wiktionary/para.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -20,7 +20,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it skips staroangielski translations' do
-    html = File.read('test/htmls/dom.html')
+    html = File.read('test/htmls/wiktionary/dom.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -30,7 +30,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it skips styles in translations' do
-    html = File.read('test/htmls/do_przodu.html')
+    html = File.read('test/htmls/wiktionary/do_przodu.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -38,7 +38,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses examples' do
-    html = File.read('test/htmls/liść.html')
+    html = File.read('test/htmls/wiktionary/liść.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -50,7 +50,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it does not pick up examples from languages other than Polish' do
-    html = File.read('test/htmls/para.html')
+    html = File.read('test/htmls/wiktionary/para.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -58,7 +58,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses images and captions for liść' do
-    html = File.read('test/htmls/liść.html')
+    html = File.read('test/htmls/wiktionary/liść.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -69,7 +69,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses images and captions for sikać' do
-    html = File.read('test/htmls/sikać.html')
+    html = File.read('test/htmls/wiktionary/sikać.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -80,7 +80,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it does not parse images in languages other than Polish' do
-    html = File.read('test/htmls/spis.html')
+    html = File.read('test/htmls/wiktionary/spis.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -88,7 +88,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses the declination' do
-    html = File.read('test/htmls/liść.html')
+    html = File.read('test/htmls/wiktionary/liść.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -112,7 +112,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses only the first declination' do
-    html = File.read('test/htmls/przypadek.html')
+    html = File.read('test/htmls/wiktionary/przypadek.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -121,7 +121,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
 
 
   test 'it does not pick up the declination of languages other than Polish' do
-    html = File.read('test/htmls/pot.html')
+    html = File.read('test/htmls/wiktionary/pot.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -136,7 +136,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it does not pick up styles in declination' do
-    html = File.read('test/htmls/cześć.html')
+    html = File.read('test/htmls/wiktionary/cześć.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -160,7 +160,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses the declination maintaining spaces' do
-    html = File.read('test/htmls/dziecko.html')
+    html = File.read('test/htmls/wiktionary/dziecko.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -184,7 +184,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses the conjugation for verb niedokonany' do
-    html = File.read('test/htmls/robić.html')
+    html = File.read('test/htmls/wiktionary/robić.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -203,7 +203,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses the conjugation for verb dokonany' do
-    html = File.read('test/htmls/zrobić.html')
+    html = File.read('test/htmls/wiktionary/zrobić.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -228,7 +228,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses only the first conjugation' do
-    html = File.read('test/htmls/malować.html')
+    html = File.read('test/htmls/wiktionary/malować.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -236,7 +236,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses categories for malować' do
-    html = File.read('test/htmls/malować.html')
+    html = File.read('test/htmls/wiktionary/malować.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -249,7 +249,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses categories for wcisnąć' do
-    html = File.read('test/htmls/wcisnąć.html')
+    html = File.read('test/htmls/wiktionary/wcisnąć.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -258,7 +258,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses translations from Swedish' do
-    html = File.read('test/htmls/skål.html')
+    html = File.read('test/htmls/wiktionary/skål.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -269,7 +269,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses translations from other languages' do
-    html = File.read('test/htmls/haus.html')
+    html = File.read('test/htmls/wiktionary/haus.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -280,7 +280,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it skips Polish for other_translations' do
-    html = File.read('test/htmls/sklep.html')
+    html = File.read('test/htmls/wiktionary/sklep.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -289,7 +289,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test "it skips styles in other_translations" do
-    html = File.read('test/htmls/rosso.html')
+    html = File.read('test/htmls/wiktionary/rosso.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
@@ -297,7 +297,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
   end
 
   test 'it parses translations for improve' do
-    html = File.read('test/htmls/improve.html')
+    html = File.read('test/htmls/wiktionary/improve.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
