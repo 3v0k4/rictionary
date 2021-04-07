@@ -46,12 +46,7 @@ class Fetch
   end
 
   def parse_html_from_babla(html, corrected)
-    doc = Nokogiri::HTML(html)
-    doc
-      .xpath('//*[contains(@class, "babQuickResult") and text() = "' + corrected + '"]')
-      .map { |x| x.xpath('../../*[contains(@class, "quick-result-overview")]//a/text()') }
-      .flatten
-      .map(&:text)
+    ParseBablaHtml.new.call(html, corrected)
   end
 
   def try(query)
