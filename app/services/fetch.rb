@@ -24,7 +24,7 @@ class Fetch
 
   def fallback_(query, corrected)
     link = "https://pl.bab.la/slownik/polski-angielski/#{corrected}".gsub(' ', '-')
-    ts = parse_html_from_babla(get_or(link, ""), corrected)
+    ts = ParseBablaHtml.new.call(get_or(link, ""), corrected)
     FallbackViewModel.new(query: query, corrected_query: corrected, translations: ts)
   end
 
@@ -43,10 +43,6 @@ class Fetch
         ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed.with_translations(ts), fallback_link: flink)
       end
     end
-  end
-
-  def parse_html_from_babla(html, corrected)
-    ParseBablaHtml.new.call(html, corrected)
   end
 
   def try(query)
