@@ -1,52 +1,42 @@
 class Fetch
-  def initialize(http_client: HttpClient.new)
-    @http_client = http_client
-  end
-
   def call(query)
     return NoQueryViewModel.new if query.empty?
 
-    q, h = FetchWiktionaryPage.new.call(query)
-    return view_model(query, q, h) unless h.nil?
+    html = FetchWiktionaryPage.new.call(query)
+    return view_model(query, html) unless html.nil?
 
-    q, h = FetchWiktionaryPage.new.call(query.downcase)
-    return view_model(query, q, h) unless h.nil?
+    query = query.downcase
+    html = FetchWiktionaryPage.new.call(query)
+    return view_model(query, html) unless html.nil?
 
-    q, h = FetchWiktionaryPage.new.call(CorrectQueryViaWiktionary.new.call(query.downcase) || query)
-    return view_model(query, q, h) unless h.nil?
+    query = CorrectQueryViaWiktionary.new.call(query.downcase) || query
+    html = FetchWiktionaryPage.new.call(query)
+    return view_model(query, html) unless html.nil?
 
-    q, h = [CorrectQueryViaBabla.new.call(q), nil]
+    fetched = FetchBablaTranslations.new.call(query)
 
-    if q.nil?
-      NotFoundViewModel.new(query: query, corrected_query: query)
+    if fetched.found?
+      FallbackViewModel.new(query: fetched.corrected, translations: fetched.translations)
     else
-      fallback_(query, q)
+      NotFoundViewModel.new(query: query)
     end
   end
 
   private
 
-  def fallback_(query, corrected)
-    link = "https://pl.bab.la/slownik/polski-angielski/#{corrected}".gsub(' ', '-')
-    ts = ParseBablaHtml.new.call(@http_client.get_or(link, ""), corrected)
-    FallbackViewModel.new(query: query, corrected_query: corrected, translations: ts)
+  def view_model(query, html)
+    parsed = ParseWiktionaryHtml.new.call(html)
+    fallback_link, translations = fallback_link_and_translations(query, parsed)
+    ViewModel.new(
+      query: query,
+      parse_result: parsed.with_translations(translations),
+      fallback_link: fallback_link
+    )
   end
 
-  def view_model(query, corrected, html)
-    parsed = ParseWiktionaryHtml.new.call(html)
-
-    ts, flink =
-      if parsed.translations.any?
-        [parsed.translations, nil]
-      elsif corrected_via_babla = CorrectQueryViaBabla.new.call(corrected)
-        [
-          fallback_("", corrected_via_babla).translations,
-          "https://pl.bab.la/slownik/polski-angielski/#{corrected}",
-        ]
-      else
-        [[], nil]
-      end
-
-    ViewModel.new(query: query, corrected_query: corrected, parse_result: parsed.with_translations(ts), fallback_link: flink)
+  def fallback_link_and_translations(query, parsed)
+    return [nil, parsed.translations] if parsed.translations.any?
+    fetched = FetchBablaTranslations.new.call(query)
+    [fetched.fallback_link, fetched.translations]
   end
 end

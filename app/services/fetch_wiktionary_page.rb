@@ -4,10 +4,8 @@ class FetchWiktionaryPage
   end
 
   def call(query)
-    [
-      query,
-      fetch(query.gsub(' ', '_'))
-    ]
+    q = query.gsub(' ', '_')
+    fetch(q)
   end
 
   private

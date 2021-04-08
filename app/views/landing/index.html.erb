@@ -1,7 +1,7 @@
 <header>
   <%= form_with url: root_path, method: :get do |form| %>
     <div id="autocomplete" class="autocomplete">
-      <%= form.text_field :query, placeholder: "word in any language", value: @view_model.corrected_query, class: "autocomplete-input", id: "query" %>
+      <%= form.text_field :query, placeholder: "word in any language", value: @view_model.query, class: "autocomplete-input", id: "query" %>
       <button id="reset" type="button">X</button>
       <ul class="autocomplete-result-list"></ul>
     </div>
@@ -24,7 +24,7 @@
 
 <% if @view_model.class == NotFoundViewModel %>
   <main>
-    <h1><%= @view_model.corrected_query %></h1>
+    <h1><%= @view_model.query %></h1>
 
     <p>Not found.</p>
 
@@ -39,7 +39,7 @@
   <main>
     <h1>
       <span id="corrected-query">
-        <%= @view_model.corrected_query %>
+        <%= @view_model.query %>
       </span>
       <span class="small">
         (<a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener">bab.la</a> <kbd>b</kbd>)
@@ -61,7 +61,7 @@
   <main>
     <h1>
       <span id="corrected-query">
-        <%= @view_model.corrected_query %>
+        <%= @view_model.query %>
       </span>
       <% if @view_model.fallback_link.present? %>
         <span class="small">
