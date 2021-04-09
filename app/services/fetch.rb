@@ -3,15 +3,15 @@ class Fetch
     return NoQueryViewModel.new if query.empty?
 
     html = FetchWiktionaryPage.new.call(query)
-    return view_model(query, html) unless html.nil?
+    return wiktionary_view_model(query, html) unless html.nil?
 
     query = query.downcase
     html = FetchWiktionaryPage.new.call(query)
-    return view_model(query, html) unless html.nil?
+    return wiktionary_view_model(query, html) unless html.nil?
 
     query = CorrectQueryViaWiktionary.new.call(query.downcase) || query
     html = FetchWiktionaryPage.new.call(query)
-    return view_model(query, html) unless html.nil?
+    return wiktionary_view_model(query, html) unless html.nil?
 
     fetched = FetchBablaTranslations.new.call(query)
 
@@ -24,10 +24,10 @@ class Fetch
 
   private
 
-  def view_model(query, html)
+  def wiktionary_view_model(query, html)
     parsed = ParseWiktionaryHtml.new.call(html)
     fallback_link, translations = fallback_link_and_translations(query, parsed)
-    ViewModel.new(
+    WiktionaryViewModel.new(
       query: query,
       parse_result: parsed.with_translations(translations),
       fallback_link: fallback_link

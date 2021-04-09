@@ -1,4 +1,4 @@
-ViewModel = Struct.new(
+WiktionaryViewModel = Struct.new(
   :query,
   :parse_result,
   :fallback_link,
