@@ -1,9 +1,9 @@
-FallbackViewModel = Struct.new(
+BablaViewModel = Struct.new(
   :query,
   :translations,
   keyword_init: true
 ) do
-  def link
+  def babla_url
     "https://pl.bab.la/slownik/polski-angielski/#{query}"
   end
 end

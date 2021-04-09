@@ -35,14 +35,14 @@
   </main>
 <% end %>
 
-<% if @view_model.class == FallbackViewModel %>
+<% if @view_model.class == BablaViewModel %>
   <main>
     <h1>
       <span id="corrected-query">
         <%= @view_model.query %>
       </span>
       <span class="small">
-        (<a id="babla" href="<%= @view_model.link %>" target="_blank" rel="noopener">bab.la</a> <kbd>b</kbd>)
+        (<a id="babla" href="<%= @view_model.babla_url %>" target="_blank" rel="noopener">bab.la</a> <kbd>b</kbd>)
       </span>
     </h1>
 
@@ -63,17 +63,17 @@
       <span id="corrected-query">
         <%= @view_model.query %>
       </span>
-      <% if @view_model.fallback_link.present? %>
+      <% if @view_model.babla_url.present? %>
         <span class="small">
           (<a
              id="wiktionary"
-             href="<%= @view_model.link %>"
+             href="<%= @view_model.wiktionary_link %>"
              target="_blank"
              rel="noopener"
            >Wiktionary</a> <kbd>w</kbd>,
            <a
              id="babla"
-             href="<%= @view_model.fallback_link %>"
+             href="<%= @view_model.babla_url %>"
              target="_blank"
              rel="noopener"
             >bab.la</a> <kbd>b</kbd>)
@@ -82,7 +82,7 @@
         <span class="small">
           (<a
              id="wiktionary"
-             href="<%= @view_model.link %>"
+             href="<%= @view_model.wiktionary_link %>"
              target="_blank"
              rel="noopener"
           >Wiktionary</a> <kbd>w</kbd>)

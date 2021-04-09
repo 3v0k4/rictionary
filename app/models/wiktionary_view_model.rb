@@ -1,10 +1,10 @@
 WiktionaryViewModel = Struct.new(
   :query,
   :parse_result,
-  :fallback_link,
+  :babla_url,
   keyword_init: true
 ) do
-  def link
+  def wiktionary_link
     "https://pl.wiktionary.org/wiki/#{query}"
   end
 end

@@ -2,41 +2,42 @@ class Fetch
   def call(query)
     return NoQueryViewModel.new if query.empty?
 
-    html = FetchWiktionaryPage.new.call(query)
-    return wiktionary_view_model(query, html) unless html.nil?
+    q = query
+    html = FetchWiktionaryPage.new.call(q)
+    return wiktionary_view_model(q, html) unless html.nil?
 
-    query = query.downcase
-    html = FetchWiktionaryPage.new.call(query)
-    return wiktionary_view_model(query, html) unless html.nil?
+    q = query.downcase
+    html = FetchWiktionaryPage.new.call(q)
+    return wiktionary_view_model(q, html) unless html.nil?
 
-    query = CorrectQueryViaWiktionary.new.call(query.downcase) || query
-    html = FetchWiktionaryPage.new.call(query)
-    return wiktionary_view_model(query, html) unless html.nil?
-
-    fetched = FetchBablaTranslations.new.call(query)
-
-    if fetched.found?
-      FallbackViewModel.new(query: fetched.corrected, translations: fetched.translations)
-    else
-      NotFoundViewModel.new(query: query)
+    q = CorrectQueryViaWiktionary.new.call(query.downcase)
+    if q
+      html = FetchWiktionaryPage.new.call(q)
+      return wiktionary_view_model(q, html) unless html.nil?
     end
+
+    q = query
+    fetched = FetchBablaTranslations.new.call(q)
+    return BablaViewModel.new(query: fetched.corrected, translations: fetched.translations) unless fetched.nil?
+
+    NotFoundViewModel.new(query: query)
   end
 
   private
 
   def wiktionary_view_model(query, html)
     parsed = ParseWiktionaryHtml.new.call(html)
-    fallback_link, translations = fallback_link_and_translations(query, parsed)
+    babla_url, translations = babla_url_and_translations(query, parsed)
     WiktionaryViewModel.new(
       query: query,
       parse_result: parsed.with_translations(translations),
-      fallback_link: fallback_link
+      babla_url: babla_url
     )
   end
 
-  def fallback_link_and_translations(query, parsed)
+  def babla_url_and_translations(query, parsed)
     return [nil, parsed.translations] if parsed.translations.any?
     fetched = FetchBablaTranslations.new.call(query)
-    [fetched.fallback_link, fetched.translations]
+    [fetched.babla_url, fetched.translations]
   end
 end

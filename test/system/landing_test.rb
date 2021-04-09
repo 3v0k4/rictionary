@@ -168,7 +168,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text /not found/i
   end
 
-  test "fallback" do
+  test "fallback to babla" do
     visit root_url
 
     assert_equal "", page.find("input[name='query']").value
@@ -216,7 +216,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "upside down"
   end
 
-  test "multiword fallback" do
+  test "multiword fallback to babla" do
     visit root_url
 
     fill_in "query", with: "na dół"
