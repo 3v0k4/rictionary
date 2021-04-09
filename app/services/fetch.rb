@@ -1,7 +1,5 @@
 class Fetch
   def call(query)
-    query = query.strip
-
     return NoQueryViewModel.new if query.empty?
 
     html = FetchWiktionaryPage.new.call(query)

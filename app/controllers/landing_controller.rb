@@ -6,6 +6,6 @@ class LandingController < ApplicationController
   private
 
   def query
-    @query ||= params.fetch(:query, "")
+    @query ||= params.fetch(:query, "").strip
   end
 end
