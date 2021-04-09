@@ -97,6 +97,16 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "głód"
   end
 
+  test "blank spaces do not interfere" do
+    visit root_url
+
+    fill_in "query", with: " lisc "
+    click_button "Go"
+
+    assert_equal "liść", page.find("input[name='query']").value
+    assert_text "liść"
+  end
+
   test "robić then zrobić" do
     visit root_url
 
