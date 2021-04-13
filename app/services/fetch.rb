@@ -33,17 +33,9 @@ class Fetch
 
   def wiktionary_view_model(query, html)
     parsed = ParseWiktionaryHtml.new.call(html)
-    babla_url, translations = babla_url_and_translations(query, parsed)
-    WiktionaryViewModel.new(
-      query: query,
-      parse_result: parsed.with_translations(translations),
-      babla_url: babla_url
-    )
-  end
-
-  def babla_url_and_translations(query, parsed)
-    return [nil, parsed.translations] if parsed.translations.any?
+    view_model = WiktionaryViewModel.new(query: query, parse_result: parsed)
+    return view_model if parsed.translations.any?
     fetched = FetchBablaTranslations.new.call(query)
-    [fetched.babla_url, fetched.translations]
+    view_model.with_babla_translations(fetched)
   end
 end
