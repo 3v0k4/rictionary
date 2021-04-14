@@ -1,13 +1,17 @@
 class ParseWiktionaryHtml
+  REFERENCE_1 = /\s*\(\d\.\d\)\s*/
+
   def call(html)
     doc = Nokogiri::HTML(html)
+    polish = doc.xpath('//*[text() = "język polski"]/../../..')
+
     ParseResult.new(
-      categories: categories(doc),
-      translations: translations(doc),
-      examples: examples(doc),
-      images: images(doc),
-      declination: declination(doc),
-      conjugation: conjugation(doc),
+      categories: categories(polish),
+      examples: examples(polish),
+      images: images(polish),
+      declination: declination(polish),
+      conjugation: conjugation(polish),
+      translations: translations(polish),
       other_translations: other_translations(doc)
     )
   end
@@ -16,9 +20,8 @@ class ParseWiktionaryHtml
 
   def categories(doc)
     doc
-      .xpath('//*[text() = "język polski"]/../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*')
-      .take_while { |x| x.node_name != "span" }
-      .flat_map { |x| x.xpath('//i[contains(text(), "dokonany")]/..') }
+      .xpath('.//*[contains(text(), "znaczenia")]/../..')
+      .xpath('./following-sibling::*//i[contains(text(), "dokonany")]/..')
       .map do |d|
         d
           .xpath('*[not(self::style)]')
@@ -30,47 +33,32 @@ class ParseWiktionaryHtml
       .uniq
   end
 
-  def translations(doc)
-    doc
-      .xpath('//*[starts-with(normalize-space(text()), "angielski:")]//text()')
-      .reject { |x| x.class == Nokogiri::XML::CDATA }
-      .join
-      .split(' ')
-      .map(&:strip)
-      .join(' ')
-      .split(/\s\(\d+.\d+\)\s/)
-      .drop(1)
-      .map { |string| string.sub(';', '') }
-      .uniq
-  end
-
   def examples(doc)
     doc
-      .xpath('//*[text() = "język polski"]/../../..//*[contains(text(), "przykłady")]/../..')
-      .css("i")
+      .xpath('.//*[contains(text(), "przykłady")]/../..')
+      .xpath('.//i')
       .map(&:text)
-      .map { |string| string.split(' ').map(&:strip).join(' ') }
+      .map(&method(:collapse_spaces))
       .uniq
   end
 
   def images(doc)
     doc
-      .xpath('//*[text() = "język polski"]/../../..//figure')
+      .xpath('.//figure')
       .map do |figure|
         url = figure.xpath('.//img/@src').text
         caption = figure
           .xpath('.//figcaption')
           .text
           .split(' ')
-          .reject { |string| /\(\d+.\d+\)/.match?(string) }
+          .reject(&method(:reference_1?))
           .join(' ')
         { url: url, caption: caption }
       end
       .uniq
   end
 
-  def declination(doc)
-    base = doc.xpath('//*[text() = "język polski"]/../../..')
+  def declination(base)
     return nil if declination_(base, "mianownik", 2).empty?
 
     {
@@ -104,44 +92,67 @@ class ParseWiktionaryHtml
   end
 
   def conjugation(doc)
-    base = doc.xpath('(//*[text() = "język polski"]/../../..//table[contains(@class, "odmiana")])[1]')
-    return nil if base.xpath('.//*[text() = "bezokolicznik"]/../../td').empty?
+    base = doc
+      .xpath('.//table[contains(@class, "odmiana")]')
+      .first
+
+    return nil unless base
+    return nil if conjugation_(base, "bezokolicznik").empty?
 
     {
-      infinitive: base.xpath('.//*[text() = "bezokolicznik"]/../../td').text.strip.gsub(/\s+/, " "),
-      present: base.xpath('.//*[text() = "czas teraźniejszy"]/../../td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
-      future: base.xpath('.//*[text() = "czas przyszły prosty"]/../../td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
+      infinitive: conjugation_(base, "bezokolicznik").first,
+      present: conjugation_(base, "czas teraźniejszy"),
+      future: conjugation_(base, "czas przyszły prosty"),
       past: {
-        masculine: base.xpath('.//*[text() = "czas przeszły"]/../../td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
-        feminine: base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
+        masculine: conjugation_(base, "czas przeszły"),
+        feminine: conjugation_(base, "czas przeszły", "/following-sibling::tr[1]"),
         neuter:
           ['', ''] +
-          base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[2]/td[3]').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") } +
-          base.xpath('.//*[text() = "czas przeszły"]/../../following-sibling::tr[1]/td[position() >= 4]').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
+          conjugation_(base, "czas przeszły", "/following-sibling::tr[2]").drop(2).take(1) +
+          conjugation_(base, "czas przeszły", "/following-sibling::tr[1]").drop(3),
       },
-      imperative: base.xpath('.//*[text() = "tryb rozkazujący"]/../../td').map(&:text).map(&:strip).map { |x| x.gsub(/\s+/, " ") },
+      imperative: conjugation_(base, "tryb rozkazujący"),
     }
+  end
+
+  def conjugation_(base, tense, move = '')
+    base
+      .xpath('.//*[text() = "' + tense + '"]/../..' + move + '/td')
+      .map(&:text)
+      .map(&:strip)
+      .map(&method(:collapse_spaces))
+  end
+
+  def translations(doc)
+    doc
+      .xpath('.//*[starts-with(normalize-space(text()), "angielski:")]//text()')
+      .reject { |x| x.class == Nokogiri::XML::CDATA }
+      .join
+      .yield_self(&method(:collapse_spaces))
+      .split(REFERENCE_1)
+      .drop(1)
+      .map { |string| string.sub(';', '') }
+      .uniq
   end
 
   def other_translations(doc)
     doc
-      .xpath('//*[starts-with(text(), "język ")]')
-      .reject { |x| x.text == "język polski" }
+      .xpath('//*[starts-with(text(), "język ") and not(contains(text(), "język polski"))]')
       .reduce({}) do |acc, language|
         xs = language
-          .xpath('./../../..//*[contains(text(), "znaczenia")]/../../following-sibling::*')
+          .xpath('./../../..')
+          .xpath('.//*[contains(text(), "znaczenia")]/../..')
+          .xpath('./following-sibling::*')
           .take_while { |x| x.node_name != 'span' }
-          .flat_map do |x|
-            x.xpath('.//dd')
-          end
+          .flat_map { |x| x.xpath('.//dd') }
           .map do |xs|
             xs
               .xpath('.//text()')
               .reject { |x| x.class == Nokogiri::XML::CDATA }
               .map(&:text)
-              .reject { |str| /\s*\(\d\.\d\)\s*/.match?(str) }
-              .reject { |str| /\s*\[\d\]\s*/.match?(str) }
-              .map { |str| str.gsub(/\s+/, " ") }
+              .reject(&method(:reference_1?))
+              .reject(&method(:reference_2?))
+              .map(&method(:collapse_spaces))
               .map(&:chomp)
               .reject(&:empty?)
               .join('')
@@ -151,4 +162,10 @@ class ParseWiktionaryHtml
         acc.merge(language.text => xs)
       end
   end
+
+  def reference_1?(string) = REFERENCE_1.match?(string)
+
+  def reference_2?(string) = /\s*\[\d\]\s*/.match?(string)
+
+  def collapse_spaces(string) = string.gsub(/\s+/, " ")
 end

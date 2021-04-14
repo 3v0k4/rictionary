@@ -286,6 +286,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
 
     assert_includes actual.other_translations.keys, 'język czeski'
     assert_includes actual.other_translations.keys, 'język kaszubski'
+    assert_not_includes actual.other_translations.keys, 'język polski'
   end
 
   test "it skips styles in other_translations" do
