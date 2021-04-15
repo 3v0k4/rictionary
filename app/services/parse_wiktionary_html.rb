@@ -21,15 +21,11 @@ class ParseWiktionaryHtml
   def categories(doc)
     doc
       .xpath('.//*[contains(text(), "znaczenia")]/../..')
-      .xpath('./following-sibling::*//i[contains(text(), "dokonany")]/..')
-      .map do |d|
-        d
-          .xpath('*[not(self::style)]')
-          .map(&:text)
-          .map(&:strip)
-          .reject(&:empty?)
-          .join(' ')
-      end
+      .xpath('./following-sibling::*//*[contains(text(), "dokonany")]/..')
+      .map { |category| category.xpath('.//*[not(self::style)]/text()') }
+      .map { |category_fragments| category_fragments.map(&:text) }
+      .map { |category_fragments| category_fragments.join(' ') }
+      .map(&method(:clean))
       .uniq
   end
 
@@ -38,7 +34,7 @@ class ParseWiktionaryHtml
       .xpath('.//*[contains(text(), "przykłady")]/../..')
       .xpath('.//i')
       .map(&:text)
-      .map(&method(:collapse_spaces))
+      .map(&method(:clean))
       .uniq
   end
 
@@ -46,13 +42,8 @@ class ParseWiktionaryHtml
     doc
       .xpath('.//figure')
       .map do |figure|
-        url = figure.xpath('.//img/@src').text
-        caption = figure
-          .xpath('.//figcaption')
-          .text
-          .split(' ')
-          .reject(&method(:reference_1?))
-          .join(' ')
+        url = figure.xpath('.//img/@src').text.yield_self(&method(:clean))
+        caption = figure.xpath('.//figcaption').text.yield_self(&method(:clean))
         { url: url, caption: caption }
       end
       .uniq
@@ -81,14 +72,11 @@ class ParseWiktionaryHtml
 
   def declination_(base, case_, number)
     base
-      .xpath('(//a[text() = "' + case_ + '"])[1]/../../td[' + number.to_s + ']')
-      .children
-      .filter("//text()|//*[not(self::style) and not(self::sup)]")
+      .xpath('(//a[text() = "' + case_ + '"])[1]/../../td[' + number.to_s + ']//text()')
+      .reject { |x| x.class == Nokogiri::XML::CDATA }
       .map(&:text)
-      .map(&:strip)
-      .map(&:chomp)
-      .reject(&:empty?)
       .join(" ")
+      .yield_self(&method(:clean))
   end
 
   def conjugation(doc)
@@ -119,25 +107,25 @@ class ParseWiktionaryHtml
     base
       .xpath('.//*[text() = "' + tense + '"]/../..' + move + '/td')
       .map(&:text)
-      .map(&:strip)
-      .map(&method(:collapse_spaces))
+      .map(&method(:clean))
   end
 
   def translations(doc)
     doc
       .xpath('.//*[starts-with(normalize-space(text()), "angielski:")]//text()')
       .reject { |x| x.class == Nokogiri::XML::CDATA }
+      .map(&:text)
       .join
-      .yield_self(&method(:collapse_spaces))
+      .yield_self { |string| string.sub('angielski:', '') }
+      .yield_self { |string| string.gsub(';', '') }
       .split(REFERENCE_1)
-      .drop(1)
-      .map { |string| string.sub(';', '') }
       .uniq
+      .reject(&:empty?)
   end
 
   def other_translations(doc)
     doc
-      .xpath('//*[starts-with(text(), "język ") and not(contains(text(), "język polski"))]')
+      .xpath('.//*[starts-with(text(), "język ") and not(contains(text(), "język polski"))]')
       .reduce({}) do |acc, language|
         xs = language
           .xpath('./../../..')
@@ -150,10 +138,8 @@ class ParseWiktionaryHtml
               .xpath('.//text()')
               .reject { |x| x.class == Nokogiri::XML::CDATA }
               .map(&:text)
-              .reject(&method(:reference_1?))
-              .reject(&method(:reference_2?))
+              .reject(&method(:reference?))
               .map(&method(:collapse_spaces))
-              .map(&:chomp)
               .reject(&:empty?)
               .join('')
               .strip
@@ -163,9 +149,18 @@ class ParseWiktionaryHtml
       end
   end
 
+  def reference?(string) = reference_1?(string) || reference_2?(string)
+
   def reference_1?(string) = REFERENCE_1.match?(string)
 
   def reference_2?(string) = /\s*\[\d\]\s*/.match?(string)
 
   def collapse_spaces(string) = string.gsub(/\s+/, " ")
+
+  def clean(string) = string
+    .gsub(REFERENCE_1, " ")
+    .gsub(/\s*\[\d\]\s*/, " ")
+    .yield_self(&method(:collapse_spaces))
+    .strip
+    .chomp
 end
