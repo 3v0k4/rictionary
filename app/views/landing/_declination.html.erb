@@ -1,0 +1,124 @@
+<form class="declination-split">
+  <input type="radio" class="toggle" id="toggle-singular" name="declination" value="singular" checked>
+  <label id="label-singular" class="label" for="toggle-singular">Singular</label>
+  <input type="radio" class="toggle" id="toggle-plural" name="declination" value="plural">
+  <label id="label-plural" class="label" for="toggle-plural">Plural</label>
+
+  <table class="declination-split-table" id="declination-singular">
+    <tr>
+      <th>nominative</th>
+      <td><%= declination.fetch(:nominative_singular) %></td>
+    </tr>
+
+    <tr>
+      <th>genitive</th>
+      <td><%= declination.fetch(:genitive_singular) %></td>
+    </tr>
+
+    <tr>
+      <th>dative</th>
+      <td><%= declination.fetch(:dative_singular) %></td>
+    </tr>
+
+    <tr>
+      <th>accusative</th>
+      <td><%= declination.fetch(:accusative_singular) %></td>
+    </tr>
+
+    <tr>
+      <th>instrumental</th>
+      <td><%= declination.fetch(:instrumental_singular) %></td>
+    </tr>
+
+    <tr>
+      <th>locative</th>
+      <td><%= declination.fetch(:locative_singular) %></td>
+    </tr>
+
+    <tr>
+      <th>vocative</th>
+      <td><%= declination.fetch(:vocative_singular) %></td>
+    </tr>
+  </table>
+
+  <table class="declination-split-table" id="declination-plural">
+    <tr>
+      <th>nominative</th>
+      <td><%= declination.fetch(:nominative_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>genitive</th>
+      <td><%= declination.fetch(:genitive_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>dative</th>
+      <td><%= declination.fetch(:dative_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>accusative</th>
+      <td><%= declination.fetch(:accusative_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>instrumental</th>
+      <td><%= declination.fetch(:instrumental_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>locative</th>
+      <td><%= declination.fetch(:locative_plural) %></td>
+    </tr>
+
+    <tr>
+      <th>vocative</th>
+      <td><%= declination.fetch(:vocative_plural) %></td>
+    </tr>
+  </table>
+</form>
+
+<table class="declination-unified">
+  <tr>
+    <th>nominative</th>
+    <td><%= declination.fetch(:nominative_singular) %></td>
+    <td><%= declination.fetch(:nominative_plural) %></td>
+  </tr>
+
+  <tr>
+    <th>genitive</th>
+    <td><%= declination.fetch(:genitive_singular) %></td>
+    <td><%= declination.fetch(:genitive_plural) %></td>
+  </tr>
+
+  <tr>
+    <th>dative</th>
+    <td><%= declination.fetch(:dative_singular) %></td>
+    <td><%= declination.fetch(:dative_plural) %></td>
+  </tr>
+
+  <tr>
+    <th>accusative</th>
+    <td><%= declination.fetch(:accusative_singular) %></td>
+    <td><%= declination.fetch(:accusative_plural) %></td>
+  </tr>
+
+  <tr>
+    <th>instrumental</th>
+    <td><%= declination.fetch(:instrumental_singular) %></td>
+    <td><%= declination.fetch(:instrumental_plural) %></td>
+  </tr>
+
+  <tr>
+    <th>locative</th>
+    <td><%= declination.fetch(:locative_singular) %></td>
+    <td><%= declination.fetch(:locative_plural) %></td>
+  </tr>
+
+  <tr>
+    <th>vocative</th>
+    <td><%= declination.fetch(:vocative_singular) %></td>
+    <td><%= declination.fetch(:vocative_plural) %></td>
+  </tr>
+</table>

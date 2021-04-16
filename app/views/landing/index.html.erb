@@ -139,49 +139,7 @@
 
     <% if @view_model.parse_result.declination.present? %>
       <section class="section">
-        <table>
-          <tr>
-            <th>nominative</th>
-            <td><%= @view_model.parse_result.declination.fetch(:nominative_singular) %></td>
-            <td><%= @view_model.parse_result.declination.fetch(:nominative_plural) %></td>
-          </tr>
-
-          <tr>
-            <th>genitive</th>
-            <td><%= @view_model.parse_result.declination.fetch(:genitive_singular) %></td>
-            <td><%= @view_model.parse_result.declination.fetch(:genitive_plural) %></td>
-          </tr>
-
-          <tr>
-            <th>dative</th>
-            <td><%= @view_model.parse_result.declination.fetch(:dative_singular) %></td>
-            <td><%= @view_model.parse_result.declination.fetch(:dative_plural) %></td>
-          </tr>
-
-          <tr>
-            <th>accusative</th>
-            <td><%= @view_model.parse_result.declination.fetch(:accusative_singular) %></td>
-            <td><%= @view_model.parse_result.declination.fetch(:accusative_plural) %></td>
-          </tr>
-
-          <tr>
-            <th>instrumental</th>
-            <td><%= @view_model.parse_result.declination.fetch(:instrumental_singular) %></td>
-            <td><%= @view_model.parse_result.declination.fetch(:instrumental_plural) %></td>
-          </tr>
-
-          <tr>
-            <th>locative</th>
-            <td><%= @view_model.parse_result.declination.fetch(:locative_singular) %></td>
-            <td><%= @view_model.parse_result.declination.fetch(:locative_plural) %></td>
-          </tr>
-
-          <tr>
-            <th>vocative</th>
-            <td><%= @view_model.parse_result.declination.fetch(:vocative_singular) %></td>
-            <td><%= @view_model.parse_result.declination.fetch(:vocative_plural) %></td>
-          </tr>
-        </table>
+        <%= render "declination", declination: @view_model.parse_result.declination %>
       </section>
     <% end %>
 
