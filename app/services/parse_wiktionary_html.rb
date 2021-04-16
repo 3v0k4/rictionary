@@ -126,41 +126,30 @@ class ParseWiktionaryHtml
   def other_translations(doc)
     doc
       .xpath('.//*[starts-with(text(), "język ") and not(contains(text(), "język polski"))]')
-      .reduce({}) do |acc, language|
-        xs = language
-          .xpath('./../../..')
-          .xpath('.//*[contains(text(), "znaczenia")]/../..')
-          .xpath('./following-sibling::*')
-          .take_while { |x| x.node_name != 'span' }
-          .flat_map { |x| x.xpath('.//dd') }
-          .map do |xs|
-            xs
-              .xpath('.//text()')
-              .reject { |x| x.class == Nokogiri::XML::CDATA }
-              .map(&:text)
-              .reject(&method(:reference?))
-              .map(&method(:collapse_spaces))
-              .reject(&:empty?)
-              .join('')
-              .strip
-          end
-          .reject(&:empty?)
-        acc.merge(language.text => xs)
-      end
+      .reduce({}) { |acc, language| acc.merge(language.text => language_(language)) }
   end
 
-  def reference?(string) = reference_1?(string) || reference_2?(string)
+  def language_(language) = language
+    .xpath('./../../..')
+    .xpath('.//*[contains(text(), "znaczenia")]/../..')
+    .xpath('./following-sibling::*')
+    .take_while { |x| x.node_name != 'span' }
+    .flat_map { |x| x.xpath('.//dd') }
+    .map do |translation_group|
+      translation_group
+        .xpath('.//text()')
+        .reject { |x| x.class == Nokogiri::XML::CDATA }
+        .map(&:text)
+        .join
+        .yield_self(&method(:clean))
+    end
 
-  def reference_1?(string) = REFERENCE_1.match?(string)
-
-  def reference_2?(string) = /\s*\[\d\]\s*/.match?(string)
-
-  def collapse_spaces(string) = string.gsub(/\s+/, " ")
-
-  def clean(string) = string
-    .gsub(REFERENCE_1, " ")
-    .gsub(/\s*\[\d\]\s*/, " ")
-    .yield_self(&method(:collapse_spaces))
-    .strip
-    .chomp
+  def clean(string)
+    string
+      .gsub(REFERENCE_1, " ")
+      .gsub(/\s*\[\d\]\s*/, " ")
+      .gsub(/\s+/, " ")
+      .strip
+      .chomp
+  end
 end
