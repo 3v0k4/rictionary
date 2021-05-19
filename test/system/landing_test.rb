@@ -178,14 +178,14 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_link "bab.la"
 
-    assert_text "to crank up"
-    assert_text "to overclock"
-    assert_text "to gun"
-    assert_text "to pump up"
-    assert_text "to put spin on"
-    assert_text "to twirl"
-    assert_text "to spoon"
-    assert_text "to whack up"
+    assert_text "crank up"
+    assert_text "overclock"
+    assert_text "gun"
+    assert_text "pump up"
+    assert_text "put spin on"
+    assert_text "twirl"
+    assert_text "spoon"
+    assert_text "whack up"
   end
 
   test "link to wiktionary" do
