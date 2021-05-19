@@ -87,26 +87,94 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
     assert_equal 1, actual.images.size
   end
 
-  test 'it parses the declination' do
+  test 'it parses the declination for a noun' do
     html = File.read('test/htmls/wiktionary/liść.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
     expected = {
-      nominative_singular: 'liść',
-      nominative_plural: 'liście',
-      genitive_singular: 'liścia',
-      genitive_plural: 'liści',
-      dative_singular: 'liściowi',
-      dative_plural: 'liściom',
-      accusative_singular: 'liść',
-      accusative_plural: 'liście',
-      instrumental_singular: 'liściem',
-      instrumental_plural: 'liśćmi',
-      locative_singular: 'liściu',
-      locative_plural: 'liściach',
-      vocative_singular: 'liściu',
-      vocative_plural: 'liście',
+      singular: {
+        nominative: 'liść',
+        genitive: 'liścia',
+        dative: 'liściowi',
+        accusative: 'liść',
+        instrumental: 'liściem',
+        locative: 'liściu',
+        vocative: 'liściu',
+      },
+      plural: {
+        nominative: 'liście',
+        genitive: 'liści',
+        dative: 'liściom',
+        accusative: 'liście',
+        instrumental: 'liśćmi',
+        locative: 'liściach',
+        vocative: 'liście',
+      },
+    }
+    assert_equal expected, actual.declination
+  end
+
+  test 'it parses the declination for an adjective' do
+    html = File.read('test/htmls/wiktionary/czerwony.html')
+
+    actual = ParseWiktionaryHtml.new.call(html)
+
+    expected = {
+      masculine: {
+        nominative: 'czerwony',
+        genitive: 'czerwonego',
+        dative: 'czerwonemu',
+        accusative: 'czerwonego',
+        instrumental: 'czerwonym',
+        locative: 'czerwonym',
+        vocative: 'czerwony',
+      },
+      nmasculine: {
+        nominative: 'czerwony',
+        genitive: 'czerwonego',
+        dative: 'czerwonemu',
+        accusative: 'czerwony',
+        instrumental: 'czerwonym',
+        locative: 'czerwonym',
+        vocative: 'czerwony',
+      },
+      feminine: {
+        nominative: 'czerwona',
+        genitive: 'czerwonej',
+        dative: 'czerwonej',
+        accusative: 'czerwoną',
+        instrumental: 'czerwoną',
+        locative: 'czerwonej',
+        vocative: 'czerwona',
+      },
+      neuter: {
+        nominative: 'czerwone',
+        genitive: 'czerwonego',
+        dative: 'czerwonemu',
+        accusative: 'czerwone',
+        instrumental: 'czerwonym',
+        locative: 'czerwonym',
+        vocative: 'czerwone',
+      },
+      mesko: {
+        nominative: 'czerwoni',
+        genitive: 'czerwonych',
+        dative: 'czerwonym',
+        accusative: 'czerwonych',
+        instrumental: 'czerwonymi',
+        locative: 'czerwonych',
+        vocative: 'czerwoni',
+      },
+      nmesko: {
+        nominative: 'czerwone',
+        genitive: 'czerwonych',
+        dative: 'czerwonym',
+        accusative: 'czerwone',
+        instrumental: 'czerwonymi',
+        locative: 'czerwonych',
+        vocative: 'czerwone',
+      },
     }
     assert_equal expected, actual.declination
   end
@@ -116,7 +184,7 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
 
     actual = ParseWiktionaryHtml.new.call(html)
 
-    assert_equal 'przypadek', actual.declination.fetch(:nominative_singular)
+    assert_equal 'przypadek', actual.declination.dig(:singular, :nominative)
   end
 
 
@@ -125,8 +193,8 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
 
     actual = ParseWiktionaryHtml.new.call(html)
 
-    assert_equal 'pot', actual.declination.fetch(:nominative_singular)
-    assert_equal 'poty', actual.declination.fetch(:nominative_plural)
+    assert_equal 'pot', actual.declination.dig(:singular, :nominative)
+    assert_equal 'poty', actual.declination.dig(:plural, :nominative)
   end
 
   test 'when declination is missing it parses to nil' do
@@ -141,20 +209,24 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
     actual = ParseWiktionaryHtml.new.call(html)
 
     expected = {
-      nominative_singular: 'cześć',
-      nominative_plural: 'czci',
-      genitive_singular: 'czci',
-      genitive_plural: 'czci',
-      dative_singular: 'czci',
-      dative_plural: 'czciom',
-      accusative_singular: 'cześć',
-      accusative_plural: 'czci',
-      instrumental_singular: 'czcią',
-      instrumental_plural: 'czciami',
-      locative_singular: 'czci',
-      locative_plural: 'czciach',
-      vocative_singular: 'czci',
-      vocative_plural: 'czci',
+      singular: {
+        nominative: 'cześć',
+        genitive: 'czci',
+        dative: 'czci',
+        accusative: 'cześć',
+        instrumental: 'czcią',
+        locative: 'czci',
+        vocative: 'czci',
+      },
+      plural: {
+        nominative: 'czci',
+        genitive: 'czci',
+        dative: 'czciom',
+        accusative: 'czci',
+        instrumental: 'czciami',
+        locative: 'czciach',
+        vocative: 'czci',
+      },
     }
     assert_equal expected, actual.declination
   end
@@ -165,20 +237,24 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
     actual = ParseWiktionaryHtml.new.call(html)
 
     expected = {
-      nominative_singular: 'dziecko',
-      nominative_plural: 'dzieci lub przest. reg. dziecka',
-      genitive_singular: 'dziecka',
-      genitive_plural: 'dzieci lub przest. reg. dziecek',
-      dative_singular: 'dziecku',
-      dative_plural: 'dzieciom lub przest. reg. dzieckom',
-      accusative_singular: 'dziecko',
-      accusative_plural: 'dzieci lub przest. reg. dziecka',
-      instrumental_singular: 'dzieckiem',
-      instrumental_plural: 'dziećmi lub przest. reg. dzieckami',
-      locative_singular: 'dziecku',
-      locative_plural: 'dzieciach lub przest. reg. dzieckach',
-      vocative_singular: 'dziecko',
-      vocative_plural: 'dzieci lub przest. reg. dziecka',
+      singular: {
+        nominative: 'dziecko',
+        genitive: 'dziecka',
+        dative: 'dziecku',
+        accusative: 'dziecko',
+        instrumental: 'dzieckiem',
+        locative: 'dziecku',
+        vocative: 'dziecko',
+      },
+      plural: {
+        nominative: 'dzieci lub przest. reg. dziecka',
+        genitive: 'dzieci lub przest. reg. dziecek',
+        dative: 'dzieciom lub przest. reg. dzieckom',
+        accusative: 'dzieci lub przest. reg. dziecka',
+        instrumental: 'dziećmi lub przest. reg. dzieckami',
+        locative: 'dzieciach lub przest. reg. dzieckach',
+        vocative: 'dzieci lub przest. reg. dziecka',
+      },
     }
     assert_equal expected, actual.declination
   end

@@ -67,6 +67,65 @@ class LandingTest < ApplicationSystemTestCase
     assert_text 'ptaki'
   end
 
+  test "czerwony" do
+    visit root_url
+
+    assert_equal "", page.find("input[name='query']").value
+
+    fill_in "query", with: "czerwony"
+    click_button "Go"
+
+    assert_equal "czerwony", page.find("input[name='query']").value
+
+    assert_text 'czerwony'
+    assert_text 'czerwonego'
+    assert_text 'czerwonemu'
+    assert_text 'czerwonego'
+    assert_text 'czerwonym'
+    assert_text 'czerwonym'
+    assert_text 'czerwony'
+
+    assert_text 'czerwony'
+    assert_text 'czerwonego'
+    assert_text 'czerwonemu'
+    assert_text 'czerwony'
+    assert_text 'czerwonym'
+    assert_text 'czerwonym'
+    assert_text 'czerwony'
+
+    assert_text 'czerwona'
+    assert_text 'czerwonej'
+    assert_text 'czerwonej'
+    assert_text 'czerwoną'
+    assert_text 'czerwoną'
+    assert_text 'czerwonej'
+    assert_text 'czerwona'
+
+    assert_text 'czerwone'
+    assert_text 'czerwonego'
+    assert_text 'czerwonemu'
+    assert_text 'czerwone'
+    assert_text 'czerwonym'
+    assert_text 'czerwonym'
+    assert_text 'czerwone'
+
+    assert_text 'czerwoni'
+    assert_text 'czerwonych'
+    assert_text 'czerwonym'
+    assert_text 'czerwonych'
+    assert_text 'czerwonymi'
+    assert_text 'czerwonych'
+    assert_text 'czerwoni'
+
+    assert_text 'czerwone'
+    assert_text 'czerwonych'
+    assert_text 'czerwonym'
+    assert_text 'czerwone'
+    assert_text 'czerwonymi'
+    assert_text 'czerwonych'
+    assert_text 'czerwone'
+  end
+
   test "lisc gets autocorrected to liść" do
     visit root_url
 
