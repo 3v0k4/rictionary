@@ -225,3 +225,60 @@ td {
     display: block;
   }
 }
+
+#declination-singular-masculine-personal,
+#declination-singular-masculine-inanimate,
+#declination-singular-feminine,
+#declination-singular-neuter,
+#declination-plural-masculine-personal,
+#declination-plural-non-masculine-personal {
+  display: none;
+}
+
+#toggle-singular-masculine-personal:checked ~ #declination-singular-masculine-personal {
+  display: block;
+}
+
+#toggle-singular-masculine-inanimate:checked ~ #declination-singular-masculine-inanimate {
+  display: block;
+}
+
+#toggle-singular-feminine:checked ~ #declination-singular-feminine {
+  display: block;
+}
+
+#toggle-singular-neuter:checked ~ #declination-singular-neuter {
+  display: block;
+}
+
+#toggle-plural-masculine-personal:checked ~ #declination-plural-masculine-personal {
+  display: block;
+}
+
+#toggle-plural-non-masculine-personal:checked ~ #declination-plural-non-masculine-personal {
+  display: block;
+}
+
+#toggle-singular-masculine-personal:checked + #label-singular-masculine-personal {
+  background: lightgrey;
+}
+
+#toggle-singular-masculine-inanimate:checked + #label-singular-masculine-inanimate {
+  background: lightgrey;
+}
+
+#toggle-singular-feminine:checked + #label-singular-feminine {
+  background: lightgrey;
+}
+
+#toggle-singular-neuter:checked + #label-singular-neuter {
+  background: lightgrey;
+}
+
+#toggle-plural-masculine-personal:checked + #label-plural-masculine-personal {
+  background: lightgrey;
+}
+
+#toggle-plural-non-masculine-personal:checked + #label-plural-non-masculine-personal {
+  background: lightgrey;
+}

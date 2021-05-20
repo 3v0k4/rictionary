@@ -67,6 +67,18 @@ class LandingTest < ApplicationSystemTestCase
     assert_text 'ptaki'
   end
 
+  test "męskoosobowy takes translation from bab.la" do
+    visit root_url
+
+    assert_equal "", page.find("input[name='query']").value
+
+    fill_in "query", with: "męskoosobowy"
+    click_button "Go"
+
+    assert_equal "męskoosobowy", page.find("input[name='query']").value
+    assert_text 'masculine personal (gender)'
+  end
+
   test "czerwony" do
     visit root_url
 
