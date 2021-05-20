@@ -28,11 +28,21 @@ class FetchBablaTranslations
   end
 
   def call(query)
-    corrected = @correct_query_via_babla.call(query)
-    return NotFound.new if corrected.nil?
+    corrected, translations = fetch(query)
+
+    if translations.any?
+      Found.new(corrected: corrected, translations: translations)
+    else
+      NotFound.new
+    end
+  end
+
+  private
+
+  def fetch(query)
+    corrected = @correct_query_via_babla.call(query) || query
     url = "#{URL}/#{corrected.gsub(' ', '-')}"
     html = @http_client.get_or(url, "")
-    translations = @parse_babla_html.call(html, corrected)
-    Found.new(corrected: corrected, translations: translations)
+    [corrected, @parse_babla_html.call(html, corrected)]
   end
 end
