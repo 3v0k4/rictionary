@@ -127,259 +127,268 @@
 <% else %>
   <form class="declination-split">
     <input type="radio" class="toggle" id="toggle-singular-masculine-personal" name="declination" value="singular-masculine-personal" checked>
-    <label id="label-singular-masculine-personal" class="label" for="toggle-singular-masculine-personal">Singular Masculine Personal</label>
-
-    <br />
-    <br />
+    <label id="label-singular-masculine-personal" class="label" for="toggle-singular-masculine-personal">smp</label>
 
     <input type="radio" class="toggle" id="toggle-singular-masculine-inanimate" name="declination" value="singular-masculine-inanimate">
-    <label id="label-singular-masculine-inanimate" class="label" for="toggle-singular-masculine-inanimate">Singular Masculine Inanimate</label>
-
-    <br />
-    <br />
+    <label id="label-singular-masculine-inanimate" class="label" for="toggle-singular-masculine-inanimate">smi</label>
 
     <input type="radio" class="toggle" id="toggle-singular-feminine" name="declination" value="singular-feminine">
-    <label id="label-singular-feminine" class="label" for="toggle-singular-feminine">Singular Feminine</label>
-
-    <br />
-    <br />
+    <label id="label-singular-feminine" class="label" for="toggle-singular-feminine">sf</label>
 
     <input type="radio" class="toggle" id="toggle-singular-neuter" name="declination" value="singular-neuter">
-    <label id="label-singular-neuter" class="label" for="toggle-singular-neuter">Singular Neuter</label>
-
-    <br />
-    <br />
+    <label id="label-singular-neuter" class="label" for="toggle-singular-neuter">sn</label>
 
     <input type="radio" class="toggle" id="toggle-plural-masculine-personal" name="declination" value="plural-masculine-personal">
-    <label id="label-plural-masculine-personal" class="label" for="toggle-plural-masculine-personal">Plural Masculine</label>
-
-    <br />
-    <br />
+    <label id="label-plural-masculine-personal" class="label" for="toggle-plural-masculine-personal">pm</label>
 
     <input type="radio" class="toggle" id="toggle-plural-non-masculine-personal" name="declination" value="plural-non-masculine-personal">
-    <label id="label-plural-non-masculine-personal" class="label" for="toggle-plural-non-masculine-personal">Plural Non Masculine Personal</label>
+    <label id="label-plural-non-masculine-personal" class="label" for="toggle-plural-non-masculine-personal">pnmp</label>
 
-    <table class="declination-split-table" id="declination-singular-masculine-personal">
-      <tr>
-        <th>nominative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:nominative) %></td>
-      </tr>
+    <div class="declination-split-table" id="declination-singular-masculine-personal">
+      <h2>Singular Masculine Personal</h2>
 
-      <tr>
-        <th>genitive</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:genitive) %></td>
-      </tr>
+      <table>
+        <tr>
+          <th>nominative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:nominative) %></td>
+        </tr>
 
-      <tr>
-        <th>dative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:dative) %></td>
-      </tr>
+        <tr>
+          <th>genitive</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:genitive) %></td>
+        </tr>
 
-      <tr>
-        <th>accusative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:accusative) %></td>
-      </tr>
+        <tr>
+          <th>dative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:dative) %></td>
+        </tr>
 
-      <tr>
-        <th>instrumental</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:instrumental) %></td>
-      </tr>
+        <tr>
+          <th>accusative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:accusative) %></td>
+        </tr>
 
-      <tr>
-        <th>locative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:locative) %></td>
-      </tr>
+        <tr>
+          <th>instrumental</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:instrumental) %></td>
+        </tr>
 
-      <tr>
-        <th>vocative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:vocative) %></td>
-      </tr>
-    </table>
+        <tr>
+          <th>locative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:locative) %></td>
+        </tr>
 
-    <table class="declination-split-table" id="declination-singular-masculine-inanimate">
-      <tr>
-        <th>nominative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:nominative) %></td>
-      </tr>
+        <tr>
+          <th>vocative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_personal).fetch(:vocative) %></td>
+        </tr>
+      </table>
+    </div>
 
-      <tr>
-        <th>genitive</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:genitive) %></td>
-      </tr>
+    <div class="declination-split-table" id="declination-singular-masculine-inanimate">
+      <h2>Singular Masculine Inanimate</h2>
 
-      <tr>
-        <th>dative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:dative) %></td>
-      </tr>
+      <table>
+        <tr>
+          <th>nominative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:nominative) %></td>
+        </tr>
 
-      <tr>
-        <th>accusative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:accusative) %></td>
-      </tr>
+        <tr>
+          <th>genitive</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:genitive) %></td>
+        </tr>
 
-      <tr>
-        <th>instrumental</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:instrumental) %></td>
-      </tr>
+        <tr>
+          <th>dative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:dative) %></td>
+        </tr>
 
-      <tr>
-        <th>locative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:locative) %></td>
-      </tr>
+        <tr>
+          <th>accusative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:accusative) %></td>
+        </tr>
 
-      <tr>
-        <th>vocative</th>
-        <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:vocative) %></td>
-      </tr>
-    </table>
+        <tr>
+          <th>instrumental</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:instrumental) %></td>
+        </tr>
 
-    <table class="declination-split-table" id="declination-singular-feminine">
-      <tr>
-        <th>nominative</th>
-        <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:nominative) %></td>
-      </tr>
+        <tr>
+          <th>locative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:locative) %></td>
+        </tr>
 
-      <tr>
-        <th>genitive</th>
-        <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:genitive) %></td>
-      </tr>
+        <tr>
+          <th>vocative</th>
+          <td><%= declination.fetch(:singular).fetch(:masculine_inanimate).fetch(:vocative) %></td>
+        </tr>
+      </table>
+    </div>
 
-      <tr>
-        <th>dative</th>
-        <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:dative) %></td>
-      </tr>
+    <div class="declination-split-table" id="declination-singular-feminine">
+      <h2>Singular Feminine</h2>
 
-      <tr>
-        <th>accusative</th>
-        <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:accusative) %></td>
-      </tr>
+      <table>
+        <tr>
+          <th>nominative</th>
+          <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:nominative) %></td>
+        </tr>
 
-      <tr>
-        <th>instrumental</th>
-        <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:instrumental) %></td>
-      </tr>
+        <tr>
+          <th>genitive</th>
+          <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:genitive) %></td>
+        </tr>
 
-      <tr>
-        <th>locative</th>
-        <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:locative) %></td>
-      </tr>
+        <tr>
+          <th>dative</th>
+          <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:dative) %></td>
+        </tr>
 
-      <tr>
-        <th>vocative</th>
-        <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:vocative) %></td>
-      </tr>
-    </table>
+        <tr>
+          <th>accusative</th>
+          <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:accusative) %></td>
+        </tr>
 
-    <table class="declination-split-table" id="declination-singular-neuter">
-      <tr>
-        <th>nominative</th>
-        <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:nominative) %></td>
-      </tr>
+        <tr>
+          <th>instrumental</th>
+          <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:instrumental) %></td>
+        </tr>
 
-      <tr>
-        <th>genitive</th>
-        <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:genitive) %></td>
-      </tr>
+        <tr>
+          <th>locative</th>
+          <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:locative) %></td>
+        </tr>
 
-      <tr>
-        <th>dative</th>
-        <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:dative) %></td>
-      </tr>
+        <tr>
+          <th>vocative</th>
+          <td><%= declination.fetch(:singular).fetch(:feminine).fetch(:vocative) %></td>
+        </tr>
+      </table>
+    </div>
 
-      <tr>
-        <th>accusative</th>
-        <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:accusative) %></td>
-      </tr>
+    <div class="declination-split-table" id="declination-singular-neuter">
+      <h2>Singular Neuter</h2>
 
-      <tr>
-        <th>instrumental</th>
-        <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:instrumental) %></td>
-      </tr>
+      <table>
+        <tr>
+          <th>nominative</th>
+          <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:nominative) %></td>
+        </tr>
 
-      <tr>
-        <th>locative</th>
-        <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:locative) %></td>
-      </tr>
+        <tr>
+          <th>genitive</th>
+          <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:genitive) %></td>
+        </tr>
 
-      <tr>
-        <th>vocative</th>
-        <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:vocative) %></td>
-      </tr>
-    </table>
+        <tr>
+          <th>dative</th>
+          <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:dative) %></td>
+        </tr>
 
-    <table class="declination-split-table" id="declination-plural-masculine-personal">
-      <tr>
-        <th>nominative</th>
-        <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:nominative) %></td>
-      </tr>
+        <tr>
+          <th>accusative</th>
+          <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:accusative) %></td>
+        </tr>
 
-      <tr>
-        <th>genitive</th>
-        <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:genitive) %></td>
-      </tr>
+        <tr>
+          <th>instrumental</th>
+          <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:instrumental) %></td>
+        </tr>
 
-      <tr>
-        <th>dative</th>
-        <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:dative) %></td>
-      </tr>
+        <tr>
+          <th>locative</th>
+          <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:locative) %></td>
+        </tr>
 
-      <tr>
-        <th>accusative</th>
-        <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:accusative) %></td>
-      </tr>
+        <tr>
+          <th>vocative</th>
+          <td><%= declination.fetch(:singular).fetch(:neuter).fetch(:vocative) %></td>
+        </tr>
+      </table>
+    </div>
 
-      <tr>
-        <th>instrumental</th>
-        <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:instrumental) %></td>
-      </tr>
+    <div class="declination-split-table" id="declination-plural-masculine-personal">
+      <h2>Plural Masculine Personal</h2>
 
-      <tr>
-        <th>locative</th>
-        <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:locative) %></td>
-      </tr>
+      <table>
+        <tr>
+          <th>nominative</th>
+          <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:nominative) %></td>
+        </tr>
 
-      <tr>
-        <th>vocative</th>
-        <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:vocative) %></td>
-      </tr>
-    </table>
+        <tr>
+          <th>genitive</th>
+          <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:genitive) %></td>
+        </tr>
 
-    <table class="declination-split-table" id="declination-plural-non-masculine-personal">
-      <tr>
-        <th>nominative</th>
-        <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:nominative) %></td>
-      </tr>
+        <tr>
+          <th>dative</th>
+          <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:dative) %></td>
+        </tr>
 
-      <tr>
-        <th>genitive</th>
-        <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:genitive) %></td>
-      </tr>
+        <tr>
+          <th>accusative</th>
+          <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:accusative) %></td>
+        </tr>
 
-      <tr>
-        <th>dative</th>
-        <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:dative) %></td>
-      </tr>
+        <tr>
+          <th>instrumental</th>
+          <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:instrumental) %></td>
+        </tr>
 
-      <tr>
-        <th>accusative</th>
-        <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:accusative) %></td>
-      </tr>
+        <tr>
+          <th>locative</th>
+          <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:locative) %></td>
+        </tr>
 
-      <tr>
-        <th>instrumental</th>
-        <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:instrumental) %></td>
-      </tr>
+        <tr>
+          <th>vocative</th>
+          <td><%= declination.fetch(:plural).fetch(:masculine_personal).fetch(:vocative) %></td>
+        </tr>
+      </table>
+    </div>
 
-      <tr>
-        <th>locative</th>
-        <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:locative) %></td>
-      </tr>
+    <div class="declination-split-table" id="declination-plural-non-masculine-personal">
+      <h2>Plural Non Masculine Personal</h2>
 
-      <tr>
-        <th>vocative</th>
-        <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:vocative) %></td>
-      </tr>
-    </table>
+      <table>
+        <tr>
+          <th>nominative</th>
+          <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:nominative) %></td>
+        </tr>
+
+        <tr>
+          <th>genitive</th>
+          <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:genitive) %></td>
+        </tr>
+
+        <tr>
+          <th>dative</th>
+          <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:dative) %></td>
+        </tr>
+
+        <tr>
+          <th>accusative</th>
+          <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:accusative) %></td>
+        </tr>
+
+        <tr>
+          <th>instrumental</th>
+          <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:instrumental) %></td>
+        </tr>
+
+        <tr>
+          <th>locative</th>
+          <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:locative) %></td>
+        </tr>
+
+        <tr>
+          <th>vocative</th>
+          <td><%= declination.fetch(:plural).fetch(:non_masculine_personal).fetch(:vocative) %></td>
+        </tr>
+      </table>
+    </div>
   </form>
 
   <table class="declination-unified">
