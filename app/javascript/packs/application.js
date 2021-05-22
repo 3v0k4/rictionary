@@ -25,6 +25,7 @@ document.addEventListener("turbolinks:load", () => {
   showPersistedQueries()
   setupClearPersistedQueriesButton()
   setupAdjectiveDropdown()
+  setupVerbDropdown()
 })
 
 const setupAutocomplete = () => {
@@ -129,5 +130,17 @@ const setupAdjectiveDropdown = () => {
   select.addEventListener('change', event => {
     document.querySelectorAll('.declination-split-table').forEach(x => x.style.display = 'none')
     document.getElementById(`declination-${event.target.value}`).style.display = 'block'
+  })
+}
+
+const setupVerbDropdown = () => {
+  const select = document.getElementById('select-conjugation')
+  if (!select) { return }
+  Array.prototype.slice.call(select.options).filter(x => x.selected).forEach(x => {
+    document.getElementById(`conjugation-${x.value}`).style.display = 'block'
+  })
+  select.addEventListener('change', event => {
+    document.querySelectorAll('.conjugation-split-table').forEach(x => x.style.display = 'none')
+    document.getElementById(`conjugation-${event.target.value}`).style.display = 'block'
   })
 }

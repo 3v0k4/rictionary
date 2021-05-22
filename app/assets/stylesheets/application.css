@@ -233,6 +233,11 @@ td {
   }
 }
 
+.conjugation-split-table {
+  margin-top: 20px;
+  display: none;
+}
+
 .conjugation-split {
   display: block;
 }
@@ -251,52 +256,4 @@ td {
   .conjugation-unified {
     display: block;
   }
-}
-
-#conjugation-present-or-future,
-#conjugation-past-masculine,
-#conjugation-past-feminine,
-#conjugation-past-neuter,
-#conjugation-imperative {
-  display: none;
-}
-
-#toggle-present-or-future:checked ~ #conjugation-present-or-future {
-  display: block;
-}
-
-#toggle-past-masculine:checked ~ #conjugation-past-masculine {
-  display: block;
-}
-
-#toggle-past-feminine:checked ~ #conjugation-past-feminine {
-  display: block;
-}
-
-#toggle-past-neuter:checked ~ #conjugation-past-neuter {
-  display: block;
-}
-
-#toggle-imperative:checked ~ #conjugation-imperative {
-  display: block;
-}
-
-#toggle-present-or-future:checked + #label-present-or-future {
-  background: lightgrey;
-}
-
-#toggle-past-masculine:checked + #label-past-masculine {
-  background: lightgrey;
-}
-
-#toggle-past-feminine:checked + #label-past-feminine {
-  background: lightgrey;
-}
-
-#toggle-past-neuter:checked + #label-past-neuter {
-  background: lightgrey;
-}
-
-#toggle-imperative:checked + #label-imperative {
-  background: lightgrey;
 }

@@ -1,29 +1,6 @@
 <form class="conjugation-split">
-  <input type="radio" class="toggle" id="toggle-present-or-future" name="conjugation" value="present-or-future" checked>
-  <label id="label-present-or-future" class="label" for="toggle-present-or-future">
-    <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-      p
-    <% elsif @view_model.parse_result.conjugation.fetch(:future).present? %>
-      f
-    <% else %>
-      e
-    <% end %>
-  </label>
-
-  <input type="radio" class="toggle" id="toggle-past-masculine" name="conjugation" value="past-masculine">
-  <label id="label-past-masculine" class="label" for="toggle-past-masculine">pm</label>
-
-  <input type="radio" class="toggle" id="toggle-past-feminine" name="conjugation" value="past-feminine">
-  <label id="label-past-feminine" class="label" for="toggle-past-feminine">pf</label>
-
-  <input type="radio" class="toggle" id="toggle-past-neuter" name="conjugation" value="past-neuter">
-  <label id="label-past-neuter" class="label" for="toggle-past-neuter">pn</label>
-
-  <input type="radio" class="toggle" id="toggle-imperative" name="conjugation" value="imperative">
-  <label id="label-imperative" class="label" for="toggle-imperative">i</label>
-
-  <div class="conjugation-split-table" id="conjugation-present-or-future">
-    <h2>
+  <select id="select-conjugation" name="some-name" style="display: block; width: 100%;">
+    <option value="present-or-future" selected>
       <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
         Present
       <% elsif @view_model.parse_result.conjugation.fetch(:future).present? %>
@@ -31,8 +8,14 @@
       <% else %>
         Error
       <% end %>
-    </h2>
+    </option>
+    <option value="past-masculine">Past Masculine</option>
+    <option value="past-feminine">Past Feminine</option>
+    <option value="past-neuter">Past Neuter</option>
+    <option value="imperative">Imperative</option>
+  </select>
 
+  <div class="conjugation-split-table" id="conjugation-present-or-future">
     <table>
       <tr>
         <th>ja</th>
@@ -97,8 +80,6 @@
   </div>
 
   <div class="conjugation-split-table" id="conjugation-past-masculine">
-    <h2>Past Masculine</h2>
-
     <table>
       <tr>
         <th>ja</th>
@@ -133,8 +114,6 @@
   </div>
 
   <div class="conjugation-split-table" id="conjugation-past-feminine">
-    <h2>Past Feminine</h2>
-
     <table>
       <tr>
         <th>ja</th>
@@ -169,8 +148,6 @@
   </div>
 
   <div class="conjugation-split-table" id="conjugation-past-neuter">
-    <h2>Past Neuter</h2>
-
     <table>
       <tr>
         <th>ja</th>
@@ -205,8 +182,6 @@
   </div>
 
   <div class="conjugation-split-table" id="conjugation-imperative">
-    <h2>Imperative</h2>
-
     <table>
       <tr>
         <th>ja</th>
@@ -242,7 +217,7 @@
 </form>
 
 <div class="conjugation-unified">
-  <table class="conjugation-split-table" id="conjugation-singular">
+  <table>
     <tr>
       <th>ja (m.)</th>
       <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
