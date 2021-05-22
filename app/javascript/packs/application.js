@@ -24,6 +24,7 @@ document.addEventListener("turbolinks:load", () => {
   persistQuery()
   showPersistedQueries()
   setupClearPersistedQueriesButton()
+  setupAdjectiveDropdown()
 })
 
 const setupAutocomplete = () => {
@@ -117,4 +118,16 @@ const addFontClass = () => {
       sessionStorage.fontsLoaded = "true"
     })
   }
+}
+
+const setupAdjectiveDropdown = () => {
+  const select = document.getElementById('select-case')
+  if (!select) { return }
+  Array.prototype.slice.call(select.options).filter(x => x.selected).forEach(x => {
+    document.getElementById(`declination-${x.value}`).style.display = 'block'
+  })
+  select.addEventListener('change', event => {
+    document.querySelectorAll('.declination-split-table').forEach(x => x.style.display = 'none')
+    document.getElementById(`declination-${event.target.value}`).style.display = 'block'
+  })
 }
