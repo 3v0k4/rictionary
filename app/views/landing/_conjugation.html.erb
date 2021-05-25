@@ -68,7 +68,7 @@
       </tr>
 
       <tr>
-        <th>oni / one</th>
+        <th>oni/one</th>
         <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
           <td><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
         <% end %>
@@ -209,7 +209,7 @@
       </tr>
 
       <tr>
-        <th>oni / one</th>
+        <th>oni/one</th>
         <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[5] %></td>
       </tr>
     </table>
@@ -219,7 +219,7 @@
 <div class="conjugation-unified">
   <table>
     <tr>
-      <th>ja (m.)</th>
+      <th>ja</th>
       <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
         <td><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
       <% end %>
@@ -227,23 +227,13 @@
         <td><%= @view_model.parse_result.conjugation.fetch(:future)[0] %></td>
       <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[0] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[0] %></td>
-    </tr>
-
-    <tr>
-      <th>ja (f.)</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
-      <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:future)[0] %></td>
-      <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[0] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[0] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[0] %></td>
     </tr>
 
     <tr>
-      <th>ty (m.)</th>
+      <th>ty</th>
       <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
         <td><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
       <% end %>
@@ -251,23 +241,13 @@
         <td><%= @view_model.parse_result.conjugation.fetch(:future)[1] %></td>
       <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[1] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[1] %></td>
-    </tr>
-
-    <tr>
-      <th>ty (f.)</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
-      <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:future)[1] %></td>
-      <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[1] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[1] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[1] %></td>
     </tr>
 
     <tr>
-      <th>on (m.)</th>
+      <th>on(a/o)</th>
       <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
         <td><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
       <% end %>
@@ -275,43 +255,9 @@
         <td><%= @view_model.parse_result.conjugation.fetch(:future)[2] %></td>
       <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[2] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[2] %></td>
-    </tr>
-
-    <tr>
-      <th>ona (f.)</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
-      <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:future)[2] %></td>
-      <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[2] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[2] %></td>
-    </tr>
-
-    <tr>
-      <th>ono (n.)</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
-      <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:future)[2] %></td>
-      <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[2] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[2] %></td>
-    </tr>
-
-    <tr>
-      <th>my (m.p.)</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:present)[3] %></td>
-      <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:future)[3] %></td>
-      <% end %>
-      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[3] %></td>
     </tr>
 
     <tr>
@@ -322,20 +268,10 @@
       <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
         <td><%= @view_model.parse_result.conjugation.fetch(:future)[3] %></td>
       <% end %>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[3] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[3] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[3] %></td>
-    </tr>
-
-    <tr>
-      <th>wy (m.p.)</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:present)[4] %></td>
-      <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:future)[4] %></td>
-      <% end %>
-      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[4] %></td>
     </tr>
 
     <tr>
@@ -346,12 +282,14 @@
       <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
         <td><%= @view_model.parse_result.conjugation.fetch(:future)[4] %></td>
       <% end %>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[4] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[4] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[4] %></td>
     </tr>
 
     <tr>
-      <th>oni (m.p.)</th>
+      <th>oni/one</th>
       <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
         <td><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
       <% end %>
@@ -359,18 +297,8 @@
         <td><%= @view_model.parse_result.conjugation.fetch(:future)[5] %></td>
       <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
-      <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[5] %></td>
-    </tr>
-
-    <tr>
-      <th>one</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
-      <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td><%= @view_model.parse_result.conjugation.fetch(:future)[5] %></td>
-      <% end %>
       <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[5] %></td>
+      <td><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[5] %></td>
       <td><%= @view_model.parse_result.conjugation.fetch(:imperative)[5] %></td>
     </tr>
   </table>
