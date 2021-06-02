@@ -34,12 +34,12 @@ const setupAutocomplete = () => {
     fetch(`/suggestions?query=${encodeURIComponent(input)}`).then(x => x.json())
   const onSubmit = () => document.getElementsByTagName('form')[0].submit()
   const debounceTime = 300
-  new Autocomplete('#autocomplete', { search, onSubmit, debounceTime })
+  new Autocomplete('#header__autocomplete-container', { search, onSubmit, debounceTime })
 }
 
 const setupResetButton = () => {
-  const resetButton = document.getElementById('reset')
-  const queryInput = document.getElementById('query')
+  const resetButton = document.getElementById('header__clear-button')
+  const queryInput = document.getElementById('header__search-input')
   const resetVisibility = () => {
     const display = queryInput.value.length > 0 ? 'inline-block' : 'none'
     resetButton.style.display = display
