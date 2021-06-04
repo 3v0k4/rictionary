@@ -46,14 +46,13 @@
 
 <% if @view_model.class == BablaViewModel %>
   <main>
-    <h1>
-      <span id="corrected-query">
-        <%= @view_model.query %>
-      </span>
-      <span class="small">
-        (<a id="babla" href="<%= @view_model.babla_url %>" target="_blank" rel="noopener">bab.la</a> <kbd>b</kbd>)
-      </span>
+    <h1 id="corrected-query">
+      <%= @view_model.query %>
     </h1>
+
+    <div class="external-links">
+      <%= render "external_link", id: "babla", href: @view_model.babla_url, label: "bab.la" %>
+    </div>
 
     <section class="section">
       <h2>Translations</h2>
@@ -68,36 +67,16 @@
 
 <% if @view_model.class == WiktionaryViewModel %>
   <main>
-    <h1>
-      <span id="corrected-query">
-        <%= @view_model.query %>
-      </span>
-      <% if @view_model.babla_url.present? %>
-        <span class="small">
-          (<a
-             id="wiktionary"
-             href="<%= @view_model.wiktionary_link %>"
-             target="_blank"
-             rel="noopener"
-           >Wiktionary</a> <kbd>w</kbd>,
-           <a
-             id="babla"
-             href="<%= @view_model.babla_url %>"
-             target="_blank"
-             rel="noopener"
-            >bab.la</a> <kbd>b</kbd>)
-        </span>
-      <% else %>
-        <span class="small">
-          (<a
-             id="wiktionary"
-             href="<%= @view_model.wiktionary_link %>"
-             target="_blank"
-             rel="noopener"
-          >Wiktionary</a> <kbd>w</kbd>)
-        </span>
-      <% end %>
+    <h1 id="corrected-query">
+      <%= @view_model.query %>
     </h1>
+
+    <div class="external-links">
+      <%= render "external_link", id: "wiktionary", href: @view_model.wiktionary_link, label: "Wiktionary" %>
+      <% if @view_model.babla_url.present? %>
+        <%= render "external_link", id: "babla", href: @view_model.babla_url, label: "bab.la" %>
+      <% end %>
+    </div>
 
     <% if @view_model.parse_result.categories.present? %>
       <section>

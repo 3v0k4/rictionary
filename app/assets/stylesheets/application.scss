@@ -18,6 +18,8 @@
 @import 'header';
 @import 'images';
 
+$earth: #D24D1C;
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -124,10 +126,6 @@ footer {
 
 .separator {
   text-align: center;
-}
-
-.small {
-  font-size: 0.8rem;
 }
 
 .highlight {
@@ -260,4 +258,24 @@ td {
   .conjugation-unified {
     display: block;
   }
+}
+
+.external-links {
+  margin: 20px 0 30px 0;
+}
+
+.external-links__link {
+  background: $earth;
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+.external-links__icon {
+  width: 15px;
+  display: inline-block;
+  height: 15px;
+  fill: white;
 }
