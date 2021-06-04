@@ -117,11 +117,11 @@ $text-padding: 12px;
 
 #header__clear-button {
   @extend .button;
-  padding: 0;
+  padding: 0 15px;
   border: none;
   position: absolute;
-  right: 70px;
-  width: 15px;
+  right: 55px;
+  width: 45px;
   height: $height;
 }
 
