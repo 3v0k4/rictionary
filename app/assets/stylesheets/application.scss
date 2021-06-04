@@ -19,6 +19,7 @@
 @import 'images';
 
 $earth: #D24D1C;
+$earth-2: #A05F3B;
 
 * {
   -webkit-box-sizing: border-box;
@@ -75,16 +76,17 @@ body {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 2.4em;
   font-weight: bold;
   margin: 0;
 }
 
 h2 {
   font-size: 1rem;
-  font-weight: bold;
   text-transform: uppercase;
   margin: 0;
+  color: $earth-2;
+  letter-spacing: 0.5px;
 }
 
 ol {
