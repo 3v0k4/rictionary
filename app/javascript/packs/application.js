@@ -20,7 +20,7 @@ document.addEventListener("turbolinks:load", () => {
   setupResetButton()
   setupShortcut('babla', 'b', 'click')
   setupShortcut('wiktionary', 'w', 'click')
-  setupShortcut('query', 'f', 'select')
+  setupShortcut('header__search-input', 'f', 'select')
   persistQuery()
   showPersistedQueries()
   setupClearPersistedQueriesButton()
