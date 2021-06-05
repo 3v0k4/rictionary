@@ -169,10 +169,13 @@
 <section class="section shortcuts">
   <ul class="shortcuts__list">
     <li><kbd class="shortcuts__shortcut-icon">f</kbd><span>Search</span></li>
-    <% if @view_model.wiktionary_link.present? %>
+    <% if @view_model.class == WiktionaryViewModel %>
       <li><kbd class="shortcuts__shortcut-icon">w</kbd><span>Wiktionary</span></li>
+      <% if @view_model.babla_url.present? %>
+        <li><kbd class="shortcuts__shortcut-icon">b</kbd><span>bab.la</span></li>
+      <% end %>
     <% end %>
-    <% if @view_model.babla_url.present? %>
+    <% if @view_model.class == BablaViewModel %>
       <li><kbd class="shortcuts__shortcut-icon">b</kbd><span>bab.la</span></li>
     <% end %>
   </ul>
