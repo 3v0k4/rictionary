@@ -336,7 +336,7 @@ class LandingTest < ApplicationSystemTestCase
       assert_text "halo"
     end
 
-    click_button "Clear"
+    click_button "clear-persisted-queries"
 
     assert_no_text /previous queries/i
   end
