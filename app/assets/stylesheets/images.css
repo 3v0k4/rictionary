@@ -1,5 +1,4 @@
-.images {
-  margin: 2rem 0 2rem 0;
+.images__list {
   padding: 0;
   list-style: none;
   display: flex;
@@ -7,21 +6,18 @@
   overflow: auto;
 }
 
-.image {
-  display: inline-block;
-  margin-right: 10px;
+.images__list-item {
+  margin-right: 20px;
 }
 
-.image:last-child {
-  margin-right: 0;
-}
-
-figure {
-  margin: 0;
-  width: min-content;
-}
-
-figure img {
+.images__image {
   height: 150px;
   object-fit: cover;
+  border-radius: 8px;
+  filter: drop-shadow(3px 3px 3px rgba(51, 49, 47, 0.25));
+}
+
+.images__caption {
+  font-size: 0.8rem;
+  margin-top: 5px;
 }

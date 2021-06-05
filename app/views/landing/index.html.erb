@@ -112,12 +112,12 @@
 
     <% if @view_model.parse_result.images.any? %>
       <section class="section">
-        <ul class="images">
+        <ul class="images__list">
           <% @view_model.parse_result.images.each do |image| %>
-            <li class="image">
+            <li class="images__list-item">
               <figure>
-                <img src="<%= image.fetch(:url) %>" alt="<%= image.fetch(:caption) %>"></img>
-                <figcaption><%= image.fetch(:caption) %></figcaption>
+                <img class="images__image" src="<%= image.fetch(:url) %>" alt="<%= image.fetch(:caption) %>"></img>
+                <figcaption class="images__caption"><%= image.fetch(:caption) %></figcaption>
               </figure>
             </li>
           <% end %>
