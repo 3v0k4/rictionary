@@ -184,11 +184,13 @@ td {
 }
 
 #toggle-singular:checked + #label-singular {
-  background: lightgrey;
+  background: $earth;
+  color: white;
 }
 
 #toggle-plural:checked + #label-plural {
-  background: lightgrey;
+  background: $earth;
+  color: white;
 }
 
 .toggle {
@@ -197,8 +199,8 @@ td {
 
 .label {
   align-items: center;
-  border: 1px solid black;
-  padding: 8px;
+  border: 1px solid $earth;
+  padding: 10px 15px;
   background-color: transparent;
   margin-right: -5px;
   display: inline-block;
@@ -207,6 +209,8 @@ td {
   display: inline-flex;
   justify-content: center;
   align-content: center;
+  color: $earth;
+  border-right: none;
 }
 
 .label:first-of-type {
@@ -215,6 +219,7 @@ td {
 
 .label:last-of-type {
   border-radius: 0 5px 5px 0;
+  border-right: 1px solid $earth;
 }
 
 .declination-split {
