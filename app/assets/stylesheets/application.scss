@@ -21,6 +21,7 @@ $earth: #D24D1C;
 $earth-2: #A05F3B;
 $grey-1: #F2F2F2;
 $grey-2: #828282;
+$cream: #F6F4F0;
 
 * {
   -webkit-box-sizing: border-box;
@@ -35,6 +36,7 @@ body {
   letter-spacing: 0.35px;
   word-spacing: 1px;
   visibility: visible;
+  background: $cream;
 }
 
 .fonts-loaded body {
