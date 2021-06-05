@@ -19,6 +19,8 @@
 
 $earth: #D24D1C;
 $earth-2: #A05F3B;
+$grey-1: #F2F2F2;
+$grey-2: #828282;
 
 * {
   -webkit-box-sizing: border-box;
@@ -131,20 +133,6 @@ footer {
 
 .highlight {
   background: yellow;
-}
-
-kbd {
-  white-space: nowrap;
-  display: inline-block;
-  margin: 0 .1em;
-  padding: .4em .5em;
-  font-size: 0.6rem;
-  text-shadow: 0 1px 0 white;
-  background-color: lightgray;
-  border: 1px solid darkgray;
-  border-radius: 3px;
-  box-shadow: 0 1px 1px lightgray, inset 0 1px 0 0 #fff;
-  overflow-wrap: break-word;
 }
 
 table {
@@ -319,4 +307,38 @@ select {
   background-repeat: no-repeat, repeat;
   background-position: right .7em top 50%;
   background-size: .4em auto, 100%;
+}
+
+.shortcuts {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .shortcuts {
+    display: block;
+  }
+}
+
+.shortcuts__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.shortcuts__shortcut-icon {
+  white-space: nowrap;
+  margin-right: 10px;
+  background-color: $grey-1;
+  border: 1px solid $grey-2;
+  border-radius: 3px;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.5);
+  width: 28px;
+  height: 28px;
+  color: $grey-2;
+  overflow-wrap: break-word;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
