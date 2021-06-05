@@ -1,5 +1,5 @@
 <form class="conjugation-split">
-  <select id="select-conjugation" name="some-name" style="display: block; width: 100%;">
+  <select id="select-conjugation" name="some-name">
     <option value="present-or-future" selected>
       <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
         Present

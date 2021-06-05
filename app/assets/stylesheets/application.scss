@@ -14,7 +14,6 @@
  */
 
 @import 'reset';
-@import 'form';
 @import 'header';
 @import 'images';
 
@@ -285,4 +284,39 @@ td {
   display: inline-block;
   height: 15px;
   fill: white;
+}
+
+#select-conjugation, #select-case {
+  display: block;
+  width: 200px;
+  border: 1px solid $earth;
+  border-radius: 5px;
+  padding: 12px;
+}
+
+#select-conjugation {
+  width: 200px;
+}
+
+#select-case {
+  width: 300px;
+}
+
+select {
+  background-color: white;
+  flex: 0 0 auto;
+  font-size: 1.2rem;
+  margin: 10px 5px 0 0;
+  width: 4rem;
+  color: #444;
+  padding: 0em 1.4em 0em .8em;
+  box-sizing: border-box;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%23D24D1C" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%;
+  background-size: .4em auto, 100%;
 }
