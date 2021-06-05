@@ -344,3 +344,55 @@ select {
   justify-content: center;
   align-items: center;
 }
+
+.previous-queries__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.previous-queries__item {
+  padding: 10px;
+  border: 1px solid $earth;
+  border-radius: 15px;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: $earth;
+  vertical-align: center;
+  display: flex;
+  align-items: center;
+  fill: $earth-2;
+  cursor: pointer;
+
+  &:active, &:hover {
+    color: white;
+    background: $earth;
+    fill: white;
+  }
+}
+
+.previous-queries__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.previous-queries__icon {
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
+
+.clear-persisted-queries {
+  background: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  border: none;
+  vertical-align: sub;
+  cursor: pointer;
+}
