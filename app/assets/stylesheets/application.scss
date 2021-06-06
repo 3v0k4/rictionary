@@ -354,7 +354,7 @@ select {
 }
 
 .previous-queries__item {
-  padding: 10px;
+  padding: 5px 10px;
   border: 1px solid $earth;
   border-radius: 15px;
   margin-right: 10px;
@@ -363,7 +363,7 @@ select {
   vertical-align: center;
   display: flex;
   align-items: center;
-  fill: $earth-2;
+  fill: $earth;
   cursor: pointer;
 
   &:active, &:hover {
@@ -379,8 +379,8 @@ select {
 }
 
 .previous-queries__icon {
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
   margin-right: 5px;
 }
 
