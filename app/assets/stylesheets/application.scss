@@ -29,6 +29,12 @@ $cream: #F6F4F0;
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
 body {
   font-family: Arial, sans-serif;
   font-size: 17px;
