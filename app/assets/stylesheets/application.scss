@@ -402,3 +402,19 @@ select {
   vertical-align: sub;
   cursor: pointer;
 }
+
+.samples__list {
+  @extend .previous-queries__list;
+}
+
+.samples__item {
+  @extend .previous-queries__item;
+}
+
+.samples__link {
+  @extend .previous-queries__link;
+}
+
+.samples__icon {
+  @extend .previous-queries__icon;
+}
