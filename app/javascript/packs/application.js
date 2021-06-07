@@ -85,8 +85,12 @@ const showPersistedQueries = () => {
   if (persisted.length === 0) { return }
   const ul = document.getElementById('previous-queries').getElementsByTagName('ul')[0]
   const liTemplate = document.getElementById('template')
+  document.querySelectorAll('.previous-queries__item:not(#template)').forEach(element => {
+    element.remove()
+  });
   persisted.forEach(query => {
     const li = liTemplate.cloneNode(true)
+    li.removeAttribute('id')
     const a = li.getElementsByTagName('a')[0]
     a.href = a.href.replace('QUERY', query)
     a.text = query
