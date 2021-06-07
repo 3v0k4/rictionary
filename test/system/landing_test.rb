@@ -4,12 +4,12 @@ class LandingTest < ApplicationSystemTestCase
   test "liść then ptak" do
     visit root_url
 
-    assert_equal "", page.find("#header__search-input").value
+    assert_equal "", page.find("#search__input").value
 
-    fill_in "header__search-input", with: "liść"
-    click_button "header__search-button"
+    fill_in "search__input", with: "liść"
+    click_button "search__button"
 
-    assert_equal "liść", page.find("#header__search-input").value
+    assert_equal "liść", page.find("#search__input").value
 
     assert_text "leaf"
     assert_text "clip"
@@ -36,11 +36,11 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "liściu"
     assert_text "liście"
 
-    fill_in "header__search-input", with: ""
-    fill_in "header__search-input", with: "ptak"
-    click_button "header__search-button"
+    fill_in "search__input", with: ""
+    fill_in "search__input", with: "ptak"
+    click_button "search__button"
 
-    assert_equal "ptak", page.find("#header__search-input").value
+    assert_equal "ptak", page.find("#search__input").value
 
     assert_text "bird"
 
@@ -70,24 +70,24 @@ class LandingTest < ApplicationSystemTestCase
   test "męskoosobowy takes translation from bab.la" do
     visit root_url
 
-    assert_equal "", page.find("#header__search-input").value
+    assert_equal "", page.find("#search__input").value
 
-    fill_in "header__search-input", with: "męskoosobowy"
-    click_button "header__search-button"
+    fill_in "search__input", with: "męskoosobowy"
+    click_button "search__button"
 
-    assert_equal "męskoosobowy", page.find("#header__search-input").value
+    assert_equal "męskoosobowy", page.find("#search__input").value
     assert_text 'masculine personal (gender)'
   end
 
   test "czerwony" do
     visit root_url
 
-    assert_equal "", page.find("#header__search-input").value
+    assert_equal "", page.find("#search__input").value
 
-    fill_in "header__search-input", with: "czerwony"
-    click_button "header__search-button"
+    fill_in "search__input", with: "czerwony"
+    click_button "search__button"
 
-    assert_equal "czerwony", page.find("#header__search-input").value
+    assert_equal "czerwony", page.find("#search__input").value
 
     assert_text 'czerwony'
     assert_text 'czerwonego'
@@ -141,50 +141,50 @@ class LandingTest < ApplicationSystemTestCase
   test "lisc gets autocorrected to liść" do
     visit root_url
 
-    fill_in "header__search-input", with: "lisc"
-    click_button "header__search-button"
+    fill_in "search__input", with: "lisc"
+    click_button "search__button"
 
-    assert_equal "liść", page.find("#header__search-input").value
+    assert_equal "liść", page.find("#search__input").value
     assert_text "liść"
   end
 
   test "LIść gets autocorrected to liść" do
     visit root_url
 
-    fill_in "header__search-input", with: "LIść"
-    click_button "header__search-button"
+    fill_in "search__input", with: "LIść"
+    click_button "search__button"
 
-    assert_equal "liść", page.find("#header__search-input").value
+    assert_equal "liść", page.find("#search__input").value
     assert_text "liść"
   end
 
   test "glod gets autocorrected to głód" do
     visit root_url
 
-    fill_in "header__search-input", with: "glod"
-    click_button "header__search-button"
+    fill_in "search__input", with: "glod"
+    click_button "search__button"
 
-    assert_equal "głód", page.find("#header__search-input").value
+    assert_equal "głód", page.find("#search__input").value
     assert_text "głód"
   end
 
   test "blank spaces do not interfere" do
     visit root_url
 
-    fill_in "header__search-input", with: " lisc "
-    click_button "header__search-button"
+    fill_in "search__input", with: " lisc "
+    click_button "search__button"
 
-    assert_equal "liść", page.find("#header__search-input").value
+    assert_equal "liść", page.find("#search__input").value
     assert_text "liść"
   end
 
   test "robić then zrobić" do
     visit root_url
 
-    fill_in "header__search-input", with: "robić"
-    click_button "header__search-button"
+    fill_in "search__input", with: "robić"
+    click_button "search__button"
 
-    assert_equal "robić", page.find("#header__search-input").value
+    assert_equal "robić", page.find("#search__input").value
 
     assert_text 'czasownik przechodni niedokonany dk. zrobić'
     assert_text 'czasownik nieprzechodni niedokonany dk. zrobić'
@@ -207,11 +207,11 @@ class LandingTest < ApplicationSystemTestCase
     assert_text 'robicie'
     assert_text 'robią'
 
-    fill_in "header__search-input", with: ""
-    fill_in "header__search-input", with: "zrobić"
-    click_button "header__search-button"
+    fill_in "search__input", with: ""
+    fill_in "search__input", with: "zrobić"
+    click_button "search__button"
 
-    assert_equal "zrobić", page.find("#header__search-input").value
+    assert_equal "zrobić", page.find("#search__input").value
 
     assert_text 'czasownik przechodni dokonany ndk. robić'
     assert_text 'czasownik zwrotny dokonany zrobić się ndk. robić się'
@@ -231,10 +231,10 @@ class LandingTest < ApplicationSystemTestCase
   test "not found" do
     visit root_url
 
-    assert_equal "", page.find("#header__search-input").value
+    assert_equal "", page.find("#search__input").value
 
-    fill_in "header__search-input", with: "abc123"
-    click_button "header__search-button"
+    fill_in "search__input", with: "abc123"
+    click_button "search__button"
 
     assert_text /not found/i
   end
@@ -242,10 +242,10 @@ class LandingTest < ApplicationSystemTestCase
   test "fallback to babla" do
     visit root_url
 
-    assert_equal "", page.find("#header__search-input").value
+    assert_equal "", page.find("#search__input").value
 
-    fill_in "header__search-input", with: "podkrecic"
-    click_button "header__search-button"
+    fill_in "search__input", with: "podkrecic"
+    click_button "search__button"
 
     assert_link "bab.la"
 
@@ -262,8 +262,8 @@ class LandingTest < ApplicationSystemTestCase
   test "link to wiktionary" do
     visit root_url
 
-    fill_in "header__search-input", with: "lisc"
-    click_button "header__search-button"
+    fill_in "search__input", with: "lisc"
+    click_button "search__button"
 
     assert_link "Wiktionary"
   end
@@ -271,8 +271,8 @@ class LandingTest < ApplicationSystemTestCase
   test "when translations are missing but present on bab.la they are stolen" do
     visit root_url
 
-    fill_in "header__search-input", with: "wyczesany"
-    click_button "header__search-button"
+    fill_in "search__input", with: "wyczesany"
+    click_button "search__button"
 
     assert_link "bab.la"
     assert_text "fanfuckingtastic"
@@ -281,8 +281,8 @@ class LandingTest < ApplicationSystemTestCase
   test "multiword" do
     visit root_url
 
-    fill_in "header__search-input", with: "do gory nogami"
-    click_button "header__search-button"
+    fill_in "search__input", with: "do gory nogami"
+    click_button "search__button"
 
     assert_text "upside down"
   end
@@ -290,8 +290,8 @@ class LandingTest < ApplicationSystemTestCase
   test "multiword fallback to babla" do
     visit root_url
 
-    fill_in "header__search-input", with: "na dół"
-    click_button "header__search-button"
+    fill_in "search__input", with: "na dół"
+    click_button "search__button"
 
     assert_link "bab.la"
   end
@@ -299,8 +299,8 @@ class LandingTest < ApplicationSystemTestCase
   test "skål in Swedish" do
     visit root_url
 
-    fill_in "header__search-input", with: "skål"
-    click_button "header__search-button"
+    fill_in "search__input", with: "skål"
+    click_button "search__button"
 
     assert_text "na zdrowie (przed wzniesieniem toastu)"
     assert_text "miska"
@@ -310,8 +310,8 @@ class LandingTest < ApplicationSystemTestCase
   test "follows redirects" do
     visit root_url
 
-    fill_in "header__search-input", with: "wahać się"
-    click_button "header__search-button"
+    fill_in "search__input", with: "wahać się"
+    click_button "search__button"
 
     assert_text "hesitate"
   end
@@ -321,8 +321,8 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_no_text /previous queries/i
 
-    fill_in "header__search-input", with: "halo"
-    click_button "header__search-button"
+    fill_in "search__input", with: "halo"
+    click_button "search__button"
 
     assert_text /previous queries/i
     within "#previous-queries" do
@@ -344,21 +344,21 @@ class LandingTest < ApplicationSystemTestCase
   test "persists queries in anti-chronological order without duplicates" do
     visit root_url
 
-    fill_in "header__search-input", with: ""
-    fill_in "header__search-input", with: "halo"
-    click_button "header__search-button"
+    fill_in "search__input", with: ""
+    fill_in "search__input", with: "halo"
+    click_button "search__button"
 
     all("#previous-queries a", count: 1)
 
-    fill_in "header__search-input", with: ""
-    fill_in "header__search-input", with: "sklep"
-    click_button "header__search-button"
+    fill_in "search__input", with: ""
+    fill_in "search__input", with: "sklep"
+    click_button "search__button"
 
     all("#previous-queries a", count: 2)
 
-    fill_in "header__search-input", with: ""
-    fill_in "header__search-input", with: "halo"
-    click_button "header__search-button"
+    fill_in "search__input", with: ""
+    fill_in "search__input", with: "halo"
+    click_button "search__button"
 
     within "#previous-queries" do
       assert_link "halo", count: 1

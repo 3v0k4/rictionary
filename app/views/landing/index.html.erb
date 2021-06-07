@@ -1,55 +1,5 @@
-<header>
-  <%= form_with url: root_path, method: :get do |form| %>
-    <div id="header__autocomplete-container">
-      <%= form.text_field :query, placeholder: "word in any language", value: @view_model.query, class: "header__search-input", id: "header__search-input" %>
-      <button id="header__clear-button" type="button">
-        <i>
-          <svg class="header__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" version="1.1" viewBox="0 0 847 847" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd"><g><path class="fil0" d="M423 12c227,0 412,184 412,411 0,227 -185,412 -412,412 -227,0 -411,-185 -411,-412 0,-227 184,-411 411,-411zm0 469l-148 149c-38,38 -96,-20 -58,-58l148 -149 -148 -148c-38,-38 20,-96 58,-58l148 148 149 -148c38,-38 96,20 58,58l-149 148 149 149c38,38 -20,96 -58,58l-149 -149zm0 -449c-216,0 -391,175 -391,391 0,216 175,392 391,392 216,0 392,-176 392,-392 0,-216 -176,-391 -392,-391z"/></g></svg>
-        </i>
-      </button>
-      <ul class="header__result-list"></ul>
-      <%= form.button id: 'header__search-button' do %>
-        <i>
-          <svg class="header__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve"><path d="M87,81.3L69.1,63.4c9-11.7,8.1-28.6-2.7-39.3c-5.9-5.9-13.5-8.8-21.2-8.8s-15.3,2.9-21.2,8.8c-11.7,11.7-11.7,30.7,0,42.4  c5.9,5.9,13.5,8.8,21.2,8.8c6.4,0,12.8-2,18.1-6.1L81.3,87c0.8,0.8,1.8,1.2,2.9,1.2c1,0,2.1-0.4,2.9-1.2  C88.6,85.5,88.6,82.9,87,81.3z M45.3,67.2c-5.9,0-11.3-2.3-15.5-6.4c-8.5-8.5-8.5-22.4,0-31c4.1-4.1,9.6-6.4,15.5-6.4  s11.3,2.3,15.5,6.4s6.4,9.6,6.4,15.5c0,5.9-2.3,11.3-6.4,15.5S51.1,67.2,45.3,67.2z"/></svg>
-        </i>
-        <span style="display: none;">Translate</span>
-      <% end %>
-    </div>
-  <% end %>
-</header>
-
 <% if @view_model.class == NoQueryViewModel %>
-  <main>
-    <p>First time here?</p>
-
-    <p>
-      Search for a word in any language to find the Polish definition.
-      Or try the following examples:
-    </p>
-
-    <ul class="samples__list">
-      <li class="samples__item">
-        <i class="samples__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve"><path d="M87,81.3L69.1,63.4c9-11.7,8.1-28.6-2.7-39.3c-5.9-5.9-13.5-8.8-21.2-8.8s-15.3,2.9-21.2,8.8c-11.7,11.7-11.7,30.7,0,42.4  c5.9,5.9,13.5,8.8,21.2,8.8c6.4,0,12.8-2,18.1-6.1L81.3,87c0.8,0.8,1.8,1.2,2.9,1.2c1,0,2.1-0.4,2.9-1.2  C88.6,85.5,88.6,82.9,87,81.3z M45.3,67.2c-5.9,0-11.3-2.3-15.5-6.4c-8.5-8.5-8.5-22.4,0-31c4.1-4.1,9.6-6.4,15.5-6.4  s11.3,2.3,15.5,6.4s6.4,9.6,6.4,15.5c0,5.9-2.3,11.3-6.4,15.5S51.1,67.2,45.3,67.2z"/></svg>
-        </i>
-        <a class="samples__link" href="<%= root_path(query: 'sklep') %>">sklep</a>
-      </li>
-
-      <li class="samples__item">
-        <i class="samples__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve"><path d="M87,81.3L69.1,63.4c9-11.7,8.1-28.6-2.7-39.3c-5.9-5.9-13.5-8.8-21.2-8.8s-15.3,2.9-21.2,8.8c-11.7,11.7-11.7,30.7,0,42.4  c5.9,5.9,13.5,8.8,21.2,8.8c6.4,0,12.8-2,18.1-6.1L81.3,87c0.8,0.8,1.8,1.2,2.9,1.2c1,0,2.1-0.4,2.9-1.2  C88.6,85.5,88.6,82.9,87,81.3z M45.3,67.2c-5.9,0-11.3-2.3-15.5-6.4c-8.5-8.5-8.5-22.4,0-31c4.1-4.1,9.6-6.4,15.5-6.4  s11.3,2.3,15.5,6.4s6.4,9.6,6.4,15.5c0,5.9-2.3,11.3-6.4,15.5S51.1,67.2,45.3,67.2z"/></svg>
-        </i>
-        <a class="samples__link" href="<%= root_path(query: 'shop') %>">shop</a>
-      </li>
-
-      <li class="samples__item">
-        <i class="samples__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve"><path d="M87,81.3L69.1,63.4c9-11.7,8.1-28.6-2.7-39.3c-5.9-5.9-13.5-8.8-21.2-8.8s-15.3,2.9-21.2,8.8c-11.7,11.7-11.7,30.7,0,42.4  c5.9,5.9,13.5,8.8,21.2,8.8c6.4,0,12.8-2,18.1-6.1L81.3,87c0.8,0.8,1.8,1.2,2.9,1.2c1,0,2.1-0.4,2.9-1.2  C88.6,85.5,88.6,82.9,87,81.3z M45.3,67.2c-5.9,0-11.3-2.3-15.5-6.4c-8.5-8.5-8.5-22.4,0-31c4.1-4.1,9.6-6.4,15.5-6.4  s11.3,2.3,15.5,6.4s6.4,9.6,6.4,15.5c0,5.9-2.3,11.3-6.4,15.5S51.1,67.2,45.3,67.2z"/></svg>
-        </i>
-        <a class="samples__link" href="<%= root_path(query: 'negozio') %>">negozio</a>
-      </li>
-    </ul>
-  </main>
+  <%= render "no_query" %>
 <% end %>
 
 <% if @view_model.class == NotFoundViewModel %>
@@ -66,6 +16,10 @@
 <% end %>
 
 <% if @view_model.class == BablaViewModel %>
+  <header>
+    <%= render "form", view_model: @view_model, klass: 'search__container--header' %>
+  </header>
+
   <main>
     <h1 id="corrected-query">
       <%= @view_model.query %>
@@ -87,6 +41,10 @@
 <% end %>
 
 <% if @view_model.class == WiktionaryViewModel %>
+  <header>
+    <%= render "form", view_model: @view_model, klass: 'search__container--header' %>
+  </header>
+
   <main>
     <h1 id="corrected-query">
       <%= @view_model.query %>
@@ -183,7 +141,7 @@
     Previous Queries
     <button id="clear-persisted-queries" class="clear-persisted-queries" type="button">
       <i>
-        <svg class="header__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" version="1.1" viewBox="0 0 847 847" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd"><g><path class="fil0" d="M423 12c227,0 412,184 412,411 0,227 -185,412 -412,412 -227,0 -411,-185 -411,-412 0,-227 184,-411 411,-411zm0 469l-148 149c-38,38 -96,-20 -58,-58l148 -149 -148 -148c-38,-38 20,-96 58,-58l148 148 149 -148c38,-38 96,20 58,58l-149 148 149 149c38,38 -20,96 -58,58l-149 -149zm0 -449c-216,0 -391,175 -391,391 0,216 175,392 391,392 216,0 392,-176 392,-392 0,-216 -176,-391 -392,-391z"/></g></svg>
+        <svg class="search__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" version="1.1" viewBox="0 0 847 847" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd"><g><path class="fil0" d="M423 12c227,0 412,184 412,411 0,227 -185,412 -412,412 -227,0 -411,-185 -411,-412 0,-227 184,-411 411,-411zm0 469l-148 149c-38,38 -96,-20 -58,-58l148 -149 -148 -148c-38,-38 20,-96 58,-58l148 148 149 -148c38,-38 96,20 58,58l-149 148 149 149c38,38 -20,96 -58,58l-149 -149zm0 -449c-216,0 -391,175 -391,391 0,216 175,392 391,392 216,0 392,-176 392,-392 0,-216 -176,-391 -392,-391z"/></g></svg>
       </i>
     </button>
   </h2>

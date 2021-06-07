@@ -20,7 +20,7 @@ document.addEventListener("turbolinks:load", () => {
   setupResetButton()
   setupShortcut('babla', 'b', 'click')
   setupShortcut('wiktionary', 'w', 'click')
-  setupShortcut('header__search-input', 'f', 'select')
+  setupShortcut('search__input', 'f', 'select')
   persistQuery()
   showPersistedQueries()
   setupClearPersistedQueriesButton()
@@ -34,12 +34,12 @@ const setupAutocomplete = () => {
     fetch(`/suggestions?query=${encodeURIComponent(input)}`).then(x => x.json())
   const onSubmit = () => document.getElementsByTagName('form')[0].submit()
   const debounceTime = 300
-  new Autocomplete('#header__autocomplete-container', { search, onSubmit, debounceTime })
+  new Autocomplete('#search__container', { search, onSubmit, debounceTime })
 }
 
 const setupResetButton = () => {
-  const resetButton = document.getElementById('header__clear-button')
-  const queryInput = document.getElementById('header__search-input')
+  const resetButton = document.getElementById('search__clear')
+  const queryInput = document.getElementById('search__input')
   const resetVisibility = () => {
     const display = queryInput.value.length > 0 ? 'inline-block' : 'none'
     resetButton.style.display = display
