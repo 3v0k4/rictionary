@@ -192,6 +192,7 @@ body {
   word-spacing: 1px;
   visibility: visible;
   background: $cream;
+  padding-bottom: 20px;
 }
 
 .fonts-loaded body {
@@ -278,18 +279,6 @@ p {
 
 .section {
   margin-top: 2rem;
-}
-
-footer {
-  margin: 2rem 0;
-}
-
-.separator {
-  text-align: center;
-}
-
-.highlight {
-  background: yellow;
 }
 
 table {
