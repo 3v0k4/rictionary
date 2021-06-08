@@ -3,6 +3,10 @@
 <% end %>
 
 <% if @view_model.class == NotFoundViewModel %>
+  <header>
+    <%= render "form", view_model: @view_model, klass: 'search__container--header' %>
+  </header>
+
   <main>
     <h1><%= @view_model.query %></h1>
 
