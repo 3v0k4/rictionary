@@ -18,6 +18,22 @@
     <div aria-hidden="true" class="hidden" style="font-family: 'Poppins'">
       &nbsp;
     </div>
-    <%= yield %>
+
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
+
+  <footer>
+    <div class="container footer__container">
+      <%= image_tag "selfie.jpg", class: "selfie" %>
+      <div class="bubble">
+        <p>
+          Ciao, I'm
+          <a target="_blank" rel="noopener" href="https://odone.io">Riccardo</a>
+          and I wrote this application to help me study Polish.
+        </p>
+      </div>
+    </div>
+  </footer>
 </html>

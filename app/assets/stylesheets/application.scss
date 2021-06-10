@@ -192,7 +192,6 @@ body {
   word-spacing: 1px;
   visibility: visible;
   background: $cream;
-  padding-bottom: 20px;
 }
 
 .fonts-loaded body {
@@ -220,20 +219,23 @@ header {
 }
 
 body {
-  width: 90%;
-  margin: auto;
   padding-top: 10px;
   line-height: 1.3rem;
 }
 
+.container {
+  width: 90%;
+  margin: auto;
+}
+
 @media only screen and (min-width: 480px) {
-  body {
+  .container {
     width: 80%;
   }
 }
 
 @media only screen and (min-width: 768px) {
-  body {
+  .container {
     width: 60%;
   }
 }
@@ -572,4 +574,41 @@ select {
   margin: auto;
   margin-top: 30px;
   margin-bottom: 30px;
+}
+
+footer {
+  background: rgba(232, 173, 59, 0.12);
+  margin-top: 20px;
+}
+
+.footer__container {
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selfie {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  flex: 0 1 80px;
+}
+
+.bubble {
+  flex: 0 1 auto;
+  margin-left: 20px;
+  background: white;
+  border-radius: 5px;
+}
+
+.bubble > p {
+  padding: 0 20px;
+  margin: 20px 0;
+}
+
+.bubble a {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
 }
