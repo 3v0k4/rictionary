@@ -285,18 +285,26 @@ table {
   width: 100%;
   overflow: auto;
   display: block;
-  border-spacing: 0.5rem;
-  border-collapse: separate;
+}
+
+tbody {
+  display: table;
+  width: 100%;
+}
+
+tr:nth-child(odd) {
+  background-color: white;
 }
 
 th {
   font-weight: bold;
   vertical-align: middle;
   text-align: left;
+  padding: 5px 30px 5px 0;
 }
 
 td {
-  padding: 0 0.5rem;
+  padding: 5px 30px 5px 0;
 }
 
 .declination-split-table {
