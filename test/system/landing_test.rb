@@ -19,7 +19,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "W drzewie katalogów liśćmi są pliki."
     assert_text "Gdy wyznał jej, że od dłuższego czasu ma kochankę, dała mu z liścia w twarz."
 
-    assert_css "img", count: 3
+    assert_css ".images__image", count: 3
 
     assert_text "liść"
     assert_text "liście"
@@ -49,7 +49,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "Świergot ptaków za oknem zapowiadał bliski świt"
     assert_text "Ptak mi wystaje z rozporka."
 
-    assert_css "img", count: 1
+    assert_css ".images__image", count: 1
 
     assert_text 'ptak'
     assert_text 'ptaki'
@@ -197,7 +197,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "W tej fabryce robią samochody."
     assert_text "Moja siostra dziś ma studniówkę i od rana robi makijaż."
 
-    assert_css "img", count: 2
+    assert_css ".images__image", count: 2
 
     assert_text 'robić'
     assert_text 'robię'
