@@ -226,6 +226,7 @@ body {
 .container {
   width: 90%;
   margin: auto;
+  padding-bottom: 20px;
 }
 
 @media only screen and (min-width: 480px) {
@@ -576,13 +577,21 @@ select {
   margin-bottom: 30px;
 }
 
+.logo--footer {
+  max-width: 100px;
+  max-height: 100px;
+  display: block;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
 footer {
   background: rgba(232, 173, 59, 0.12);
-  margin-top: 20px;
+  padding-top: 40px;
 }
 
 .footer__container {
-  padding: 40px 0;
+  padding-bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
