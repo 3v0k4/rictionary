@@ -19,7 +19,7 @@
 $earth: #D24D1C;
 $earth-1: #CDB7AB;
 $earth-2: #A05F3B;
-$grey: #F6F4F0;
+$grey: hsl(40,25,95);
 $grey-1: #F2F2F2;
 $grey-2: #828282;
 $cream: #F6F4F0;
@@ -163,7 +163,7 @@ $text-padding: 12px;
   height: $height;
 
   &:hover, &:active {
-    background-color: $grey;
+    background-color: hsl(40,25,90);
   }
 }
 
