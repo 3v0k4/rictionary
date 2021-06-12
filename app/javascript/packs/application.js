@@ -117,6 +117,7 @@ const addFontClass = () => {
 
   if ("fonts" in document) {
     Promise.all([
+      document.fonts.load('123px "Lora"'),
       document.fonts.load('123px "Poppins"'),
     ]).then(() => {
       document.documentElement.classList.add("fonts-loaded")
