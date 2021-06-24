@@ -43,6 +43,7 @@ $space-3: 40px;
   flex-flow: row nowrap;
   max-width: 350px;
   height: $height;
+  position: relative;
 }
 
 .search__container--header {
