@@ -270,7 +270,6 @@ body {
 h1 {
   font-size: 2.4em;
   font-weight: bold;
-  margin: 0;
 }
 
 h2 {
@@ -452,8 +451,7 @@ td {
 }
 
 .external-links {
-  margin: $space-2 0 $space-3 0;
-
+  margin-top: $space-1;
   font-family: 'Poppins';
   font-size: 16px;
   line-height: 1.3;
