@@ -700,6 +700,10 @@ footer {
   margin-right: 20px;
 }
 
+.images__figure {
+  display: table-caption;
+}
+
 .images__image {
   height: 150px;
   object-fit: cover;
