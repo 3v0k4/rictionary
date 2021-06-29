@@ -203,15 +203,17 @@ body {
   letter-spacing: 0.35px;
   word-spacing: 1px;
   visibility: visible;
-
   font-family: Georgia, serif;
   font-size: 17px;
   line-height: 1.6;
   letter-spacing: 0.45px;
   word-spacing: 0;
   visibility: visible;
-
   background: $cream;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3rem;
+  min-height: 100vh;
 }
 
 .fonts-loaded body {
@@ -246,13 +248,10 @@ header {
   border: 0;
 }
 
-body {
-  line-height: 1.3rem;
-}
-
 .container {
   width: 90%;
   margin: auto;
+  flex: 1;
 }
 
 @media only screen and (min-width: 480px) {
