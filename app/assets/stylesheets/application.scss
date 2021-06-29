@@ -706,6 +706,10 @@ footer {
   display: table-caption;
 }
 
+.images__figure:last-of-type {
+  padding-right: 10px;
+}
+
 .images__image {
   height: 150px;
   object-fit: cover;
