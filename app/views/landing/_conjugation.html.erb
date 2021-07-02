@@ -1,9 +1,9 @@
 <form class="inflection-split">
   <select id="select-conjugation" class="inflection__select">
     <option value="present-or-future" selected>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
+      <% if @view_model.parse_result.conjugation.dig(:present).present? %>
         Present
-      <% elsif @view_model.parse_result.conjugation.fetch(:future).present? %>
+      <% elsif @view_model.parse_result.conjugation.dig(:future).present? %>
         Future
       <% else %>
         Error
@@ -19,61 +19,61 @@
     <table class="inflection__table">
       <tr class="inflection__row">
         <th class="inflection__row-header" class="inflection__row-header">ja</th>
-        <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 0) %></td>
         <% end %>
-        <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[0] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 0) %></td>
         <% end %>
       </tr>
 
       <tr class="inflection__row">
         <th class="inflection__row-header">ty</th>
-        <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 1) %></td>
         <% end %>
-        <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[1] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 1) %></td>
         <% end %>
       </tr>
 
       <tr class="inflection__row">
         <th class="inflection__row-header">on(a/o)</th>
-        <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 2) %></td>
         <% end %>
-        <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[2] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 2) %></td>
         <% end %>
       </tr>
 
       <tr class="inflection__row">
         <th class="inflection__row-header">my</th>
-        <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[3] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 3) %></td>
         <% end %>
-        <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[3] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 3) %></td>
         <% end %>
       </tr>
 
       <tr class="inflection__row">
         <th class="inflection__row-header">wy</th>
-        <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[4] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 4) %></td>
         <% end %>
-        <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[4] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 4) %></td>
         <% end %>
       </tr>
 
       <tr class="inflection__row">
         <th class="inflection__row-header">oni/one</th>
-        <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 5) %></td>
         <% end %>
-        <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[5] %></td>
+        <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+          <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 5) %></td>
         <% end %>
       </tr>
     </table>
@@ -81,137 +81,45 @@
 
   <div class="inflection-split-table" id="conjugation-past-masculine">
     <table class="inflection__table">
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ja</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[0] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ty</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[1] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">on</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[2] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">my</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">wy</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">oni</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
-      </tr>
+      <%= render "inflection_row", header: "ja", data: @view_model.parse_result.conjugation.dig(:past, :masculine, 0) %>
+      <%= render "inflection_row", header: "ty", data: @view_model.parse_result.conjugation.dig(:past, :masculine, 1) %>
+      <%= render "inflection_row", header: "on", data: @view_model.parse_result.conjugation.dig(:past, :masculine, 2) %>
+      <%= render "inflection_row", header: "my", data: @view_model.parse_result.conjugation.dig(:past, :masculine, 3) %>
+      <%= render "inflection_row", header: "wy", data: @view_model.parse_result.conjugation.dig(:past, :masculine, 4) %>
+      <%= render "inflection_row", header: "oni", data: @view_model.parse_result.conjugation.dig(:past, :masculine, 5) %>
     </table>
   </div>
 
   <div class="inflection-split-table" id="conjugation-past-feminine">
     <table class="inflection__table">
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ja</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[0] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ty</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[1] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ona</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[2] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">my</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[3] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">wy</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[4] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">one</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[5] %></td>
-      </tr>
+      <%= render "inflection_row", header: "ja", data: @view_model.parse_result.conjugation.dig(:past, :feminine, 0) %>
+      <%= render "inflection_row", header: "ty", data: @view_model.parse_result.conjugation.dig(:past, :feminine, 1) %>
+      <%= render "inflection_row", header: "ona", data: @view_model.parse_result.conjugation.dig(:past, :feminine, 2) %>
+      <%= render "inflection_row", header: "my", data: @view_model.parse_result.conjugation.dig(:past, :feminine, 3) %>
+      <%= render "inflection_row", header: "wy", data: @view_model.parse_result.conjugation.dig(:past, :feminine, 4) %>
+      <%= render "inflection_row", header: "one", data: @view_model.parse_result.conjugation.dig(:past, :feminine, 5) %>
     </table>
   </div>
 
   <div class="inflection-split-table" id="conjugation-past-neuter">
     <table class="inflection__table">
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ja</th>
-        <td class="inflection__row-data"></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ty</th>
-        <td class="inflection__row-data"></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ono</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[2] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">my</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[3] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">wy</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[4] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">one</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[5] %></td>
-      </tr>
+      <%= render "inflection_row", header: "ja", data: "" %>
+      <%= render "inflection_row", header: "ty", data: "" %>
+      <%= render "inflection_row", header: "ono", data: @view_model.parse_result.conjugation.dig(:past, :neuter, 2) %>
+      <%= render "inflection_row", header: "my", data: @view_model.parse_result.conjugation.dig(:past, :neuter, 3) %>
+      <%= render "inflection_row", header: "wy", data: @view_model.parse_result.conjugation.dig(:past, :neuter, 4) %>
+      <%= render "inflection_row", header: "one", data: @view_model.parse_result.conjugation.dig(:past, :neuter, 5) %>
     </table>
   </div>
 
   <div class="inflection-split-table" id="conjugation-imperative">
     <table class="inflection__table">
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ja</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[0] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">ty</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[1] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">on(a/o)</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[2] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">my</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[3] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">wy</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[4] %></td>
-      </tr>
-
-      <tr class="inflection__row">
-        <th class="inflection__row-header">oni/one</th>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[5] %></td>
-      </tr>
+      <%= render "inflection_row", header: "ja", data: @view_model.parse_result.conjugation.dig(:imperative, 0) %>
+      <%= render "inflection_row", header: "ty", data: @view_model.parse_result.conjugation.dig(:imperative, 1) %>
+      <%= render "inflection_row", header: "on(a/o)", data: @view_model.parse_result.conjugation.dig(:imperative, 2) %>
+      <%= render "inflection_row", header: "my", data: @view_model.parse_result.conjugation.dig(:imperative, 3) %>
+      <%= render "inflection_row", header: "wy", data: @view_model.parse_result.conjugation.dig(:imperative, 4) %>
+      <%= render "inflection_row", header: "oni/one", data: @view_model.parse_result.conjugation.dig(:imperative, 5) %>
     </table>
   </div>
 </form>
@@ -220,86 +128,86 @@
   <table class="inflection__table">
     <tr class="inflection__row">
       <th class="inflection__row-header">ja</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[0] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 0) %></td>
       <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[0] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 0) %></td>
       <% end %>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[0] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[0] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[0] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[0] %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :masculine, 0) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :feminine, 0) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :neuter, 0) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:imperative, 0) %></td>
     </tr>
 
     <tr class="inflection__row">
       <th class="inflection__row-header">ty</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[1] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 1) %></td>
       <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[1] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 1) %></td>
       <% end %>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[1] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[1] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[1] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[1] %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :masculine, 1) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :feminine, 1) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :neuter, 1) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:imperative, 1) %></td>
     </tr>
 
     <tr class="inflection__row">
       <th class="inflection__row-header">on(a/o)</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[2] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 2) %></td>
       <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[2] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 2) %></td>
       <% end %>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[2] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[2] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[2] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[2] %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :masculine, 2) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :feminine, 2) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :neuter, 2) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:imperative, 2) %></td>
     </tr>
 
     <tr class="inflection__row">
       <th class="inflection__row-header">my</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[3] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 3) %></td>
       <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[3] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 3) %></td>
       <% end %>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[3] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[3] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[3] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[3] %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :masculine, 3) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :feminine, 3) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :neuter, 3) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:imperative, 3) %></td>
     </tr>
 
     <tr class="inflection__row">
       <th class="inflection__row-header">wy</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[4] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 4) %></td>
       <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[4] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 4) %></td>
       <% end %>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[4] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[4] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[4] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[4] %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :masculine, 4) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :feminine, 4) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :neuter, 4) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:imperative, 4) %></td>
     </tr>
 
     <tr class="inflection__row">
       <th class="inflection__row-header">oni/one</th>
-      <% if @view_model.parse_result.conjugation.fetch(:present).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:present)[5] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:present).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:present, 5) %></td>
       <% end %>
-      <% if @view_model.parse_result.conjugation.fetch(:future).present? %>
-        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:future)[5] %></td>
+      <% if @view_model.parse_result.conjugation.dig(:future).present? %>
+        <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:future, 5) %></td>
       <% end %>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:masculine)[5] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:feminine)[5] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:past).fetch(:neuter)[5] %></td>
-      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.fetch(:imperative)[5] %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :masculine, 5) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :feminine, 5) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:past, :neuter, 5) %></td>
+      <td class="inflection__row-data"><%= @view_model.parse_result.conjugation.dig(:imperative, 5) %></td>
     </tr>
   </table>
 </form>
