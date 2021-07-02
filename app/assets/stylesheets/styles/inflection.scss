@@ -89,7 +89,7 @@ tbody {
   display: block;
 }
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: $medium-breakpoint) {
   .inflection-split {
     display: none;
   }
@@ -100,7 +100,7 @@ tbody {
   border: 10px solid white;
 }
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: $medium-breakpoint) {
   .inflection-unified {
     display: block;
   }

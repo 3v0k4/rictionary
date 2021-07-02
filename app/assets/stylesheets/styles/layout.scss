@@ -11,13 +11,13 @@
   flex: 1;
 }
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: $medium-breakpoint) {
   .container {
     width: 80%;
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: $large-breakpoint) {
   .container {
     width: 60%;
   }
