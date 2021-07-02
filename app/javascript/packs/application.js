@@ -133,7 +133,7 @@ const setupAdjectiveDropdown = () => {
     document.getElementById(`declination-${x.value}`).style.display = 'block'
   })
   select.addEventListener('change', event => {
-    document.querySelectorAll('.declination-split-table').forEach(x => x.style.display = 'none')
+    document.querySelectorAll('.inflection-split-table').forEach(x => x.style.display = 'none')
     document.getElementById(`declination-${event.target.value}`).style.display = 'block'
   })
 }
@@ -145,7 +145,7 @@ const setupVerbDropdown = () => {
     document.getElementById(`conjugation-${x.value}`).style.display = 'block'
   })
   select.addEventListener('change', event => {
-    document.querySelectorAll('.conjugation-split-table').forEach(x => x.style.display = 'none')
+    document.querySelectorAll('.inflection-split-table').forEach(x => x.style.display = 'none')
     document.getElementById(`conjugation-${event.target.value}`).style.display = 'block'
   })
 }

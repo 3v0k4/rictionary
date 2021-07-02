@@ -106,14 +106,6 @@ tbody {
   }
 }
 
-#select-conjugation, #select-case {
-  display: block;
-  width: 200px;
-  border: 1px solid $earth;
-  border-radius: 5px;
-  padding: $space-1;
-}
-
 #select-conjugation {
   width: 200px;
 }
@@ -126,15 +118,16 @@ tbody {
   @include poppins;
   background-color: white;
   flex: 0 0 auto;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: $space-1 5px 0 0;
-  width: 65px;
-  padding: 0 22px 0 13px;
   box-sizing: border-box;
   appearance: none;
-  border: none;
   background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%23D24D1C" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
   background-repeat: no-repeat, repeat;
   background-position: right 11px top 50%;
   background-size: 7px auto, 100%;
+  display: block;
+  border: 1px solid $earth;
+  border-radius: 5px;
+  padding: $space-1;
 }

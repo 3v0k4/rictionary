@@ -25,46 +25,48 @@
   </table>
 </form>
 
-<table class="inflection-unified" class="inflection__table">
-  <tr class="inflection__row">
-    <th class="inflection__row-header">nominative</th>
-    <td class="inflection__row-data"><%= declination.dig(:singular, :nominative) %></td>
-    <td class="inflection__row-data"><%= declination.dig(:plural, :nominative) %></td>
-  </tr>
+<div class="inflection-unified">
+  <table class="inflection__table">
+    <tr class="inflection__row">
+      <th class="inflection__row-header">nominative</th>
+      <td class="inflection__row-data"><%= declination.dig(:singular, :nominative) %></td>
+      <td class="inflection__row-data"><%= declination.dig(:plural, :nominative) %></td>
+    </tr>
 
-  <tr class="inflection__row">
-    <th class="inflection__row-header">genitive</th>
-    <td class="inflection__row-data"><%= declination.dig(:singular, :genitive) %></td>
-    <td class="inflection__row-data"><%= declination.dig(:plural, :genitive) %></td>
-  </tr>
+    <tr class="inflection__row">
+      <th class="inflection__row-header">genitive</th>
+      <td class="inflection__row-data"><%= declination.dig(:singular, :genitive) %></td>
+      <td class="inflection__row-data"><%= declination.dig(:plural, :genitive) %></td>
+    </tr>
 
-  <tr class="inflection__row">
-    <th class="inflection__row-header">dative</th>
-    <td class="inflection__row-data"><%= declination.dig(:singular, :dative) %></td>
-    <td class="inflection__row-data"><%= declination.dig(:plural, :dative) %></td>
-  </tr>
+    <tr class="inflection__row">
+      <th class="inflection__row-header">dative</th>
+      <td class="inflection__row-data"><%= declination.dig(:singular, :dative) %></td>
+      <td class="inflection__row-data"><%= declination.dig(:plural, :dative) %></td>
+    </tr>
 
-  <tr class="inflection__row">
-    <th class="inflection__row-header">accusative</th>
-    <td class="inflection__row-data"><%= declination.dig(:singular, :accusative) %></td>
-    <td class="inflection__row-data"><%= declination.dig(:plural, :accusative) %></td>
-  </tr>
+    <tr class="inflection__row">
+      <th class="inflection__row-header">accusative</th>
+      <td class="inflection__row-data"><%= declination.dig(:singular, :accusative) %></td>
+      <td class="inflection__row-data"><%= declination.dig(:plural, :accusative) %></td>
+    </tr>
 
-  <tr class="inflection__row">
-    <th class="inflection__row-header">instrumental</th>
-    <td class="inflection__row-data"><%= declination.dig(:singular, :instrumental) %></td>
-    <td class="inflection__row-data"><%= declination.dig(:plural, :instrumental) %></td>
-  </tr>
+    <tr class="inflection__row">
+      <th class="inflection__row-header">instrumental</th>
+      <td class="inflection__row-data"><%= declination.dig(:singular, :instrumental) %></td>
+      <td class="inflection__row-data"><%= declination.dig(:plural, :instrumental) %></td>
+    </tr>
 
-  <tr class="inflection__row">
-    <th class="inflection__row-header">locative</th>
-    <td class="inflection__row-data"><%= declination.dig(:singular, :locative) %></td>
-    <td class="inflection__row-data"><%= declination.dig(:plural, :locative) %></td>
-  </tr>
+    <tr class="inflection__row">
+      <th class="inflection__row-header">locative</th>
+      <td class="inflection__row-data"><%= declination.dig(:singular, :locative) %></td>
+      <td class="inflection__row-data"><%= declination.dig(:plural, :locative) %></td>
+    </tr>
 
-  <tr class="inflection__row">
-    <th class="inflection__row-header">vocative</th>
-    <td class="inflection__row-data"><%= declination.dig(:singular, :vocative) %></td>
-    <td class="inflection__row-data"><%= declination.dig(:plural, :vocative) %></td>
-  </tr>
-</table>
+    <tr class="inflection__row">
+      <th class="inflection__row-header">vocative</th>
+      <td class="inflection__row-data"><%= declination.dig(:singular, :vocative) %></td>
+      <td class="inflection__row-data"><%= declination.dig(:plural, :vocative) %></td>
+    </tr>
+  </table>
+</div>
