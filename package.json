@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "14.x"
+  },
   "name": "rictionary",
   "private": true,
   "dependencies": {
