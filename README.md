@@ -1,24 +1,11 @@
-# README
+# Rictionary
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<p align="center"><img alt="Rictionary logo" src="./logo.svg" width=200px height=200px /></p>
 
-Things you may want to cover:
+The Polish dictionary that blows your socks off.
 
-* Ruby version
+# Testing
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```ruby
+bin/rails test:all
+```
