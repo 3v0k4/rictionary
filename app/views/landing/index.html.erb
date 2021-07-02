@@ -100,7 +100,7 @@
           <% @view_model.parse_result.images.each do |image| %>
             <li class="images__list-item">
               <figure class="images__figure">
-                <img class="images__image" src="<%= image.fetch(:url) %>" alt="<%= image.fetch(:caption) %>"></img>
+                <%= image_tag image.fetch(:url), class: "images__image", alt: image.fetch(:caption) %>
                 <figcaption class="images__caption"><%= image.fetch(:caption) %></figcaption>
               </figure>
             </li>
