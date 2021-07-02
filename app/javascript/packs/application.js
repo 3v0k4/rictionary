@@ -92,7 +92,7 @@ const showPersistedQueries = () => {
     const li = liTemplate.cloneNode(true)
     li.removeAttribute('id')
     const a = li.getElementsByTagName('a')[0]
-    a.href = query
+    a.href = a.href.replace('QUERY', query)
     a.getElementsByTagName('span')[0].innerHTML = query
     li.style.display = ''
     ul.appendChild(li)
