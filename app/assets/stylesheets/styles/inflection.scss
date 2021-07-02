@@ -46,12 +46,12 @@ tbody {
 }
 
 #toggle-singular:checked + #label-singular {
-  background: $earth;
+  background-color: $earth;
   color: white;
 }
 
 #toggle-plural:checked + #label-plural {
-  background: $earth;
+  background-color: $earth;
   color: white;
 }
 

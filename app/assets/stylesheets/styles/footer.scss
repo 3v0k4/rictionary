@@ -4,7 +4,7 @@
 
 .footer {
   @include prevent-border-collapse;
-  background: $sand;
+  background-color: $sand;
 }
 
 .footer__container {
@@ -25,7 +25,7 @@
 .bubble {
   flex: 0 1 auto;
   margin-left: 20px;
-  background: white;
+  background-color: white;
   border-radius: 5px;
 }
 
