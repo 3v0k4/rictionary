@@ -1,5 +1,5 @@
 class ParseWiktionaryHtml
-  REFERENCE_1 = /\s*\(\d\.\d\)\s*/
+  REFERENCE = /\s*\(\d\.\d\)\s*/
 
   def call(html)
     doc = Nokogiri::HTML(html)
@@ -185,7 +185,7 @@ class ParseWiktionaryHtml
       .join
       .yield_self { |string| string.sub('angielski:', '') }
       .yield_self { |string| string.gsub(';', '') }
-      .split(REFERENCE_1)
+      .split(REFERENCE)
       .uniq
       .reject(&:empty?)
   end
@@ -213,7 +213,7 @@ class ParseWiktionaryHtml
 
   def clean(string)
     string
-      .gsub(REFERENCE_1, " ")
+      .gsub(REFERENCE, " ")
       .gsub(/\s*\[\d\]\s*/, " ")
       .gsub(/\s+/, " ")
       .strip
