@@ -1,0 +1,17 @@
+.previous-queries {
+  @include section;
+  display: none;
+}
+
+.previous-queries__heading {
+  @include heading-2;
+  margin-bottom: $space-2;
+}
+
+.previous-queries__clear {
+  @include reset-button;
+  height: 20px;
+  width: 20px;
+  vertical-align: sub;
+}
+

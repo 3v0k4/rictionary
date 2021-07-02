@@ -1,0 +1,39 @@
+.images {
+  @include section;
+}
+
+.images__list {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: auto;
+}
+
+.images__list-item {
+  margin-right: 20px;
+}
+
+.images__list-item:last-of-type {
+  margin-right: 0;
+}
+
+.images__figure {
+  display: table-caption;
+}
+
+.images__figure:last-of-type {
+  padding-right: 10px;
+}
+
+.images__image {
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  filter: drop-shadow(3px 3px 3px hsla(0, 0, 0, 0.3));
+}
+
+.images__caption {
+  font-size: 0.8rem;
+  margin-top: $space-0;
+}

@@ -4,6 +4,7 @@
     <title><%= @view_model.query.empty? ? "" : "#{@view_model.query} | " %>Rictionary</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="The Polish dictionary that blows your socks off.">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,9 +13,11 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+
+    <%= render 'application/favicon' %>
   </head>
 
-  <body>
+  <body class="all">
     <div aria-hidden="true" class="hidden" style="font-family: 'Lora'">
       &nbsp;
     </div>
@@ -27,15 +30,15 @@
       <%= yield %>
     </div>
 
-    <footer>
+    <footer class="footer">
       <%= yield(:footer_header) %>
 
-      <div class="container footer__container">
-        <%= image_tag "selfie.jpg", class: "selfie" %>
+      <div class="footer__container">
+        <%= image_tag "headshot.jpg", class: "footer__headshot", alt: "riccardo making a silly facial expression" %>
         <div class="bubble">
-          <p>
+          <p class="bubble__text">
             Ciao, I'm
-            <a target="_blank" rel="noopener" href="https://odone.io">Riccardo</a>
+            <a class="bubble__link" target="_blank" rel="noopener" href="https://odone.io">Riccardo</a>
             and I wrote this application to help me study Polish.
           </p>
         </div>

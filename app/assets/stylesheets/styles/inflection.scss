@@ -1,0 +1,140 @@
+.inflection {
+  @include section;
+}
+
+.inflection__table {
+  width: 100%;
+  overflow: auto;
+  display: block;
+}
+
+tbody {
+  display: table;
+  width: 100%;
+}
+
+.inflection__row:nth-child(odd) {
+  background-color: white;
+}
+
+.inflection__row-header {
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: left;
+  padding: $space-0 30px $space-0 5px;
+}
+
+.inflection__row-data {
+  padding: $space-0 30px $space-0 0;
+}
+
+.inflection-split-table {
+  margin-top: $space-2;
+  display: none;
+}
+
+#declination-singular, #declination-plural {
+  display: none;
+}
+
+#toggle-singular:checked ~ #declination-singular {
+  display: block;
+}
+
+#toggle-plural:checked ~ #declination-plural {
+  display: block;
+}
+
+#toggle-singular:checked + #label-singular {
+  background: $earth;
+  color: white;
+}
+
+#toggle-plural:checked + #label-plural {
+  background: $earth;
+  color: white;
+}
+
+.toggle {
+  display: none;
+}
+
+.label {
+  @include poppins;
+  align-items: center;
+  border: 1px solid $earth;
+  padding: $space-1 15px;
+  background-color: transparent;
+  margin-right: -5px;
+  display: inline-block;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  color: $earth;
+  border-right: none;
+}
+
+.label:first-of-type {
+  border-radius: 5px 0 0 5px;
+}
+
+.label:last-of-type {
+  border-radius: 0 5px 5px 0;
+  border-right: 1px solid $earth;
+}
+
+.inflection-split {
+  display: block;
+}
+
+@media only screen and (min-width: 480px) {
+  .inflection-split {
+    display: none;
+  }
+}
+
+.inflection-unified {
+  display: none;
+  border: 10px solid white;
+}
+
+@media only screen and (min-width: 480px) {
+  .inflection-unified {
+    display: block;
+  }
+}
+
+#select-conjugation, #select-case {
+  display: block;
+  width: 200px;
+  border: 1px solid $earth;
+  border-radius: 5px;
+  padding: $space-1;
+}
+
+#select-conjugation {
+  width: 200px;
+}
+
+#select-case {
+  width: 300px;
+}
+
+.inflection__select {
+  @include poppins;
+  background-color: white;
+  flex: 0 0 auto;
+  font-size: 1.2rem;
+  margin: $space-1 5px 0 0;
+  width: 65px;
+  padding: 0 22px 0 13px;
+  box-sizing: border-box;
+  appearance: none;
+  border: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%23D24D1C" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
+  background-repeat: no-repeat, repeat;
+  background-position: right 11px top 50%;
+  background-size: 7px auto, 100%;
+}

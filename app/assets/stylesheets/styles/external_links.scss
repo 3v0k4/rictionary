@@ -1,0 +1,25 @@
+.external-links {
+  @include poppins;
+  margin-top: $space-1;
+}
+
+.external-links__link {
+  background: $earth;
+  padding: $space-0 10px;
+  border-radius: 15px;
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+.external-links__link:last-of-type {
+  margin-right: 0;
+}
+
+.external-links__icon {
+  height: 13px;
+  width: 13px;
+  display: inline-block;
+  fill: white;
+  margin-right: 5px;
+}

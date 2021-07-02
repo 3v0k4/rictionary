@@ -1,0 +1,11 @@
+.translations {
+  @include section;
+}
+
+.translations__heading {
+  @include heading-2;
+}
+
+.translations__list {
+  @include list;
+}

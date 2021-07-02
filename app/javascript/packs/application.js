@@ -67,7 +67,7 @@ const setupShortcut = (id, key, action) => {
 const PERSISTED_QUERIES_KEY = 'queries'
 const PREVIOUS_QUERIES_ID = 'previous-queries'
 
-const persistedQueries = () =>
+const previousQueries = () =>
   (window.localStorage.getItem(PERSISTED_QUERIES_KEY) || '')
     .split(',')
     .filter(x => x.length > 0)
@@ -76,24 +76,24 @@ const persistQuery = () => {
   const correctedQueryElement = document.getElementById('corrected-query')
   if (!correctedQueryElement) { return }
   const query = correctedQueryElement.textContent.trim()
-  const toPersist = [...new Set([query].concat(persistedQueries()))].join(',')
+  const toPersist = [...new Set([query].concat(previousQueries()))].join(',')
   window.localStorage.setItem(PERSISTED_QUERIES_KEY, toPersist)
 }
 
 const showPersistedQueries = () => {
-  const persisted = persistedQueries()
-  if (persisted.length === 0) { return }
+  const queries = previousQueries()
+  if (queries.length === 0) { return }
   const ul = document.getElementById('previous-queries').getElementsByTagName('ul')[0]
-  const liTemplate = document.getElementById('template')
-  document.querySelectorAll('.previous-queries__item:not(#template)').forEach(element => {
+  const liTemplate = document.getElementById('tags__template')
+  document.querySelectorAll('.previous-queries__item:not(#tags__template)').forEach(element => {
     element.remove()
   });
-  persisted.forEach(query => {
+  queries.forEach(query => {
     const li = liTemplate.cloneNode(true)
     li.removeAttribute('id')
     const a = li.getElementsByTagName('a')[0]
-    a.href = a.href.replace('QUERY', query)
-    a.text = query
+    a.href = query
+    a.getElementsByTagName('span')[0].innerHTML = query
     li.style.display = ''
     ul.appendChild(li)
   })
@@ -101,7 +101,7 @@ const showPersistedQueries = () => {
 }
 
 const setupClearPersistedQueriesButton = () => {
-  const button = document.getElementById('clear-persisted-queries')
+  const button = document.getElementById('previous-queries__clear')
   if (!button) { return }
   button.addEventListener('click', () => {
     document.getElementById(PREVIOUS_QUERIES_ID).style.display = 'none'

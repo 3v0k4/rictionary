@@ -1,0 +1,46 @@
+.tags {
+  @include poppins;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -$space-2;
+}
+
+.tags__tag {
+  padding: $space-0 10px;
+  border: 1px solid $earth;
+  border-radius: 15px;
+  margin-right: 10px;
+  color: $earth;
+  vertical-align: center;
+  display: flex;
+  align-items: center;
+  fill: $earth;
+  cursor: pointer;
+  margin-top: $space-2;
+
+  &:active, &:hover {
+    color: white;
+    background: $earth;
+    fill: white;
+  }
+}
+
+.tags__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tags__icon {
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  fill: inherit;
+}
+
+#tags__template {
+  display: none;
+}

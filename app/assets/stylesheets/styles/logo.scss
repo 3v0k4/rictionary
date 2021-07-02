@@ -1,0 +1,18 @@
+@mixin logo($dimension) {
+  max-width: $dimension;
+  max-height: $dimension;
+  display: block;
+  margin: 0 auto;
+}
+
+.logo {
+  @include section;
+}
+
+.logo__icon {
+  @include logo(200px);
+}
+
+.logo__icon--footer {
+  @include logo(100px);
+}

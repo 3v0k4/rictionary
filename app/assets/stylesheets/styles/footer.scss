@@ -1,0 +1,41 @@
+@mixin prevent-border-collapse {
+  padding: 0.1px;
+}
+
+.footer {
+  @include prevent-border-collapse;
+  background: $sand;
+}
+
+.footer__container {
+  @extend .container;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: $space-3 auto;
+}
+
+.footer__headshot {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  flex: 0 1 80px;
+}
+
+.bubble {
+  flex: 0 1 auto;
+  margin-left: 20px;
+  background: white;
+  border-radius: 5px;
+}
+
+.bubble__text {
+  padding: 0 20px;
+  margin: $space-2 0;
+}
+
+.bubble__link {
+  text-decoration: underline;
+  color: black;
+  font-weight: 600;
+}

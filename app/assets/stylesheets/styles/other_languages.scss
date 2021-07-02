@@ -1,0 +1,22 @@
+.other-languages {
+  @include section;
+}
+
+.other-languages__heading {
+  @include heading-2;
+}
+
+.other-languages__list {
+  @include list;
+}
+
+.other-languages__item {
+  margin-top: $space-1;
+}
+
+.other-language__list {
+  @include list(circle);
+}
+
+.other-language__item {
+}

@@ -1,0 +1,11 @@
+.examples {
+  @include section;
+}
+
+.examples__heading {
+  @include heading-2;
+}
+
+.examples__list {
+  @include list;
+}

@@ -1,0 +1,146 @@
+// Some styles stolen from
+// https://github.com/trevoreyre/autocomplete/blob/4caf5f8107365c268a0543c652f6ad44a91fe488/packages/style.css
+
+$search-height: 50px;
+$border-radius: 5px;
+$search-text-padding: 12px;
+
+.search__container {
+  margin: $space-1 0 $space-2 0;
+  display: flex;
+  flex-flow: row nowrap;
+  max-width: 350px;
+  height: $search-height;
+  position: relative;
+}
+
+.search__container--main {
+  @include section;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.search__container[data-loading="true"]::after {
+  background-color: white;
+  content: "";
+  border: 3px solid hsla(0, 0, 0, 0.12);
+  border-right: 3px solid hsla(0, 0, 0, 0.48);
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 65px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(359deg);
+  }
+}
+
+.search__input {
+  @include poppins(normal);
+  appearance: none;
+  padding: $search-text-padding;
+  font-size: 1rem;
+  border: 1px solid $light-brown;
+  border-radius: $border-radius 0 0 $border-radius;
+  flex: 1 0 auto;
+  margin: 0;
+  box-shadow: none;
+  max-width: calc(350px - 50px);
+}
+
+.search__input:focus {
+  border-color: $dark-brown;
+}
+
+.search__input:focus,
+.search__input[aria-expanded="true"] {
+  outline: none;
+}
+
+[data-position="below"] .search__input[aria-expanded="true"] {
+  border-bottom-color: transparent;
+}
+
+[data-position="above"] .search__input[aria-expanded="true"] {
+  border-top-color: transparent;
+  z-index: 2;
+}
+
+.search__input:focus ~ .search__button {
+  border-color: $dark-brown;
+}
+
+.search__result-list {
+  margin: 0;
+  border: none;
+  padding: 0;
+  box-sizing: border-box;
+  max-height: 296px;
+  overflow-y: auto;
+  background: white;
+  list-style: none;
+  box-shadow: 0 2px 2px hsla(0, 0, 0, 0.16);
+}
+
+[data-position="below"] .search__result-list {
+  margin-top: -1px;
+  border-top-color: transparent;
+  border-radius: 0 0 8px 8px;
+  padding-bottom: $space-1;
+}
+
+[data-position="above"] .search__result-list {
+  margin-bottom: -1px;
+  border-bottom-color: transparent;
+  border-radius: 8px 8px 0 0;
+  padding-top: $space-1;
+}
+
+.autocomplete-result {
+  cursor: default;
+  padding: $search-text-padding;
+  font-size: 1rem;
+}
+
+.autocomplete-result:hover,
+.autocomplete-result[aria-selected="true"] {
+  background-color: hsla(0, 0, 0, 0.06);
+}
+
+.search__clear {
+  @include reset-button;
+  padding: 0 15px;
+  border: none;
+  position: absolute;
+  right: 55px;
+  width: 45px;
+  height: $search-height;
+}
+
+.search__button {
+  @include reset-button;
+  flex: 0 0 50px;
+  border: 1px solid $light-brown;
+  border-radius: 0 $border-radius $border-radius 0;
+  border-left: none;
+  height: $search-height;
+  padding: 3px;
+
+  &:hover, &:active {
+    background-color: $dark-cream;
+  }
+}
+
+.search__icon {
+  display: block;
+  fill: $dark-brown;
+}

@@ -1,0 +1,7 @@
+.categories {
+  margin-top: $space-1;
+}
+
+.categories__list {
+  @include list;
+}
