@@ -24,9 +24,16 @@
 
 .bubble {
   flex: 0 1 auto;
-  margin-left: 20px;
   background-color: white;
   border-radius: 5px;
+}
+
+.bubble--right {
+  margin-left: 20px;
+}
+
+.bubble--left {
+  margin-right: 20px;
 }
 
 .bubble__text {
