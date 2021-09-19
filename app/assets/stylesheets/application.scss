@@ -60,3 +60,7 @@ p {
 .onboarding {
   @include section;
 }
+
+td {
+  vertical-align: middle;
+}
