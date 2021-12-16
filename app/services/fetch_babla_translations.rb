@@ -1,22 +1,6 @@
-URL = 'https://pl.bab.la/slownik/polski-angielski'
-
-Found = Struct.new(
-  :corrected,
-  :translations,
-  keyword_init: true
-) do
-  def nil? = false
-  def babla_url = "#{URL}/#{corrected}"
-end
-
-NotFound = Class.new do
-  def nil? = true
-  def corrected = nil
-  def translations = []
-  def babla_url = nil
-end
-
 class FetchBablaTranslations
+  URL = 'https://pl.bab.la/slownik/polski-angielski'
+
   def initialize(
     http_client: HttpClient.new,
     parse_babla_html: ParseBablaHtml.new,
