@@ -5,5 +5,6 @@ class ParseBablaHtml
       .map { |x| x.xpath('../../*[contains(@class, "quick-result-overview")]//a/text()') }
       .flatten
       .map(&:text)
+      .select { _1.strip.present? }
   end
 end
