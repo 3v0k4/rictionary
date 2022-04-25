@@ -5,9 +5,9 @@
   "name": "rictionary",
   "private": true,
   "dependencies": {
-    "@rails/actioncable": "^7.0.0",
-    "@rails/activestorage": "^7.0.0",
-    "@rails/ujs": "^7.0.0",
+    "@rails/actioncable": "^6.1.5",
+    "@rails/activestorage": "^6.1.5",
+    "@rails/ujs": "^6.1.5",
     "@rails/webpacker": "^5.4.0",
     "@trevoreyre/autocomplete-js": "^2.2.0",
     "turbolinks": "^5.2.0"
