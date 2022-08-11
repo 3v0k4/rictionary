@@ -210,6 +210,7 @@ class ParseWiktionaryHtml
         .join
         .yield_self(&method(:clean))
     end
+    .select(&:present?)
 
   def clean(string)
     string

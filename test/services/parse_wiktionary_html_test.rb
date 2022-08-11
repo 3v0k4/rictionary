@@ -385,4 +385,13 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
     assert_includes actual.other_translations.keys, 'język angielski'
     assert_includes actual.other_translations['język angielski'], 'poprawiać, polepszać, doskonalić, udoskonalać, ulepszać'
   end
+
+  test 'it removes empty other_translations from peer' do
+    html = File.read('test/htmls/wiktionary/peer.html')
+
+    actual = ParseWiktionaryHtml.new.call(html)
+
+    assert_includes actual.other_translations.keys, 'język afrykanerski'
+    assert_equal actual.other_translations['język afrykanerski'].size, 2
+  end
 end
