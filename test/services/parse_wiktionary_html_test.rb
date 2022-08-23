@@ -344,8 +344,8 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
     actual = ParseWiktionaryHtml.new.call(html)
 
     assert_equal ['język szwedzki'], actual.other_translations.keys
-    assert_includes actual.other_translations['język szwedzki'], 'na zdrowie (przed wzniesieniem toastu)'
-    assert_includes actual.other_translations['język szwedzki'], 'miska'
+    assert_includes actual.other_translations['język szwedzki'], '(zwrot potoczny) na zdrowie! (przed wzniesieniem toastu)'
+    assert_includes actual.other_translations['język szwedzki'], 'misa, miseczka (na potrawy), czara (na napoje)'
     assert_includes actual.other_translations['język szwedzki'], 'toast'
   end
 

@@ -302,8 +302,8 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: "skål"
     click_button "search__button"
 
-    assert_text "na zdrowie (przed wzniesieniem toastu)"
-    assert_text "miska"
+    assert_text "misa, miseczka (na potrawy), czara (na napoje)"
+    assert_text "(zwrot potoczny) na zdrowie! (przed wzniesieniem toastu)"
     assert_text "toast"
   end
 
