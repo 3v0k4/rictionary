@@ -6,8 +6,9 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
 
     actual = ParseWiktionaryHtml.new.call(html)
 
-    assert_equal 2, actual.translations.size
+    assert_equal 3, actual.translations.size
     assert_includes actual.translations, 'leaf'
+    assert_includes actual.translations, 'leaf, leaf node'
     assert_includes actual.translations, 'clip'
   end
 

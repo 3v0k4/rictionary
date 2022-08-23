@@ -31,11 +31,18 @@ class ParseWiktionaryHtml
 
   def examples(doc)
     doc
-      .xpath('.//*[contains(text(), "przykłady")]/../..')
-      .xpath('.//i')
+      .xpath('.//*[contains(text(), "przykłady")]/..')
+      .xpath('./following-sibling::dt[1]/preceding-sibling::dd[preceding-sibling::dt/*[contains(text(), "przykłady")]]')
       .map(&:text)
       .map(&method(:clean))
       .uniq
+      .reject(&:empty?) +
+    doc
+      .xpath('.//dl[name(./*[1]) = "dt"]/dt/*[contains(text(), "przykłady")]/../parent::dl//i')
+      .map(&:text)
+      .map(&method(:clean))
+      .uniq
+      .reject(&:empty?)
   end
 
   def images(doc)
