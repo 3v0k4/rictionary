@@ -344,7 +344,6 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
     actual = ParseWiktionaryHtml.new.call(html)
 
     assert_equal ['język szwedzki'], actual.other_translations.keys
-    assert_includes actual.other_translations['język szwedzki'], '(zwrot potoczny) na zdrowie! (przed wzniesieniem toastu)'
     assert_includes actual.other_translations['język szwedzki'], 'misa, miseczka (na potrawy), czara (na napoje)'
     assert_includes actual.other_translations['język szwedzki'], 'toast'
   end
@@ -387,12 +386,21 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
     assert_includes actual.other_translations['język angielski'], 'poprawiać, polepszać, doskonalić, udoskonalać, ulepszać'
   end
 
+  test 'it parses translations for run' do
+    html = File.read('test/htmls/wiktionary/run.html')
+
+    actual = ParseWiktionaryHtml.new.call(html)
+
+    assert_includes actual.other_translations.keys, 'język angielski'
+    assert_includes actual.other_translations['język angielski'], 'inform. uruchomić'
+  end
+
   test 'it removes empty other_translations from peer' do
     html = File.read('test/htmls/wiktionary/peer.html')
 
     actual = ParseWiktionaryHtml.new.call(html)
 
     assert_includes actual.other_translations.keys, 'język afrykanerski'
-    assert_equal actual.other_translations['język afrykanerski'].size, 2
+    assert_includes actual.other_translations['język afrykanerski'], 'bot. gruszka'
   end
 end

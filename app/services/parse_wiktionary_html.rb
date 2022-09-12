@@ -203,21 +203,54 @@ class ParseWiktionaryHtml
       .reduce({}) { |acc, language| acc.merge(language.text => language_(language)) }
   end
 
-  def language_(language) = language
-    .xpath('./../../..')
-    .xpath('.//*[contains(text(), "znaczenia")]/../..')
-    .xpath('./following-sibling::*')
-    .take_while { |x| x.node_name != 'span' }
-    .flat_map { |x| x.xpath('.//dd') }
-    .map do |translation_group|
-      translation_group
-        .xpath('.//text()')
-        .reject { |x| x.class == Nokogiri::XML::CDATA }
-        .map(&:text)
-        .join
-        .yield_self(&method(:clean))
-    end
-    .select(&:present?)
+  def language_(language)
+    language
+      .xpath('./../../..')
+      .xpath('.//*[contains(text(), "rzeczownik")]/..')
+      .xpath('./following-sibling::p[1]/preceding-sibling::dl[preceding-sibling::p/*[contains(text(), "rzeczownik")]]')
+      .xpath('./dd')
+      .map { |x| x.children.reject{ _1.name == "style" }.map(&:text).join("") }
+      .map(&method(:clean))
+      .uniq
+      .reject(&:empty?) +
+    language
+      .xpath('./../../..')
+      .xpath('.//*[contains(text(), "rzeczownik")]/../following-sibling::dl[1]')
+      .xpath('./dt[1]/preceding-sibling::dd')
+      .map { |x| x.children.reject{ _1.name == "style" }.map(&:text).join("") }
+      .map(&method(:clean))
+      .uniq
+      .reject(&:empty?) +
+    language
+      .xpath('./../../..')
+      .xpath('.//*[contains(text(), "przymiotnik")]/../following-sibling::dl[1]')
+      .xpath('./dt[1]/preceding-sibling::dd')
+      .map(&:text)
+      .map(&method(:clean))
+      .uniq
+      .reject(&:empty?) +
+    (language
+      .xpath('./../../..')
+      .xpath('.//*[contains(text(), "czasownik")]/../following-sibling::dl[1]')
+      .xpath('./dt')
+      .any? ?
+    language
+      .xpath('./../../..')
+      .xpath('.//*[contains(text(), "czasownik")]/../following-sibling::dl[1]')
+      .xpath('./dt[1]/preceding-sibling::dd')
+      .map(&:text)
+      .map(&method(:clean))
+      .uniq
+      .reject(&:empty?) :
+    language
+      .xpath('./../../..')
+      .xpath('.//*[contains(text(), "czasownik")]/../following-sibling::dl[1]')
+      .xpath('./dd')
+      .map { |x| x.children.reject{ _1.name == "style" }.map(&:text).join("") }
+      .map(&method(:clean))
+      .uniq
+      .reject(&:empty?))
+  end
 
   def clean(string)
     string

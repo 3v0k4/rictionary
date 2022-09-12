@@ -303,7 +303,6 @@ class LandingTest < ApplicationSystemTestCase
     click_button "search__button"
 
     assert_text "misa, miseczka (na potrawy), czara (na napoje)"
-    assert_text "(zwrot potoczny) na zdrowie! (przed wzniesieniem toastu)"
     assert_text "toast"
   end
 
