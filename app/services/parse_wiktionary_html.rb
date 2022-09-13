@@ -223,6 +223,14 @@ class ParseWiktionaryHtml
       .reject(&:empty?) +
     language
       .xpath('./../../..')
+      .xpath('.//*[contains(text(), "rzeczownik")]/../following-sibling::dl[1]')
+      .xpath('./dd')
+      .map { |x| x.children.reject{ _1.name == "style" }.map(&:text).join("") }
+      .map(&method(:clean))
+      .uniq
+      .reject(&:empty?) +
+    language
+      .xpath('./../../..')
       .xpath('.//*[contains(text(), "przymiotnik")]/../following-sibling::dl[1]')
       .xpath('./dt[1]/preceding-sibling::dd')
       .map(&:text)

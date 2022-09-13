@@ -403,4 +403,13 @@ class ParseWiktionaryHtmlTest < ActiveSupport::TestCase
     assert_includes actual.other_translations.keys, 'język afrykanerski'
     assert_includes actual.other_translations['język afrykanerski'], 'bot. gruszka'
   end
+
+  test 'it removes empty other_translations from drier' do
+    html = File.read('test/htmls/wiktionary/drier.html')
+
+    actual = ParseWiktionaryHtml.new.call(html)
+
+    assert_includes actual.other_translations.keys, 'język angielski'
+    assert_includes actual.other_translations['język angielski'], 'suszarka'
+  end
 end
