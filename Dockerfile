@@ -49,6 +49,9 @@ RUN gem install -N bundler -v ${BUNDLER_VERSION}
 COPY Gemfile* ./
 RUN bundle install &&  rm -rf vendor/bundle/ruby/*/cache
 
+COPY package*.json ./
+RUN npm install
+
 COPY . .
 
 ENV SECRET_KEY_BASE 1
