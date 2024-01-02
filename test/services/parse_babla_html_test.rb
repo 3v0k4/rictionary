@@ -7,14 +7,14 @@ class ParseBablaHtmlTest < ActiveSupport::TestCase
     actual = ParseBablaHtml.new.call(html, 'podkręcić')
 
     assert_equal 8, actual.size
-    assert_includes actual, 'to crank up'
-    assert_includes actual, 'to overclock'
-    assert_includes actual, 'to gun'
-    assert_includes actual, 'to pump up'
-    assert_includes actual, 'to put spin on'
-    assert_includes actual, 'to twirl'
-    assert_includes actual, 'to spoon'
-    assert_includes actual, 'to whack up'
+    assert_includes actual, 'crank up'
+    assert_includes actual, 'overclock'
+    assert_includes actual, 'gun'
+    assert_includes actual, 'pump up'
+    assert_includes actual, 'put spin on'
+    assert_includes actual, 'twirl'
+    assert_includes actual, 'spoon'
+    assert_includes actual, 'whack up'
   end
 
   test 'it parses translations for zakład' do
