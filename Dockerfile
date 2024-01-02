@@ -1,9 +1,9 @@
 # syntax = docker/dockerfile:experimental
-ARG RUBY_VERSION=3.0.3
+ARG RUBY_VERSION=3.2.2
 ARG VARIANT=jemalloc-slim
 FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
 
-ARG NODE_VERSION=16
+ARG NODE_VERSION=18
 ARG YARN_VERSION=1.22.18
 ARG BUNDLER_VERSION=2.2.32
 
@@ -56,6 +56,8 @@ COPY . .
 
 ENV SECRET_KEY_BASE 1
 
+# https://github.com/webpack/webpack/issues/14532
+ENV NODE_OPTIONS --openssl-legacy-provider
 RUN bundle exec rails assets:precompile
 
 FROM base
