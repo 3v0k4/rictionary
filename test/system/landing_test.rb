@@ -171,7 +171,7 @@ class LandingTest < ApplicationSystemTestCase
   test "blank spaces do not interfere" do
     visit root_url
 
-    fill_in "search__input", with: " lisc "
+    fill_in "search__input", with: " liść "
     click_button "search__button"
 
     assert_equal "liść", page.find("#search__input").value
@@ -262,7 +262,7 @@ class LandingTest < ApplicationSystemTestCase
   test "link to wiktionary" do
     visit root_url
 
-    fill_in "search__input", with: "lisc"
+    fill_in "search__input", with: "liść"
     click_button "search__button"
 
     assert_link "Wiktionary"
@@ -281,7 +281,7 @@ class LandingTest < ApplicationSystemTestCase
   test "multiword" do
     visit root_url
 
-    fill_in "search__input", with: "do gory nogami"
+    fill_in "search__input", with: "do góry nogami"
     click_button "search__button"
 
     assert_text "upside down"
