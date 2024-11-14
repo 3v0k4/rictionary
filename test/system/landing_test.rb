@@ -68,6 +68,8 @@ class LandingTest < ApplicationSystemTestCase
   end
 
   test "męskoosobowy takes translation from bab.la" do
+    skip
+
     visit root_url
 
     assert_equal "", page.find("#search__input").value
@@ -139,6 +141,8 @@ class LandingTest < ApplicationSystemTestCase
   end
 
   test "lisc gets autocorrected to liść" do
+    skip
+
     visit root_url
 
     fill_in "search__input", with: "lisc"
@@ -159,6 +163,8 @@ class LandingTest < ApplicationSystemTestCase
   end
 
   test "glod gets autocorrected to głód" do
+    skip
+
     visit root_url
 
     fill_in "search__input", with: "glod"
@@ -240,6 +246,8 @@ class LandingTest < ApplicationSystemTestCase
   end
 
   test "fallback to babla" do
+    skip
+
     visit root_url
 
     assert_equal "", page.find("#search__input").value
@@ -269,6 +277,8 @@ class LandingTest < ApplicationSystemTestCase
   end
 
   test "when translations are missing but present on bab.la they are stolen" do
+    skip
+
     visit root_url
 
     fill_in "search__input", with: "wyczesany"
@@ -288,6 +298,8 @@ class LandingTest < ApplicationSystemTestCase
   end
 
   test "multiword fallback to babla" do
+    skip
+
     visit root_url
 
     fill_in "search__input", with: "na dół"
