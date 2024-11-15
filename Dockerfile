@@ -11,20 +11,6 @@
 ARG RUBY_VERSION=3.3.6
 FROM docker.io/library/ruby:$RUBY_VERSION AS base
 
-# https://github.com/CircleCI-Public/cimg-ruby/blob/4e5a5acc7a92dfe919330f98a764131ed52894f2/3.3/node/Dockerfile
-ARG NODE_VERSION=18.19.1
-ARG ARCH=x64
-RUN curl -L -o node.tar.xz "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" && \
-    tar -xJf node.tar.xz -C /usr/local --strip-components=1 && \
-    ln -s /usr/local/bin/node /usr/local/bin/nodejs
-
-ARG YARN_VERSION=1.22.19
-RUN curl -L -o yarn.tar.gz "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz" && \
-    tar -xzf yarn.tar.gz -C /opt/ && \
-    rm yarn.tar.gz && \
-    ln -s /opt/yarn-v${YARN_VERSION}/bin/yarn /usr/local/bin/yarn && \
-    ln -s /opt/yarn-v${YARN_VERSION}/bin/yarnpkg /usr/local/bin/yarnpkg
-
 # Rails app lives here
 WORKDIR /rails
 
@@ -53,11 +39,6 @@ RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 
-# Install application packages
-COPY package.json package-lock.json ./
-RUN npm install && \
-    npm cache clean --force
-
 # Copy application code
 COPY . .
 
@@ -65,7 +46,7 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN NODE_OPTIONS=--openssl-legacy-provider SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
 
