@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^5.4.0",
-    "@trevoreyre/autocomplete-js": "^2.2.0"
+    "@trevoreyre/autocomplete-js": "^3.0.3"
   },
   "version": "0.1.0",
   "devDependencies": {

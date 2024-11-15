@@ -186,7 +186,7 @@ GEM
       railties (>= 7.0.0)
     psych (5.2.0)
       stringio
-    public_suffix (5.1.1)
+    public_suffix (6.0.1)
     puma (6.4.3)
       nio4r (~> 2.0)
     raabro (1.4.0)
