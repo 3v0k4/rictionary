@@ -6,7 +6,7 @@ class FetchWiktionarySuggestions
     "format=json",
     "formatversion=2",
     "namespace=0",
-    "limit=10",
+    "limit=10"
   ]
 
   def initialize(http_client: HttpClient.new)
@@ -20,8 +20,8 @@ class FetchWiktionarySuggestions
   private
 
   def fetch(query)
-    q = [*QUERY, "search=#{query}"].join('&')
-    default = [nil, [query]].to_json
+    q = [ *QUERY, "search=#{query}" ].join("&")
+    default = [ nil, [ query ] ].to_json
     @http_client.get_or("https://#{HOST}/#{PATH}?#{q}", default)
   end
 end

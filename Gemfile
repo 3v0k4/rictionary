@@ -65,7 +65,7 @@ group :test do
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem "sass-rails"
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+gem "webpacker"

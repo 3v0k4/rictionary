@@ -6,8 +6,8 @@ class HttpClient
   def get_or_redirect(uri_builder, query, default)
     uri = URI(URI::Parser.new.escape(uri_builder.call(query)))
     response = Net::HTTP.get_response(uri)
-    if response.code == '302'
-      new_query = URI::Parser.new.unescape(response['location'])
+    if response.code == "302"
+      new_query = URI::Parser.new.unescape(response["location"])
       return get_or_redirect(uri_builder, new_query, default)
     end
     response.body

@@ -1,5 +1,5 @@
 class FetchBablaTranslations
-  URL = 'https://pl.bab.la/slownik/polski-angielski'
+  URL = "https://pl.bab.la/slownik/polski-angielski"
 
   def initialize(
     http_client: HttpClient.new,
@@ -27,6 +27,6 @@ class FetchBablaTranslations
     corrected = @correct_query_via_babla.call(query) || query
     url = "#{URL}/#{corrected.gsub(' ', '-')}"
     html = @http_client.get_or(url, "")
-    [corrected, @parse_babla_html.call(html, corrected)]
+    [ corrected, @parse_babla_html.call(html, corrected) ]
   end
 end

@@ -51,20 +51,20 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_css ".images__image", count: 1
 
-    assert_text 'ptak'
-    assert_text 'ptaki'
-    assert_text 'ptaka'
-    assert_text 'ptaków'
-    assert_text 'ptakowi'
-    assert_text 'ptakom'
-    assert_text 'ptaka'
-    assert_text 'ptaki'
-    assert_text 'ptakiem'
-    assert_text 'ptakami'
-    assert_text 'ptaku'
-    assert_text 'ptakach'
-    assert_text 'ptaku'
-    assert_text 'ptaki'
+    assert_text "ptak"
+    assert_text "ptaki"
+    assert_text "ptaka"
+    assert_text "ptaków"
+    assert_text "ptakowi"
+    assert_text "ptakom"
+    assert_text "ptaka"
+    assert_text "ptaki"
+    assert_text "ptakiem"
+    assert_text "ptakami"
+    assert_text "ptaku"
+    assert_text "ptakach"
+    assert_text "ptaku"
+    assert_text "ptaki"
   end
 
   test "męskoosobowy takes translation from bab.la" do
@@ -78,7 +78,7 @@ class LandingTest < ApplicationSystemTestCase
     click_button "search__button"
 
     assert_selector('#search__input[value="męskoosobowy"]')
-    assert_text 'masculine personal (gender)'
+    assert_text "masculine personal (gender)"
   end
 
   test "czerwony" do
@@ -91,53 +91,53 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_selector('#search__input[value="czerwony"]')
 
-    assert_text 'czerwony'
-    assert_text 'czerwonego'
-    assert_text 'czerwonemu'
-    assert_text 'czerwonego'
-    assert_text 'czerwonym'
-    assert_text 'czerwonym'
-    assert_text 'czerwony'
+    assert_text "czerwony"
+    assert_text "czerwonego"
+    assert_text "czerwonemu"
+    assert_text "czerwonego"
+    assert_text "czerwonym"
+    assert_text "czerwonym"
+    assert_text "czerwony"
 
-    assert_text 'czerwony'
-    assert_text 'czerwonego'
-    assert_text 'czerwonemu'
-    assert_text 'czerwony'
-    assert_text 'czerwonym'
-    assert_text 'czerwonym'
-    assert_text 'czerwony'
+    assert_text "czerwony"
+    assert_text "czerwonego"
+    assert_text "czerwonemu"
+    assert_text "czerwony"
+    assert_text "czerwonym"
+    assert_text "czerwonym"
+    assert_text "czerwony"
 
-    assert_text 'czerwona'
-    assert_text 'czerwonej'
-    assert_text 'czerwonej'
-    assert_text 'czerwoną'
-    assert_text 'czerwoną'
-    assert_text 'czerwonej'
-    assert_text 'czerwona'
+    assert_text "czerwona"
+    assert_text "czerwonej"
+    assert_text "czerwonej"
+    assert_text "czerwoną"
+    assert_text "czerwoną"
+    assert_text "czerwonej"
+    assert_text "czerwona"
 
-    assert_text 'czerwone'
-    assert_text 'czerwonego'
-    assert_text 'czerwonemu'
-    assert_text 'czerwone'
-    assert_text 'czerwonym'
-    assert_text 'czerwonym'
-    assert_text 'czerwone'
+    assert_text "czerwone"
+    assert_text "czerwonego"
+    assert_text "czerwonemu"
+    assert_text "czerwone"
+    assert_text "czerwonym"
+    assert_text "czerwonym"
+    assert_text "czerwone"
 
-    assert_text 'czerwoni'
-    assert_text 'czerwonych'
-    assert_text 'czerwonym'
-    assert_text 'czerwonych'
-    assert_text 'czerwonymi'
-    assert_text 'czerwonych'
-    assert_text 'czerwoni'
+    assert_text "czerwoni"
+    assert_text "czerwonych"
+    assert_text "czerwonym"
+    assert_text "czerwonych"
+    assert_text "czerwonymi"
+    assert_text "czerwonych"
+    assert_text "czerwoni"
 
-    assert_text 'czerwone'
-    assert_text 'czerwonych'
-    assert_text 'czerwonym'
-    assert_text 'czerwone'
-    assert_text 'czerwonymi'
-    assert_text 'czerwonych'
-    assert_text 'czerwone'
+    assert_text "czerwone"
+    assert_text "czerwonych"
+    assert_text "czerwonym"
+    assert_text "czerwone"
+    assert_text "czerwonymi"
+    assert_text "czerwonych"
+    assert_text "czerwone"
   end
 
   test "lisc gets autocorrected to liść" do
@@ -192,9 +192,9 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_selector('#search__input[value="robić"]')
 
-    assert_text 'czasownik przechodni niedokonany dk. zrobić'
-    assert_text 'czasownik nieprzechodni niedokonany dk. zrobić'
-    assert_text 'czasownik zwrotny niedokonany robić się dk. zrobić się'
+    assert_text "czasownik przechodni niedokonany dk. zrobić"
+    assert_text "czasownik nieprzechodni niedokonany dk. zrobić"
+    assert_text "czasownik zwrotny niedokonany robić się dk. zrobić się"
 
     assert_text "make"
     assert_text "create"
@@ -205,13 +205,13 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_css ".images__image", count: 2
 
-    assert_text 'robić'
-    assert_text 'robię'
-    assert_text 'robisz'
-    assert_text 'robi'
-    assert_text 'robimy'
-    assert_text 'robicie'
-    assert_text 'robią'
+    assert_text "robić"
+    assert_text "robię"
+    assert_text "robisz"
+    assert_text "robi"
+    assert_text "robimy"
+    assert_text "robicie"
+    assert_text "robią"
 
     fill_in "search__input", with: ""
     fill_in "search__input", with: "zrobić"
@@ -219,19 +219,19 @@ class LandingTest < ApplicationSystemTestCase
 
     assert_selector('#search__input[value="zrobić"]')
 
-    assert_text 'czasownik przechodni dokonany ndk. robić'
-    assert_text 'czasownik zwrotny dokonany zrobić się ndk. robić się'
+    assert_text "czasownik przechodni dokonany ndk. robić"
+    assert_text "czasownik zwrotny dokonany zrobić się ndk. robić się"
 
     assert_text "Oni zrobią wszystko dla pieniędzy."
     assert_text "Nie mogę uwierzyć, że ktoś mi zrobił takie świństwo."
 
-    assert_text 'zrobić'
-    assert_text 'zrobię'
-    assert_text 'zrobisz'
-    assert_text 'zrobi'
-    assert_text 'zrobimy'
-    assert_text 'zrobicie'
-    assert_text 'zrobią'
+    assert_text "zrobić"
+    assert_text "zrobię"
+    assert_text "zrobisz"
+    assert_text "zrobi"
+    assert_text "zrobimy"
+    assert_text "zrobicie"
+    assert_text "zrobią"
   end
 
   test "not found" do
@@ -379,7 +379,7 @@ class LandingTest < ApplicationSystemTestCase
 
     within "#previous-queries" do
       links = all("a").map(&:text)
-      assert_equal(["halo", "sklep"], links)
+      assert_equal([ "halo", "sklep" ], links)
     end
   end
 end

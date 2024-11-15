@@ -20,4 +20,3 @@ ParseResult = Struct.new(
     )
   end
 end
-
