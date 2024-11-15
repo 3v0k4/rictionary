@@ -1,78 +1,92 @@
-# syntax = docker/dockerfile:experimental
+# syntax=docker/dockerfile:1
+# check=error=true
+
+# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
+# docker build -t rictionary .
+# docker run -d -p 8080:80 -e RAILS_MASTER_KEY=$(cat config/master.key) --name rictionary rictionary
+
+# For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
+
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.3.6
-ARG VARIANT=jemalloc-slim
-FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
+FROM docker.io/library/ruby:$RUBY_VERSION AS base
 
-ARG NODE_VERSION=18
-ARG YARN_VERSION=1.22.18
-ARG BUNDLER_VERSION=2.2.32
+# https://github.com/CircleCI-Public/cimg-ruby/blob/4e5a5acc7a92dfe919330f98a764131ed52894f2/3.3/node/Dockerfile
+ARG NODE_VERSION=18.19.1
+ARG ARCH=x64
+RUN curl -L -o node.tar.xz "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" && \
+    tar -xJf node.tar.xz -C /usr/local --strip-components=1 && \
+    ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-ARG RAILS_ENV=production
-ENV RAILS_ENV=${RAILS_ENV}
+ARG YARN_VERSION=1.22.19
+RUN curl -L -o yarn.tar.gz "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz" && \
+    tar -xzf yarn.tar.gz -C /opt/ && \
+    rm yarn.tar.gz && \
+    ln -s /opt/yarn-v${YARN_VERSION}/bin/yarn /usr/local/bin/yarn && \
+    ln -s /opt/yarn-v${YARN_VERSION}/bin/yarnpkg /usr/local/bin/yarnpkg
 
-ENV RAILS_SERVE_STATIC_FILES true
-ENV RAILS_LOG_TO_STDOUT true
+# Rails app lives here
+WORKDIR /rails
 
-ENV PATH $PATH:/usr/local/bin
+# Install base packages
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-ARG BUNDLE_WITHOUT=development:test
-ARG BUNDLE_PATH=vendor/bundle
-ENV BUNDLE_PATH ${BUNDLE_PATH}
-ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
+# Set production environment
+ENV RAILS_ENV="production" \
+    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_WITHOUT="development"
 
-SHELL ["/bin/bash", "-c"]
+# Throw-away build stage to reduce size of final image
+FROM base AS build
 
-RUN mkdir /app
-WORKDIR /app
-RUN mkdir -p tmp/pids
+# Install packages needed to build gems
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git pkg-config && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-RUN curl https://get.volta.sh | bash
+# Install application gems
+COPY Gemfile Gemfile.lock .ruby-version ./
+RUN bundle install && \
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+    bundle exec bootsnap precompile --gemfile
 
-ENV BASH_ENV ~/.bashrc
-ENV VOLTA_HOME /root/.volta
-ENV PATH $VOLTA_HOME/bin:$PATH
+# Install application packages
+COPY package.json package-lock.json ./
+RUN npm install && \
+    npm cache clean --force
 
-RUN volta install node@${NODE_VERSION} && volta install yarn@${YARN_VERSION}
-
-FROM base as build
-
-ENV DEV_PACKAGES git build-essential libpq-dev wget vim curl gzip xz-utils libsqlite3-dev libyaml-dev
-
-RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
-    --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
-    apt-get update -qq && \
-    apt-get install --no-install-recommends -y ${DEV_PACKAGES} \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-RUN gem install -N bundler -v ${BUNDLER_VERSION}
-
-COPY Gemfile* ./
-RUN bundle install &&  rm -rf vendor/bundle/ruby/*/cache
-
-COPY package*.json ./
-RUN npm install
-
+# Copy application code
 COPY . .
 
-ENV SECRET_KEY_BASE 1
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile app/ lib/
 
-# https://github.com/webpack/webpack/issues/14532
-ENV NODE_OPTIONS --openssl-legacy-provider
-RUN bundle exec rails assets:precompile
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+RUN NODE_OPTIONS=--openssl-legacy-provider SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
+
+
+
+# Final stage for app image
 FROM base
 
-ENV PACKAGES postgresql-client file vim curl gzip
+# Copy built artifacts: gems, application
+COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
+COPY --from=build /rails /rails
 
-RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
-    --mount=type=cache,id=prod-apt-lib,sharing=locked,target=/var/lib/apt \
-    apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-    ${PACKAGES} \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
+# Run and own only the runtime files as a non-root user for security
+RUN groupadd --system --gid 1000 rails && \
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+    chown -R rails:rails db log storage tmp
+USER 1000:1000
 
-COPY --from=build /app /app
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-ENV PORT 8080
-
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+# Start server via Thruster by default, this can be overwritten at runtime
+EXPOSE 8080
+ENV THRUSTER_HTTP_PORT=8080
+CMD ["./bin/thrust", "./bin/rails", "server"]

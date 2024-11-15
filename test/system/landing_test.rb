@@ -4,12 +4,12 @@ class LandingTest < ApplicationSystemTestCase
   test "liść then ptak" do
     visit root_url
 
-    assert_equal "", page.find("#search__input").value
+    assert_selector('#search__input[value=""]')
 
     fill_in "search__input", with: "liść"
     click_button "search__button"
 
-    assert_equal "liść", page.find("#search__input").value
+    assert_selector('#search__input[value="liść"]')
 
     assert_text "leaf"
     assert_text "clip"
@@ -40,7 +40,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: "ptak"
     click_button "search__button"
 
-    assert_equal "ptak", page.find("#search__input").value
+    assert_selector('#search__input[value="ptak"]')
 
     assert_text "bird"
 
@@ -72,24 +72,24 @@ class LandingTest < ApplicationSystemTestCase
 
     visit root_url
 
-    assert_equal "", page.find("#search__input").value
+    assert_selector('#search__input[value=""]')
 
     fill_in "search__input", with: "męskoosobowy"
     click_button "search__button"
 
-    assert_equal "męskoosobowy", page.find("#search__input").value
+    assert_selector('#search__input[value="męskoosobowy"]')
     assert_text 'masculine personal (gender)'
   end
 
   test "czerwony" do
     visit root_url
 
-    assert_equal "", page.find("#search__input").value
+    assert_selector('#search__input[value=""]')
 
     fill_in "search__input", with: "czerwony"
     click_button "search__button"
 
-    assert_equal "czerwony", page.find("#search__input").value
+    assert_selector('#search__input[value="czerwony"]')
 
     assert_text 'czerwony'
     assert_text 'czerwonego'
@@ -148,7 +148,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: "lisc"
     click_button "search__button"
 
-    assert_equal "liść", page.find("#search__input").value
+    assert_selector('#search__input[value="liść"]')
     assert_text "liść"
   end
 
@@ -158,7 +158,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: "LIść"
     click_button "search__button"
 
-    assert_equal "liść", page.find("#search__input").value
+    assert_selector '#search__input[value="liść"]'
     assert_text "liść"
   end
 
@@ -170,7 +170,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: "glod"
     click_button "search__button"
 
-    assert_equal "głód", page.find("#search__input").value
+    assert_selector('#search__input[value="głód"]')
     assert_text "głód"
   end
 
@@ -180,7 +180,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: " liść "
     click_button "search__button"
 
-    assert_equal "liść", page.find("#search__input").value
+    assert_selector('#search__input[value="liść"]')
     assert_text "liść"
   end
 
@@ -190,7 +190,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: "robić"
     click_button "search__button"
 
-    assert_equal "robić", page.find("#search__input").value
+    assert_selector('#search__input[value="robić"]')
 
     assert_text 'czasownik przechodni niedokonany dk. zrobić'
     assert_text 'czasownik nieprzechodni niedokonany dk. zrobić'
@@ -217,7 +217,7 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: "zrobić"
     click_button "search__button"
 
-    assert_equal "zrobić", page.find("#search__input").value
+    assert_selector('#search__input[value="zrobić"]')
 
     assert_text 'czasownik przechodni dokonany ndk. robić'
     assert_text 'czasownik zwrotny dokonany zrobić się ndk. robić się'
@@ -237,7 +237,7 @@ class LandingTest < ApplicationSystemTestCase
   test "not found" do
     visit root_url
 
-    assert_equal "", page.find("#search__input").value
+    assert_selector('#search__input[value=""]')
 
     fill_in "search__input", with: "abc123"
     click_button "search__button"
@@ -250,7 +250,7 @@ class LandingTest < ApplicationSystemTestCase
 
     visit root_url
 
-    assert_equal "", page.find("#search__input").value
+    assert_selector('#search__input[value=""]')
 
     fill_in "search__input", with: "podkrecic"
     click_button "search__button"
@@ -370,6 +370,8 @@ class LandingTest < ApplicationSystemTestCase
     fill_in "search__input", with: ""
     fill_in "search__input", with: "halo"
     click_button "search__button"
+
+    assert_selector('#search__input[value="halo"]')
 
     within "#previous-queries" do
       assert_link "halo", count: 1

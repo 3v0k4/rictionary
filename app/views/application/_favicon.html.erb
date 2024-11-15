@@ -6,4 +6,4 @@
 <link rel="icon" sizes="32x32" href="/favicon.ico" />
 <link rel="icon" type="image/svg+xml" href="<%= asset_path 'favicon.svg' %>" />
 <link rel="apple-touch-icon" href="<%= asset_path 'apple-touch-icon.png' %>" />
-<link rel="manifest" href="<%= asset_path 'site.webmanifest' %>" />
+<%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
