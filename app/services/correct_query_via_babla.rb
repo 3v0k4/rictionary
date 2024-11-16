@@ -1,3 +1,5 @@
+require "net/http"
+
 class CorrectQueryViaBabla
   def call(query)
     fetch(query.gsub(" ", "+"))

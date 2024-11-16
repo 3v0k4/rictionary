@@ -1,3 +1,5 @@
+require "net/http"
+
 class HttpClient
   def get_or(address, default)
     get_or_redirect(->(_) { address }, nil, default)
