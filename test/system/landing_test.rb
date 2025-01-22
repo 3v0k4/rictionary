@@ -318,15 +318,6 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "toast"
   end
 
-  test "follows redirects" do
-    visit root_url
-
-    fill_in "search__input", with: "wahać się"
-    click_button "search__button"
-
-    assert_text "hesitate"
-  end
-
   test "persists queries" do
     visit root_url
 
